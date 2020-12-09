@@ -576,7 +576,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
             }
 
-            if (!string.IsNullOrEmpty(return_message) && count == "0")
+            if (!string.IsNullOrEmpty(return_message) && count != "0")
             {
                 var confirmResult = MetroMessageBox.Show(this, "\n" + return_message, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (confirmResult == DialogResult.OK)
@@ -584,7 +584,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     status = "1";
                     //send to web service
                     frmInvoiceListController controller = new frmInvoiceListController();
-                    DataTable dtResult = oController.CreateInvoiceData(txtBilling_Date.Text, status);
+                    DataTable dtResult = oController.CreateInvoiceData(txtBilling_Date.Text,status);
 
                     //DataTable result = oController.SubmitConfirmationRequest(dt, out uIUtility.MetaData);
 
@@ -604,56 +604,61 @@ namespace AmigoPaperWorkProcessSystem.Forms
             int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
             int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
 
+            string colName = dgvList.Columns[e.ColumnIndex].Name;
+
             string COMPANY_NO_BOX= dgvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
             int REQ_SEQ;
 
-
-            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString()))
+            if (!string.IsNullOrEmpty(COMPANY_NO_BOX) && colName == "coLCOMPANY_NO_BOX")
             {
-                Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString());
+                if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString()))
+                {
+                    Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString());
 
-            }
+                }
 
-            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Supplier_Initial_expense_REQ_SEQ"].Value.ToString()))
-            {
-                Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Supplier_Initial_expense_REQ_SEQ"].Value.ToString());
-            }
+                if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Supplier_Initial_expense_REQ_SEQ"].Value.ToString()))
+                {
+                    Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Supplier_Initial_expense_REQ_SEQ"].Value.ToString());
+                }
 
-            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Supplier_Monthly_usage_fee_REQ_SEQ"].Value.ToString()))
-            {
-                Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Supplier_Monthly_usage_fee_REQ_SEQ"].Value.ToString());
-            }
+                if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Supplier_Monthly_usage_fee_REQ_SEQ"].Value.ToString()))
+                {
+                    Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Supplier_Monthly_usage_fee_REQ_SEQ"].Value.ToString());
+                }
 
-            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Production_information_browsing_Initial_expense_REQ_SEQ"].Value.ToString()))
-            {
-                Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Production_information_browsing_Initial_expense_REQ_SEQ"].Value.ToString());
-            }
+                if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Production_information_browsing_Initial_expense_REQ_SEQ"].Value.ToString()))
+                {
+                    Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Production_information_browsing_Initial_expense_REQ_SEQ"].Value.ToString());
+                }
 
-            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["View_production_information_Annual_usage_fee_REQ_SEQ"].Value.ToString()))
-            {
-                View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["View_production_information_Annual_usage_fee_REQ_SEQ"].Value.ToString());
-            }
+                if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["View_production_information_Annual_usage_fee_REQ_SEQ"].Value.ToString()))
+                {
+                    View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["View_production_information_Annual_usage_fee_REQ_SEQ"].Value.ToString());
+                }
 
-            var anArray = new int[] { Key_source_Monthly_usage_fee_REQ_SEQ, Supplier_Initial_expense_REQ_SEQ, Supplier_Monthly_usage_fee_REQ_SEQ, Production_information_browsing_Initial_expense_REQ_SEQ, View_production_information_Annual_usage_fee_REQ_SEQ };
-            REQ_SEQ = anArray.Max();
+                var anArray = new int[] { Key_source_Monthly_usage_fee_REQ_SEQ, Supplier_Initial_expense_REQ_SEQ, Supplier_Monthly_usage_fee_REQ_SEQ, Production_information_browsing_Initial_expense_REQ_SEQ, View_production_information_Annual_usage_fee_REQ_SEQ };
+                REQ_SEQ = anArray.Max();
 
-            //string value = Convert.ToString(row.Cells["colBREAK_DOWN"].Value);
-            //if (value != null)
-            //{
-            frmCustomerMasterPopup frm = new frmCustomerMasterPopup(
-            COMPANY_NO_BOX,
-            REQ_SEQ.ToString()
-                );
+                //string value = Convert.ToString(row.Cells["colBREAK_DOWN"].Value);
+                //if (value != null)
+                //{
+                frmCustomerMasterPopup frm = new frmCustomerMasterPopup(
+                COMPANY_NO_BOX,
+                REQ_SEQ.ToString()
+                    );
 
                 frm.Show();
 
-            //    //if (frm.Close()==true)
-            //    //{
-            //    //    row.Cells["colORDER_DATE"].Value = frm.ORDER_DATE;
-            //    //    row.Cells["colUPDATED_BY"].Value = Utility.Id;
-            //    //    frm.Dispose();
-            //    //}
-            //}
+                //    //if (frm.Close()==true)
+                //    //{
+                //    //    row.Cells["colORDER_DATE"].Value = frm.ORDER_DATE;
+                //    //    row.Cells["colUPDATED_BY"].Value = Utility.Id;
+                //    //    frm.Dispose();
+                //    //}
+                //}
+            }
+
         }
         #endregion
     }

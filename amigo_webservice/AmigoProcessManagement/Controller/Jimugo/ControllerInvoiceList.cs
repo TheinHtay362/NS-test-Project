@@ -243,12 +243,12 @@ namespace AmigoProcessManagement.Controller
             result.Clear();
             result.Columns.Add("Count");
             result.Columns.Add("Error Message");
-            int count = 2;
+            int count = 0;
             string strMsg = "";
             INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
 
             DateTime date = Convert.ToDateTime(BILLING_DATE);
-            String YEAR_MONTH = date.ToString("yyyyMM");
+            String YEAR_MONTH = date.ToString("yyMM");
             if(status.Trim() == "0")
             {
                 count = DAL_INVOICE_INFO.IsAlreadyCreated(YEAR_MONTH, out strMsg);
