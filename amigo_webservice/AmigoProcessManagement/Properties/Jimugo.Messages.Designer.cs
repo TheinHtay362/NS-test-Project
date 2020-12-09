@@ -376,6 +376,24 @@ namespace AmigoProcessManagement.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 対象請求年月の請求データが存在しません。請求データ作成ボタンにてデータを作成後にお試しください。.
+        /// </summary>
+        internal static string E000WC002 {
+            get {
+                return ResourceManager.GetString("E000WC002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 請求データの更新に失敗しました。処理を終了します。既存の請求データは更新前の状態で残っています。.
+        /// </summary>
+        internal static string E000WC004 {
+            get {
+                return ResourceManager.GetString("E000WC004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 必須入力です。.
         /// </summary>
         internal static string E000ZZ001 {
@@ -849,6 +867,15 @@ namespace AmigoProcessManagement.Properties {
         internal static string I000WB005 {
             get {
                 return ResourceManager.GetString("I000WB005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 請求データの作成が正常に終了しました。{0}件.
+        /// </summary>
+        internal static string I000WC002 {
+            get {
+                return ResourceManager.GetString("I000WC002", resourceCulture);
             }
         }
         

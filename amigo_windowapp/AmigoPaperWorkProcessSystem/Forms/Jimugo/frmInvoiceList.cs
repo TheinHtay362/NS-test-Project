@@ -532,24 +532,40 @@ namespace AmigoPaperWorkProcessSystem.Forms
             {
                 SaveFileDialog saveCSV = new SaveFileDialog();
                 saveCSV.Filter = "CSV file (*.csv)|*.csv| All Files (*.*)|*.*";
-                saveCSV.FileName = "NCS" + txtBilling_Date.Text + "-" + System.DateTime.Now.ToString("yyyyMMddHHmmss");
+                DateTime yearMonth = Convert.ToDateTime(txtBilling_Date.Text);
+                String YEAR_MONTH = yearMonth.ToString("yyyyMM");
+                saveCSV.FileName = "NCS" + YEAR_MONTH + "-" + System.DateTime.Now.ToString("yyyyMMddHHmmss");
 
                 frmInvoiceListController oController = new frmInvoiceListController();
-                DataTable dt = oController.GetInvoiceListForCSVCreate(txtBilling_Date.Text); 
+                DataTable dt = oController.GetInvoiceListForCSVCreate(txtBilling_Date.Text);
 
-                //Exporting to Excel
-                if (dt.Rows.Count > 0)
+                try
                 {
-                    if (saveCSV.ShowDialog() == DialogResult.OK) // save as dialog
+                    string return_message = "";
+                    return_message = dt.Rows[0]["Error Message"].ToString();
+                    if (!string.IsNullOrEmpty(return_message))
                     {
-                        Utility.WriteToCsvFile(dt, saveCSV.FileName);
-                        MetroMessageBox.Show(this, "\n" + Messages.ComparisonResultDetail.CSVDownloaded, "CSV Downloaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MetroMessageBox.Show(this, "\n" + return_message, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
+                }
+                catch (Exception)
+                {
+                    //Exporting to Excel
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (saveCSV.ShowDialog() == DialogResult.OK) // save as dialog
+                        {
+                            Utility.WriteToCsvFile(dt, saveCSV.FileName);
+                            MetroMessageBox.Show(this, "\n" + Messages.ComparisonResultDetail.CSVDownloaded, "CSV Downloaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MetroMessageBox.Show(this, "\n" + Messages.ComparisonResultDetail.NoRecordToDownload, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-                else
-                {
-                    MetroMessageBox.Show(this, "\n" + Messages.ComparisonResultDetail.NoRecordToDownload, "Download Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                
             }
             catch (System.TimeoutException)
             {

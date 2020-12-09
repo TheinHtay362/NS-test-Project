@@ -547,6 +547,7 @@ namespace AmigoProcessManagement.Controller
 
                         }
 
+                        #region cmt
                         //if (!string.IsNullOrEmpty(strMessage))
                         //{
                         //    dbTxn.Complete();
@@ -567,6 +568,7 @@ namespace AmigoProcessManagement.Controller
                         //    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
                         //    //return response;
                         //}
+                        #endregion
                     }
 
                     if (!string.IsNullOrEmpty(strMessage))
@@ -665,7 +667,7 @@ namespace AmigoProcessManagement.Controller
         #endregion
 
         #region CreateCSVFile
-        public MetaResponse CreateCSVFile(string YEAR_MONTH)
+        public MetaResponse CreateCSVFile(string BILLING_DATE)
         {
             DataTable result = new DataTable();
             result.Clear();
@@ -675,10 +677,13 @@ namespace AmigoProcessManagement.Controller
             string strMessage="";
             int status;
             INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
-            DataTable dt = DAL_INVOICE_INFO.GetCSVList(YEAR_MONTH, out strMessage);
-            //response.Data = Utility.Utility_Component.DtToJSon(dt, "InvoiceInfoList");
 
-            if (!String.IsNullOrEmpty(strMessage) || dt.Rows.Count >0)
+            DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
+            String YEAR_MONTH = yearMonth.ToString("yyMM");
+
+            DataTable dt = DAL_INVOICE_INFO.GetCSVList(YEAR_MONTH, out strMessage);
+
+            if (String.IsNullOrEmpty(strMessage) && dt.Rows.Count >0)
             {
                 #region UpdateInvoiceInfo
                 status = HandleModify(YEAR_MONTH);
@@ -689,21 +694,24 @@ namespace AmigoProcessManagement.Controller
                 }
                 else
                 {
+                    DataRow dr = result.NewRow();
+                    //dr["Count"] = count;
+                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC004; //E000WC004
+                    result.Rows.Add(dr);
 
-                    response.Message = response.Message = Utility.Messages.Jimugo.I000ZZ007; //E000WC004 
-                    return response;
+                    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
                 }
                 #endregion
             }
             else
             {
-                response.Message = Utility.Messages.Jimugo.I000ZZ007; //E000WC002
-                return response;
+                DataRow dr = result.NewRow();
+                dr["Error Message"] = Utility.Messages.Jimugo.E000WC002; //E000WC002
+                result.Rows.Add(dr);
+
+                response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
             }
-
-            //DataTable dgvList = Utility.Utility_Component.JsonToDt(BILLING_DATE);
-
-            //response.Data = Utility.Utility_Component.DtToJSon(dt, "UsageChargeMaster Update");
+            
             timer.Stop();
             response.Meta.Duration = timer.Elapsed.TotalMilliseconds;
             return response;
