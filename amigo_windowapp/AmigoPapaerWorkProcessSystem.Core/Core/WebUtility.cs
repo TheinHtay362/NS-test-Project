@@ -248,7 +248,6 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         public static DataTable Post(string url, string json)
         {
-
             //encode content
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 

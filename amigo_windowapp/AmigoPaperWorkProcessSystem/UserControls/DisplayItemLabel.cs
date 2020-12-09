@@ -15,6 +15,14 @@ namespace AmigoPaperWorkProcessSystem.UserControls
         public DisplayItemLabel()
         {
             InitializeComponent();
+
+        }
+        private string labelValue;
+
+        public string LabelText
+        {
+            get { return labelValue; }
+            set { labelValue = value; lbl.Text = value; }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AmigoPaperWorkProcessSystem.Controllers;
 using AmigoPaperWorkProcessSystem.Core;
 using AmigoPaperWorkProcessSystem.Core.Model;
+using AmigoPaperWorkProcessSystem.Forms.Jimugo;
 using MetroFramework;
 using System;
 using System.Collections.Generic;
@@ -119,6 +120,49 @@ namespace AmigoPaperWorkProcessSystem.Forms
             get { return _YearlyUsageFeeTotal; }
             set { _YearlyUsageFeeTotal = value; }
         }
+
+        private decimal _InvoiceAmountTotal = 0;
+        public decimal InvoiceAmountTotal
+        {
+            get { return _InvoiceAmountTotal; }
+            set { _InvoiceAmountTotal = value; }
+        }
+
+        private decimal _PostalMailTotal = 0;
+        public decimal PostalMailTotal
+        {
+            get { return _PostalMailTotal; }
+            set { _PostalMailTotal = value; }
+        }
+
+        private decimal _EmailTotal = 0;
+        public decimal EmailTotal
+        {
+            get { return _EmailTotal; }
+            set { _EmailTotal = value; }
+        }
+
+        private decimal _WebTotal = 0;
+        public decimal WebTotal
+        {
+            get { return _WebTotal; }
+            set { _WebTotal = value; }
+        }
+
+        private decimal _CreditCardTotal = 0;
+        public decimal CreditCardTotal
+        {
+            get { return _CreditCardTotal; }
+            set { _CreditCardTotal = value; }
+        }
+
+        private decimal _OtherTotal = 0;
+        public decimal OtherTotal
+        {
+            get { return _OtherTotal; }
+            set { _OtherTotal = value; }
+        }
+
         #endregion
 
         #region Constructors
@@ -226,7 +270,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
             Add_Third_Column_Header(e, 2, 1, "会社名", 4, 0, 2, StringAlignment.Center);
 
             Add_Third_Column_Header(e, 3, 1, "請求金額", 4, 0, 0, StringAlignment.Center);
-            Add_Third_Column_Header(e, 4, 4, "233453453454", 4, 0, 0, StringAlignment.Far);
+            Add_Third_Column_Header(e, 4, 4, InvoiceAmountTotal.ToString(), 4, 0, 0, StringAlignment.Far);
 
             //Third ColumnMerge
             Add_Third_Column_Header(e, 3, 1, "Key Source", 4, 1, 0, StringAlignment.Center);
@@ -247,15 +291,15 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
             Add_Third_Column_Header(e, 8, 5, "Invoice method", 4, 0, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 8, 1, "郵送", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 8, 1, "3", 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 8, 1, PostalMailTotal.ToString(), 4, 3, 0, StringAlignment.Far);
             Add_Second_Column_Header(e, 9, 1, "WEB", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 9, 1, "3", 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 9, 1, WebTotal.ToString(), 4, 3, 0, StringAlignment.Far);
             Add_Second_Column_Header(e, 10, 1, "Email", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 10, 1, "5", 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 10, 1, EmailTotal.ToString(), 4, 3, 0, StringAlignment.Far);
             Add_Second_Column_Header(e, 11, 1, "クレカ", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 11, 1, "5", 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 11, 1, CreditCardTotal.ToString(), 4, 3, 0, StringAlignment.Far);
             Add_Second_Column_Header(e, 12, 1, "その他", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 12, 1, "8", 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 12, 1, OtherTotal.ToString(), 4, 3, 0, StringAlignment.Far);
         }
 
         private void DgvList_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
@@ -378,13 +422,6 @@ namespace AmigoPaperWorkProcessSystem.Forms
         {
             try
             {
-
-                decimal postalMailTotal = 0;
-                decimal emailTotal = 0;
-                decimal webTotal = 0;
-                decimal creditCardTotal = 0;
-                decimal otherTotal = 0;
-
                 //assign search keywords
                 DateTime YEAR_MONTH = Convert.ToDateTime(txtBilling_Date.Text);
                 String strYearMonth = YEAR_MONTH.ToString("yyyyMM");
@@ -402,10 +439,27 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     SupplierMonthlyUsageFeeTotal += Convert.ToDecimal(row["SUPPLIER_MONTHLY_USAGE_FEE"].ToString());
                     SupplierBrowsingInitialExpenseTotal += Convert.ToDecimal(row["BROWSING_INITIAL_EXPENSE"].ToString());
                     YearlyUsageFeeTotal += Convert.ToDecimal(row["YEARLY_USAGE_FEE"].ToString());
+                    InvoiceAmountTotal = keySourceTotal + SupplierExpenseTotal + SupplierMonthlyUsageFeeTotal + SupplierBrowsingInitialExpenseTotal + YearlyUsageFeeTotal;
 
-                    if (row["YEARLY_USAGE_FEE"].ToString()!=null)
+                    if (row["POSTAL_MAIL"].ToString() == "●")
                     {
-                        emailTotal++;
+                        PostalMailTotal++;
+                    }
+                    if (row["WEB"].ToString() == "●")
+                    {
+                        WebTotal++;
+                    }
+                    if (row["Email"].ToString() == "●")
+                    {
+                        EmailTotal++;
+                    }
+                    if (row["CREDIT_CARD"].ToString() == "●")
+                    {
+                        CreditCardTotal++;
+                    }
+                    if (row["OTHER"].ToString() == "●")
+                    {
+                        OtherTotal++;
                     }
 
                 }
@@ -417,11 +471,11 @@ namespace AmigoPaperWorkProcessSystem.Forms
                 dgvList.Columns["colBROWSING_INITIAL_EXPENSE"].HeaderText = SupplierBrowsingInitialExpenseTotal.ToString();
                 dgvList.Columns["colYEARLY_USAGE_FEE"].HeaderText = YearlyUsageFeeTotal.ToString();
 
-                dgvList.Columns["coLEmail"].HeaderText = emailTotal.ToString(); //coLEmail
-                dgvList.Columns["coLPOSTAL_MAIL"].HeaderText = postalMailTotal.ToString(); //coLEmail
-                dgvList.Columns["colWEB"].HeaderText = webTotal.ToString(); //coLEmail
-                dgvList.Columns["colCREDIT_CARD"].HeaderText = creditCardTotal.ToString(); //coLEmail
-                dgvList.Columns["colOTHER"].HeaderText = otherTotal.ToString(); //coLEmail
+                dgvList.Columns["coLEmail"].HeaderText = EmailTotal.ToString(); //coLEmail
+                dgvList.Columns["coLPOSTAL_MAIL"].HeaderText = PostalMailTotal.ToString(); //coLEmail
+                dgvList.Columns["colWEB"].HeaderText = WebTotal.ToString(); //coLEmail
+                dgvList.Columns["colCREDIT_CARD"].HeaderText = CreditCardTotal.ToString(); //coLEmail
+                dgvList.Columns["colOTHER"].HeaderText = OtherTotal.ToString(); //coLEmail
 
                 if (dt.Rows.Count > 0)
                 {
@@ -538,6 +592,38 @@ namespace AmigoPaperWorkProcessSystem.Forms
             }
             
 
+        }
+        #endregion
+
+        #region CellContentClickEvent
+        private void DgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string s= dgvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            string Key_source_Monthly_usage_fee_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
+            string Supplier_Initial_expense_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
+            string Supplier_Monthly_usage_fee_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
+            string Production_information_browsing_Initial_expense_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
+            string View_production_information_Annual_usage_fee_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
+
+
+
+
+            //string value = Convert.ToString(row.Cells["colBREAK_DOWN"].Value);
+            //if (value != null)
+            //{
+            //    frmCustomerMasterPopup frm = new frmCustomerMasterPopup(
+            //    Convert.ToString(row.Cells["colCOMPANY_NO_BOX"].Value),
+            //    Convert.ToString(row.Cells["colREQ_SEQ"].Value)
+            //    );
+
+            //    frm.Show();
+            //    //if (frm.Close()==true)
+            //    //{
+            //    //    row.Cells["colORDER_DATE"].Value = frm.ORDER_DATE;
+            //    //    row.Cells["colUPDATED_BY"].Value = Utility.Id;
+            //    //    frm.Dispose();
+            //    //}
+            //}
         }
         #endregion
     }

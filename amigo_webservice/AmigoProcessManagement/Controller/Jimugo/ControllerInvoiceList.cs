@@ -280,244 +280,282 @@ namespace AmigoProcessManagement.Controller
         #region CreateInvoiceData
         public MetaResponse CreateInvoiceData(string BILLING_DATE, string status)
         {
-            int OFFSET = 0;
-            int LIMIT = 0;
-            String strMessage;
-            int TOTAL;
-            string checkGetOrCreate = "CREATE";
-            DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
-            String YEAR_MONTH = yearMonth.ToString("yyyyMM");
-
-            if (status == "1")
+            using (TransactionScope dbTxn = new TransactionScope())
             {
-                //delete Existing Invoice List
-                bool checkDelete = HandleDelete(YEAR_MONTH);
-                if (!checkDelete)
+                try
                 {
-                    response.Message = Utility.Messages.Jimugo.I000ZZ007; //E000WC003
-                    return response;
+                    int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
+                    int Supplier_Initial_expense_REQ_SEQ = 0;
+                    int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+                    int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+                    int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+
+                    int OFFSET = 0;
+                    int LIMIT = 0;
+                    String strMessage;
+                    int TOTAL;
+                    string checkGetOrCreate = "CREATE";
+                    DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
+                    String YEAR_MONTH = yearMonth.ToString("yyyyMM");
+
+                    if (status == "1")
+                    {
+                        //delete Existing Invoice List
+                        bool checkDelete = HandleDelete(YEAR_MONTH);
+                        if (!checkDelete)
+                        {
+                            response.Message = Utility.Messages.Jimugo.I000ZZ007; //E000WC003
+                            return response;
+                        }
+                    }
+
+                    INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
+                    DataTable dt = DAL_INVOICE_INFO.GetInvoiceList(YEAR_MONTH, OFFSET, LIMIT, checkGetOrCreate, out strMessage, out TOTAL);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataRow row = dt.Rows[i];
+
+                        if (!string.IsNullOrEmpty(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString()))
+                        {
+                            Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString());
+                        }
+
+                        if (!string.IsNullOrEmpty(row["Supplier_Initial_expense_REQ_SEQ"].ToString()))
+                        {
+                            Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Supplier_Initial_expense_REQ_SEQ"].ToString());
+                        }
+
+                        if (!string.IsNullOrEmpty(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString()))
+                        {
+                            Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString());
+                        }
+
+                        if (!string.IsNullOrEmpty(row["Production_information_browsing_Initial_expense_REQ_SEQ"].ToString()))
+                        {
+                            Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Production_information_browsing_Initial_expense_REQ_SEQ"].ToString());
+                        }
+
+                        if (!string.IsNullOrEmpty(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString()))
+                        {
+                            View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString());
+
+                        }
+
+                        BOL_INVOICE_INFO oINVOICE_INFO = new BOL_INVOICE_INFO();
+
+                        #region Set value in Model
+                        oINVOICE_INFO.COMPANY_NO_BOX = row["COMPANY_NO_BOX"].ToString();
+
+                        oINVOICE_INFO.INVOICE_DATE = DateTime.Now;  // need to check
+                        oINVOICE_INFO.NCS_CUSTOMER_CODE = row["NCS_CUSTOMER_CODE"].ToString();
+                        oINVOICE_INFO.BILL_SUPPLIER_NAME = row["BILL_COMPANY_NAME"].ToString();
+                        oINVOICE_INFO.BILL_SUPPLIER_NAME_READING = row["COMPANY_NAME_READING"].ToString();
+                        oINVOICE_INFO.BILL_COMPANY_NAME = row["COMPANY_NAME"].ToString();
+                        oINVOICE_INFO.BILL_DEPARTMENT_IN_CHARGE = row["BILL_DEPARTMENT_IN_CHARGE"].ToString();
+                        oINVOICE_INFO.BILL_CONTACT_NAME = row["BILL_CONTACT_NAME"].ToString();
+                        oINVOICE_INFO.BILL_HONORIFIC = "様";
+                        oINVOICE_INFO.BILL_POSTAL_CODE = row["BILL_POSTAL_CODE"].ToString();
+                        oINVOICE_INFO.BILL_ADDRESS = row["BILL_ADDRESS"].ToString();
+                        oINVOICE_INFO.BILL_ADDRESS_2 = row["BILL_ADDRESS_BUILDING"].ToString();
+
+                        string CONTRACT_PLAN = row["CONTRACT_PLAN"].ToString();
+                        if (CONTRACT_PLAN == "SERVER")
+                        {
+                            oINVOICE_INFO.PLAN_SERVER = 1;
+                            oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
+                            oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
+                            oINVOICE_INFO.PLAN_BROWSER = 0;
+                        }
+                        if (CONTRACT_PLAN == "SERVERRIGHT")
+                        {
+                            oINVOICE_INFO.PLAN_SERVER = 0;
+                            oINVOICE_INFO.PLAN_SERVER_LIGHT = 1;
+                            oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
+                            oINVOICE_INFO.PLAN_BROWSER = 0;
+                        }
+                        if (CONTRACT_PLAN == "BROWSERAUTO")
+                        {
+                            oINVOICE_INFO.PLAN_SERVER = 0;
+                            oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
+                            oINVOICE_INFO.PLAN_BROWSER_AUTO = 1;
+                            oINVOICE_INFO.PLAN_BROWSER = 0;
+                        }
+                        if (CONTRACT_PLAN == "BROWSER")
+                        {
+                            oINVOICE_INFO.PLAN_SERVER = 0;
+                            oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
+                            oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
+                            oINVOICE_INFO.PLAN_BROWSER = 1;
+                        }
+                        if (CONTRACT_PLAN == "PRODUCT")
+                        {
+                            oINVOICE_INFO.PLAN_SERVER = 0;
+                            oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
+                            oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
+                            oINVOICE_INFO.PLAN_BROWSER = 0;
+                        }
+
+
+                        oINVOICE_INFO.PLAN_AMIGO_CAI = Utility_Component.dtColumnToInt(row["OP_AMIGO_CAI"].ToString());
+                        oINVOICE_INFO.PLAN_AMIGO_BIZ = Utility_Component.dtColumnToInt(row["OP_AMIGO_BIZ"].ToString());
+                        oINVOICE_INFO.PLAN_ADD_BOX_SERVER = Utility_Component.dtColumnToInt(row["OP_BOX_SERVER"].ToString());
+                        oINVOICE_INFO.PLAN_ADD_BOX_BROWSER = Utility_Component.dtColumnToInt(row["OP_BOX_BROWSER"].ToString());
+                        oINVOICE_INFO.PLAN_OP_FLAT = Utility_Component.dtColumnToInt(row["OP_FLAT"].ToString());
+                        oINVOICE_INFO.PLAN_OP_SSL = Utility_Component.dtColumnToInt(row["OP_CLIENT"].ToString());
+                        oINVOICE_INFO.PLAN_OP_BASIC_SERVICE = Utility_Component.dtColumnToInt(row["OP_BASIC_SERVICE"].ToString());
+                        oINVOICE_INFO.PLAN_OP_ADD_SERVICE = Utility_Component.dtColumnToInt(row["OP_ADD_SERVICE"].ToString());
+
+                        if (row["SOCIOS_USER_FLG"].ToString() == " ")
+                        {
+                            oINVOICE_INFO.PLAN_OP_SOCIOS = 0;
+                        }
+                        if (row["SOCIOS_USER_FLG"].ToString() == "*")
+                        {
+                            oINVOICE_INFO.PLAN_OP_SOCIOS = 1;
+                        }
+                        oINVOICE_INFO.BILL_DEPOSIT_RULES = row["BILL_DEPOSIT_RULES"].ToString();
+
+                        oINVOICE_INFO.BILL_TRANSFER_FEE = Utility_Component.dtColumnToDecimal(row["BILL_TRANSFER_FEE"].ToString());
+                        oINVOICE_INFO.BILL_EXPENSES = Utility_Component.dtColumnToDecimal(row["BILL_EXPENSES"].ToString());
+
+                        DateTime date = Convert.ToDateTime(BILLING_DATE);
+                        var lastDateOfMonth = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).ToString("dd");
+                        var lastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).DayOfWeek;
+                        var BILL_DATE = BILLING_DATE + "/" + lastDateOfMonth;
+                        DateTime PaymentDay = Convert.ToDateTime(BILL_DATE);
+                        string strPaymentDay = "";
+                        if (lastDay.ToString() == "Saturday")
+                        {
+                            strPaymentDay = PaymentDay.AddDays(-1).ToString();
+                        }
+                        if (lastDay.ToString() == "Sunday")
+                        {
+                            strPaymentDay = PaymentDay.AddDays(-2).ToString();
+                        }
+                        if (lastDay.ToString() != "Saturday" && lastDay.ToString() != "Sunday")
+                        {
+                            strPaymentDay = PaymentDay.ToString();
+                        }
+
+                        oINVOICE_INFO.BILL_PAYMENT_DATE = Utility_Component.dtColumnToDateTime(strPaymentDay);
+                        oINVOICE_INFO.STATUS_PRINT = null;
+                        oINVOICE_INFO.STATUS_MEMO = null;
+                        oINVOICE_INFO.STATUS_SEND = null;
+                        oINVOICE_INFO.STATUS_MAIL_DATE = null;  //declare check
+                        oINVOICE_INFO.STATUS_ACC_RECEIVABLE_DATE = null;
+                        oINVOICE_INFO.STATUS_INVOCE_COPY_DATE = null;
+                        oINVOICE_INFO.STATUS_ACTUAL_MDB_UPDATE = null;
+                        oINVOICE_INFO.STATUS_ACTUAL_DEPOSIT_YYMM = null;
+                        oINVOICE_INFO.STATUS_ACTUAL_DEPOSIT_DATE = null;
+                        oINVOICE_INFO.STATUS_CASH_FORECAST_MM = null;
+
+                        //need to change set value
+                        string depositRuleCheck = row["BILL_DEPOSIT_RULES"].ToString();
+                        if (depositRuleCheck == "0")
+                        {
+                            oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = date.AddMonths(1).ToString("yyMM");
+                        }
+                        if (depositRuleCheck == "1")
+                        {
+                            oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = date.ToString("yyMM");
+
+                        }
+                        if (depositRuleCheck == "2")
+                        {
+                            oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = date.AddMonths(2).ToString("yyMM");
+                        }
+
+                        //oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = row["BILL_SUPPLIER_NAME"].ToString();
+                        oINVOICE_INFO.STATUS_PAY_NOTICE_DATE = null;
+                        oINVOICE_INFO.TYPE_OF_ALLOCATION = 0;
+                        oINVOICE_INFO.ALLOCATION_TOTAL_AMOUNT = 0;
+                        oINVOICE_INFO.ALLOCATED_COMPLETION_DATE = null;
+                        oINVOICE_INFO.DUNNING_COUNT = 0;
+                        oINVOICE_INFO.DUNNING_DATE = null;
+                        oINVOICE_INFO.ANSWER_DATE = null;
+                        oINVOICE_INFO.PAYMENT_DUE_DATE = null;
+                        oINVOICE_INFO.ANSWER_MEMO = null;
+                        oINVOICE_INFO.SPECIAL_NOTES_1 = null;
+                        oINVOICE_INFO.SPECIAL_NOTES_2 = null;
+                        oINVOICE_INFO.SPECIAL_NOTES_3 = null;
+                        oINVOICE_INFO.SPECIAL_NOTES_4 = null;
+
+                        #endregion
+
+                        if (Key_source_Monthly_usage_fee_REQ_SEQ > 0)
+                        {
+                            string TRANSACTION_TYPE = "12";
+                            oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
+                            oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
+                            oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee"].ToString());
+                            oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_TAX"].ToString());
+                            oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_INCLUDING_TAX"].ToString());
+
+                            DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
+
+                        }
+
+                        if (Supplier_Initial_expense_REQ_SEQ > 0)
+                        {
+                            string TRANSACTION_TYPE = "21";
+                            oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
+                            oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM") + "IC";
+                            oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense"].ToString());
+                            oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_TAX"].ToString());
+                            oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_INCLUDING_TAX"].ToString());
+
+                            DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
+
+                        }
+
+                        if (Supplier_Monthly_usage_fee_REQ_SEQ > 0)
+                        {
+                            string TRANSACTION_TYPE = "22";
+                            oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
+                            oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
+                            oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["supplier_Monthly_usage_fee"].ToString());
+                            oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_TAX"].ToString());
+                            oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
+
+                            DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
+
+                        }
+
+                        if (Production_information_browsing_Initial_expense_REQ_SEQ > 0 || View_production_information_Annual_usage_fee_REQ_SEQ > 0)
+                        {
+                            string TRANSACTION_TYPE = "32";
+                            oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
+                            oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
+                            oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense"].ToString()) + Utility_Component.dtColumnToDecimal(row["Viewing_production_information_Annual_usage_fee"].ToString());
+                            oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_TAX"].ToString());
+                            oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_INCLUDING_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_INCLUDING_TAX"].ToString());
+
+                            DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
+
+                        }
+
+                        if (!string.IsNullOrEmpty(strMessage))
+                        {
+                            dbTxn.Complete();
+                        }
+                        else
+                        {
+                            string ermsg = "error";
+                        }
+                    }
+
+
+
+                    timer.Stop();
+                    response.Meta.Duration = timer.Elapsed.TotalMilliseconds;
+                }
+                catch (Exception ex)
+                {
                 }
             }
-
-            INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
-            DataTable dt = DAL_INVOICE_INFO.GetInvoiceList(YEAR_MONTH, OFFSET, LIMIT, checkGetOrCreate, out strMessage, out TOTAL);
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                DataRow row = dt.Rows[i];
-
-                int Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString());
-                int Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Supplier_Initial_expense_REQ_SEQ"].ToString());
-                int Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString());
-                int Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Production_information_browsing_Initial_expense_REQ_SEQ"].ToString());
-                int View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString());
-
-                //int Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Key_source_Monthly_usage_fee"].ToString());
-                //int Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Supplier_Initial_expense"].ToString());
-                //int Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["supplier_Monthly_usage_fee"].ToString());
-                //int Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Production_information_browsing_Initial_expense"].ToString());
-                //int View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(row["Viewing_production_information_Annual_usage_fee"].ToString());
-
-                BOL_INVOICE_INFO oINVOICE_INFO = new BOL_INVOICE_INFO();
-
-                #region Set value in Model
-                oINVOICE_INFO.COMPANY_NO_BOX = row["COMPANY_NO_BOX"].ToString();
-
-                oINVOICE_INFO.INVOICE_DATE = DateTime.Now;  // need to check
-                oINVOICE_INFO.NCS_CUSTOMER_CODE = row["NCS_CUSTOMER_CODE"].ToString();
-                oINVOICE_INFO.BILL_SUPPLIER_NAME = row["BILL_COMPANY_NAME"].ToString();
-                oINVOICE_INFO.BILL_SUPPLIER_NAME_READING = row["COMPANY_NAME_READING"].ToString();
-                oINVOICE_INFO.BILL_COMPANY_NAME = row["COMPANY_NAME"].ToString();
-                oINVOICE_INFO.BILL_DEPARTMENT_IN_CHARGE = row["BILL_DEPARTMENT_IN_CHARGE"].ToString();
-                oINVOICE_INFO.BILL_CONTACT_NAME = row["BILL_CONTACT_NAME"].ToString();
-                oINVOICE_INFO.BILL_HONORIFIC = "様";
-                oINVOICE_INFO.BILL_POSTAL_CODE = row["BILL_POSTAL_CODE"].ToString();
-                oINVOICE_INFO.BILL_ADDRESS = row["BILL_ADDRESS"].ToString();
-                oINVOICE_INFO.BILL_ADDRESS_2 = row["BILL_ADDRESS_BUILDING"].ToString();
-
-                string CONTRACT_PLAN = row["CONTRACT_PLAN"].ToString();
-                if (CONTRACT_PLAN == "SERVER")
-                {
-                    oINVOICE_INFO.PLAN_SERVER = 1;
-                    oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
-                    oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
-                    oINVOICE_INFO.PLAN_BROWSER = 0;
-                }
-                if (CONTRACT_PLAN == "SERVERRIGHT")
-                {
-                    oINVOICE_INFO.PLAN_SERVER = 0;
-                    oINVOICE_INFO.PLAN_SERVER_LIGHT = 1;
-                    oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
-                    oINVOICE_INFO.PLAN_BROWSER = 0;
-                }
-                if (CONTRACT_PLAN == "BROWSERAUTO")
-                {
-                    oINVOICE_INFO.PLAN_SERVER = 0;
-                    oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
-                    oINVOICE_INFO.PLAN_BROWSER_AUTO = 1;
-                    oINVOICE_INFO.PLAN_BROWSER = 0;
-                }
-                if (CONTRACT_PLAN == "BROWSER")
-                {
-                    oINVOICE_INFO.PLAN_SERVER = 0;
-                    oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
-                    oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
-                    oINVOICE_INFO.PLAN_BROWSER = 1;
-                }
-                if(CONTRACT_PLAN == "PRODUCT")
-                {
-                    oINVOICE_INFO.PLAN_SERVER = 0;
-                    oINVOICE_INFO.PLAN_SERVER_LIGHT = 0;
-                    oINVOICE_INFO.PLAN_BROWSER_AUTO = 0;
-                    oINVOICE_INFO.PLAN_BROWSER = 0;
-                }
-
-
-                oINVOICE_INFO.PLAN_AMIGO_CAI = Utility_Component.dtColumnToInt(row["OP_AMIGO_CAI"].ToString());
-                oINVOICE_INFO.PLAN_AMIGO_BIZ = Utility_Component.dtColumnToInt(row["OP_AMIGO_BIZ"].ToString());
-                oINVOICE_INFO.PLAN_ADD_BOX_SERVER = Utility_Component.dtColumnToInt(row["OP_BOX_SERVER"].ToString());
-                oINVOICE_INFO.PLAN_ADD_BOX_BROWSER = Utility_Component.dtColumnToInt(row["OP_BOX_BROWSER"].ToString());
-                oINVOICE_INFO.PLAN_OP_FLAT = Utility_Component.dtColumnToInt(row["OP_FLAT"].ToString());
-                oINVOICE_INFO.PLAN_OP_SSL = Utility_Component.dtColumnToInt(row["OP_CLIENT"].ToString());
-                oINVOICE_INFO.PLAN_OP_BASIC_SERVICE = Utility_Component.dtColumnToInt(row["OP_BASIC_SERVICE"].ToString());
-                oINVOICE_INFO.PLAN_OP_ADD_SERVICE = Utility_Component.dtColumnToInt(row["OP_ADD_SERVICE"].ToString());
-
-                if(row["SOCIOS_USER_FLG"].ToString() == " ")
-                {
-                    oINVOICE_INFO.PLAN_OP_SOCIOS = 0;
-                }
-                if (row["SOCIOS_USER_FLG"].ToString() == "*")
-                {
-                    oINVOICE_INFO.PLAN_OP_SOCIOS = 1;
-                }
-                oINVOICE_INFO.BILL_DEPOSIT_RULES = row["BILL_DEPOSIT_RULES"].ToString();
-
-                oINVOICE_INFO.BILL_TRANSFER_FEE = Utility_Component.dtColumnToDecimal(row["BILL_TRANSFER_FEE"].ToString());
-                oINVOICE_INFO.BILL_EXPENSES = Utility_Component.dtColumnToDecimal(row["BILL_EXPENSES"].ToString());
-
-                DateTime date = Convert.ToDateTime(BILLING_DATE);
-                var lastDateOfMonth = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).ToString("dd");
-                var lastDay = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).DayOfWeek;
-                var BILL_DATE = BILLING_DATE + "/" + lastDateOfMonth;
-                DateTime PaymentDay = Convert.ToDateTime(BILL_DATE);
-                string strPaymentDay = "";
-                if (lastDay.ToString() == "Saturday")
-                {
-                     strPaymentDay = PaymentDay.AddDays(-1).ToString();
-                }
-                if (lastDay.ToString() == "Sunday")
-                {
-                     strPaymentDay = PaymentDay.AddDays(-2).ToString();
-                }
-                if(lastDay.ToString() != "Saturday" && lastDay.ToString() != "Sunday")
-                {
-                    strPaymentDay = PaymentDay.ToString();
-                }
-
-                oINVOICE_INFO.BILL_PAYMENT_DATE = Utility_Component.dtColumnToDateTime(strPaymentDay);
-                oINVOICE_INFO.STATUS_PRINT = null;
-                oINVOICE_INFO.STATUS_MEMO = null;
-                oINVOICE_INFO.STATUS_SEND = null;
-                oINVOICE_INFO.STATUS_MAIL_DATE = null;  //declare check
-                oINVOICE_INFO.STATUS_ACC_RECEIVABLE_DATE = null;
-                oINVOICE_INFO.STATUS_INVOCE_COPY_DATE = null;
-                oINVOICE_INFO.STATUS_ACTUAL_MDB_UPDATE = null;
-                oINVOICE_INFO.STATUS_ACTUAL_DEPOSIT_YYMM = null;
-                oINVOICE_INFO.STATUS_ACTUAL_DEPOSIT_DATE = null;
-                oINVOICE_INFO.STATUS_CASH_FORECAST_MM = null;
-
-                //need to change set value
-                string depositRuleCheck = row["BILL_DEPOSIT_RULES"].ToString();
-                if(depositRuleCheck == "0")
-                {
-                    oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = date.AddMonths(1).ToString("yyMM"); 
-                }
-                if (depositRuleCheck == "1")
-                {
-                    oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = date.ToString("yyMM");
-
-                }
-                if (depositRuleCheck == "2")
-                {
-                    oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = date.AddMonths(2).ToString("yyMM");
-                }
-
-                //oINVOICE_INFO.STATUS_PLAN_DEPOSIT_YYMM = row["BILL_SUPPLIER_NAME"].ToString();
-                oINVOICE_INFO.STATUS_PAY_NOTICE_DATE = null;
-                oINVOICE_INFO.TYPE_OF_ALLOCATION = 0;
-                oINVOICE_INFO.ALLOCATION_TOTAL_AMOUNT = 0;
-                oINVOICE_INFO.ALLOCATED_COMPLETION_DATE = null;
-                oINVOICE_INFO.DUNNING_COUNT = 0; 
-                oINVOICE_INFO.DUNNING_DATE = null;
-                oINVOICE_INFO.ANSWER_DATE = null;
-                oINVOICE_INFO.PAYMENT_DUE_DATE = null;
-                oINVOICE_INFO.ANSWER_MEMO = null;
-                oINVOICE_INFO.SPECIAL_NOTES_1 = null;
-                oINVOICE_INFO.SPECIAL_NOTES_2 = null;
-                oINVOICE_INFO.SPECIAL_NOTES_3 = null;
-                oINVOICE_INFO.SPECIAL_NOTES_4 = null;
-
-                #endregion
-
-                if (Key_source_Monthly_usage_fee_REQ_SEQ > 0) 
-                {
-                    string TRANSACTION_TYPE = "12";
-                    oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
-                    oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
-                    oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee"].ToString());
-                    oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_TAX"].ToString());
-                    oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_INCLUDING_TAX"].ToString());
-
-                    DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
-                }
-
-                if (Supplier_Initial_expense_REQ_SEQ > 0) 
-                {
-                    string TRANSACTION_TYPE = "21";
-                    oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
-                    oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM") + "IC";
-                    oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense"].ToString());
-                    oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_TAX"].ToString());
-                    oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_INCLUDING_TAX"].ToString());
-
-                    DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
-                }
-
-                if (Supplier_Monthly_usage_fee_REQ_SEQ > 0)
-                {
-                    string TRANSACTION_TYPE = "22";
-                    oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
-                    oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
-                    oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["supplier_Monthly_usage_fee"].ToString());
-                    oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_TAX"].ToString());
-                    oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
-
-                    DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
-                }
-
-                if (Production_information_browsing_Initial_expense_REQ_SEQ > 0 || View_production_information_Annual_usage_fee_REQ_SEQ >0)
-                {
-                    string TRANSACTION_TYPE = "32";
-                    oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
-                    oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
-                    oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense"].ToString()) + Utility_Component.dtColumnToDecimal(row["Viewing_production_information_Annual_usage_fee"].ToString());
-                    oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_TAX"].ToString());
-                    oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_INCLUDING_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_INCLUDING_TAX"].ToString());
-
-                    DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
-                }
-
-            }
-
-
-
-            timer.Stop();
-            response.Meta.Duration = timer.Elapsed.TotalMilliseconds;
             return response;
+
         }
         #endregion
 
