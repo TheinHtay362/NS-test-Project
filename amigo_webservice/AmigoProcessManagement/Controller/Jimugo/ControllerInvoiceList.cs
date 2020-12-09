@@ -105,7 +105,7 @@ namespace AmigoProcessManagement.Controller
                     decimal View_production_information_Annual_usage_fee_INCLUDING_TAX;
 
                     DataRow newRow = dtResult.NewRow();
-                    //newRow["No"] = row["No"];
+                    newRow["No"] = row["No"];
                     newRow["COMPANY_NO_BOX"] = row["COMPANY_NO_BOX"];
                     newRow["COMPANY_NAME"] = row["COMPANY_NAME"];
 
@@ -269,7 +269,7 @@ namespace AmigoProcessManagement.Controller
                 result.Rows.Add(dr);
             }
 
-            response.Data = Utility.Utility_Component.DtToJSon(result, "pdfData");
+            response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
 
             timer.Stop();
             response.Meta.Duration = timer.Elapsed.TotalMilliseconds;
@@ -284,6 +284,12 @@ namespace AmigoProcessManagement.Controller
             {
                 try
                 {
+                    DataTable result = new DataTable();
+                    result.Clear();
+                    result.Columns.Add("Count");
+                    result.Columns.Add("Error Message");
+                    result.Columns.Add("textcolumn");
+
                     int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
                     int Supplier_Initial_expense_REQ_SEQ = 0;
                     int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
@@ -292,7 +298,7 @@ namespace AmigoProcessManagement.Controller
 
                     int OFFSET = 0;
                     int LIMIT = 0;
-                    String strMessage;
+                    String strMessage = "";
                     int TOTAL;
                     string checkGetOrCreate = "CREATE";
                     DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
@@ -301,14 +307,20 @@ namespace AmigoProcessManagement.Controller
                     if (status == "1")
                     {
                         //delete Existing Invoice List
-                        bool checkDelete = HandleDelete(YEAR_MONTH);
+                        bool checkDelete = HandleDelete(BILLING_DATE);
                         if (!checkDelete)
                         {
-                            response.Message = Utility.Messages.Jimugo.I000ZZ007; //E000WC003
+                            DataRow dr = result.NewRow();
+                            //dr["Count"] = count;
+                            dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //E000WC003
+                            result.Rows.Add(dr);
+
+                            response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
                             return response;
                         }
                     }
 
+                    
                     INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
                     DataTable dt = DAL_INVOICE_INFO.GetInvoiceList(YEAR_MONTH, OFFSET, LIMIT, checkGetOrCreate, out strMessage, out TOTAL);
 
@@ -535,16 +547,48 @@ namespace AmigoProcessManagement.Controller
 
                         }
 
-                        if (!string.IsNullOrEmpty(strMessage))
-                        {
-                            dbTxn.Complete();
-                        }
-                        else
-                        {
-                            string ermsg = "error";
-                        }
+                        //if (!string.IsNullOrEmpty(strMessage))
+                        //{
+                        //    dbTxn.Complete();
+                        //    DataRow dr = result.NewRow();
+                        //    //dr["Count"] = count;
+                        //    dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //I000WC002
+                        //    result.Rows.Add(dr);
+
+                        //    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                        //}
+                        //else
+                        //{
+                        //    DataRow dr = result.NewRow();
+                        //    //dr["Count"] = count;
+                        //    dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //E000WC002
+                        //    result.Rows.Add(dr);
+
+                        //    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                        //    //return response;
+                        //}
                     }
 
+                    if (!string.IsNullOrEmpty(strMessage))
+                    {
+                        dbTxn.Complete();
+                        DataRow dr = result.NewRow();
+                        //dr["Count"] = count;
+                        dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //I000WC002
+                        result.Rows.Add(dr);
+
+                        response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                    }
+                    else
+                    {
+                        DataRow dr = result.NewRow();
+                        //dr["Count"] = count;
+                        dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //E000WC002
+                        result.Rows.Add(dr);
+
+                        response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                        //return response;
+                    }
 
 
                     timer.Stop();
@@ -594,15 +638,18 @@ namespace AmigoProcessManagement.Controller
         #endregion
 
         #region HandleDelete
-        private bool HandleDelete(string YEAR_MONTH)
+        private bool HandleDelete(string BILLING_DATE)
         {
             string strMsg = "";
             using (TransactionScope dbTxn = new TransactionScope())
             {
                 INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
-                
-                    //delete the record
-                    DAL_INVOICE_INFO.DeleteInvoiceInfoByYearMonth(YEAR_MONTH, out strMsg);
+
+                DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
+                String YEAR_MONTH = yearMonth.ToString("yyMM");
+
+                //delete the record
+                DAL_INVOICE_INFO.DeleteInvoiceInfoByYearMonth(YEAR_MONTH, out strMsg);
                
                 //return message and MK value
                 if (String.IsNullOrEmpty(strMsg)) //success

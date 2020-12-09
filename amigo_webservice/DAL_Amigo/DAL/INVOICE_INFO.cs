@@ -193,7 +193,7 @@ namespace DAL_AmigoProcess.DAL
                                         AND VIEW2.BILL_TYPE IN (12,22,32)
                                         )
                                         ) AS Subquery1
-                                        JOIN
+                                        LEFT JOIN
                                         (
                                         SELECT COMPANY_NO_BOX,
                                         REQ_SEQ AS Key_source_Monthly_usage_fee_REQ_SEQ,
@@ -208,7 +208,7 @@ namespace DAL_AmigoProcess.DAL
                                         AND UPDATE_CONTENT IN (1,3)
                                         AND MONTHLY_COST > 0) AS Subquery2
                                         ON Subquery1.COMPANY_NO_BOX=Subquery2.COMPANY_NO_BOX
-                                        JOIN
+                                        LEFT JOIN
                                         (
                                         SELECT COMPANY_NO_BOX, 
                                         FORMAT(DATEADD(MONTH,1,COMPLETION_NOTIFICATION_DATE),'yyyyMM') as COMPLETION_NOTIFICATION_DATE,
@@ -225,7 +225,7 @@ namespace DAL_AmigoProcess.DAL
                                         GROUP BY COMPANY_NO_BOX ,COMPLETION_NOTIFICATION_DATE
                                         ) AS Subquery3
                                         ON	Subquery1.COMPANY_NO_BOX = Subquery3.COMPANY_NO_BOX
-                                        JOIN
+                                        LEFT JOIN
                                         (SELECT *
                                         FROM (SELECT COMPANY_NO_BOX,
                                         REQ_SEQ AS Supplier_Monthly_usage_fee_REQ_SEQ,
@@ -242,7 +242,7 @@ namespace DAL_AmigoProcess.DAL
                                         WHERE num =1
                                         ) AS Subquery4
                                         ON Subquery1.COMPANY_NO_BOX = Subquery4.COMPANY_NO_BOX
-                                        JOIN
+                                        LEFT JOIN
                                         (
                                         SELECT COMPANY_NO_BOX,
                                         FORMAT(DATEADD(MONTH,1,COMPLETION_NOTIFICATION_DATE),'yyyyMM') AS COMPLETION_NOTIFICATION_DATE,
@@ -258,7 +258,7 @@ namespace DAL_AmigoProcess.DAL
                                         AND INITIAL_COST > 0 
                                         GROUP BY COMPANY_NO_BOX,COMPLETION_NOTIFICATION_DATE) AS Subquery5
                                         ON Subquery1.COMPANY_NO_BOX = Subquery5.COMPANY_NO_BOX
-                                        JOIN
+                                        LEFT JOIN
                                         (
                                         SELECT COMPANY_NO_BOX,
                                         REQ_SEQ AS View_production_information_Annual_usage_fee_REQ_SEQ,
@@ -282,7 +282,8 @@ namespace DAL_AmigoProcess.DAL
                                         ) AS Subquery6
                                         ON Subquery1.COMPANY_NO_BOX = Subquery6.COMPANY_NO_BOX";
 
-        string strInvoiceList = @"select Subquery1.*,
+        string strInvoiceList = @"select ROW_NUMBER() OVER(ORDER BY Subquery1.TRANSACTION_TYPE,Subquery1.COMPANY_NO_BOX ASC ) AS No,
+                                        Subquery1.*,
                                         Subquery2.Key_source_Monthly_usage_fee_REQ_SEQ,
                                         Subquery2.Key_source_Monthly_usage_fee,
                                         Subquery2.Key_source_Monthly_usage_fee_DISCOUNTED,
@@ -430,7 +431,8 @@ namespace DAL_AmigoProcess.DAL
                                         SET STATUS_PRINT = GETDATE()
                                         WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
 
-        string strDeleteByYearMonth = @"";
+        string strDeleteByYearMonth = @"DELETE FROM INVOICE_INFO 
+									   WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
 
         #region CMT
         string strInsertInvoiceInfo = @"INSERT INTO [INVOICE_INFO]

@@ -266,40 +266,50 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
         private void DgvList_Paint(object sender, PaintEventArgs e)
         {
-            
             Add_Third_Column_Header(e, 2, 1, "会社名", 4, 0, 2, StringAlignment.Center);
 
             Add_Third_Column_Header(e, 3, 1, "請求金額", 4, 0, 0, StringAlignment.Center);
             Add_Third_Column_Header(e, 4, 4, InvoiceAmountTotal.ToString(), 4, 0, 0, StringAlignment.Far);
+            InvoiceAmountTotal = 0;
 
             //Third ColumnMerge
-            Add_Third_Column_Header(e, 3, 1, "Key Source", 4, 1, 0, StringAlignment.Center);
+            Add_Third_Column_Header(e, 3, 1, "要元", 4, 1, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 3, 1, "月額利用料", 4, 2, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 3, 1, keySourceTotal.ToString(), 4, 3, 0, StringAlignment.Far); //"123,123"
+            keySourceTotal = 0;
 
-            Add_Third_Column_Header(e, 4, 2, "Supplier", 4, 1, 0, StringAlignment.Center);
+            Add_Third_Column_Header(e, 4, 2, "サプライヤ", 4, 1, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 4, 1, "初期費用", 4, 2, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 4, 1, SupplierExpenseTotal.ToString() , 4, 3, 0, StringAlignment.Far);
+            SupplierExpenseTotal = 0;
             Add_Second_Column_Header(e, 5, 1, "月額利用料", 4, 2, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 5, 1, SupplierMonthlyUsageFeeTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            SupplierMonthlyUsageFeeTotal = 0;
 
-            Add_Third_Column_Header(e, 6, 2, "Production information browsing", 4, 1, 0, StringAlignment.Center);
+            Add_Third_Column_Header(e, 6, 2, "生産情報閲覧", 4, 1, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 6, 1, "初期費用", 4, 2, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 6, 1, SupplierBrowsingInitialExpenseTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            SupplierBrowsingInitialExpenseTotal = 0;
             Add_Second_Column_Header(e, 7, 1, "年額利用料", 4, 2, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 7, 1, YearlyUsageFeeTotal.ToString() , 4, 3, 0, StringAlignment.Far);
+            YearlyUsageFeeTotal = 0;
 
-            Add_Third_Column_Header(e, 8, 5, "Invoice method", 4, 0, 0, StringAlignment.Center);
+            Add_Third_Column_Header(e, 8, 5, "請求方法", 4, 0, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 8, 1, "郵送", 4, 1, 1, StringAlignment.Center);
             Add_Second_Column_Header(e, 8, 1, PostalMailTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            PostalMailTotal = 0;
             Add_Second_Column_Header(e, 9, 1, "WEB", 4, 1, 1, StringAlignment.Center);
             Add_Second_Column_Header(e, 9, 1, WebTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            WebTotal = 0;
             Add_Second_Column_Header(e, 10, 1, "Email", 4, 1, 1, StringAlignment.Center);
             Add_Second_Column_Header(e, 10, 1, EmailTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            EmailTotal = 0;
             Add_Second_Column_Header(e, 11, 1, "クレカ", 4, 1, 1, StringAlignment.Center);
             Add_Second_Column_Header(e, 11, 1, CreditCardTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            CreditCardTotal = 0;
             Add_Second_Column_Header(e, 12, 1, "その他", 4, 1, 1, StringAlignment.Center);
             Add_Second_Column_Header(e, 12, 1, OtherTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            OtherTotal = 0;
         }
 
         private void DgvList_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)

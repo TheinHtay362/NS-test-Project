@@ -62,6 +62,9 @@
             this.lblClear = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvList = new System.Windows.Forms.DataGridView();
+            this.txtBilling_Date = new System.Windows.Forms.TextBox();
+            this.displayItemLabel2 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coLCOMPANY_NO_BOX = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colCOMPANY_NAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,9 +83,6 @@
             this.Supplier_Monthly_usage_fee_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Production_information_browsing_Initial_expense_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.View_production_information_Annual_usage_fee_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtBilling_Date = new System.Windows.Forms.TextBox();
-            this.displayItemLabel2 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.panel1.SuspendLayout();
             this.pTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
@@ -352,9 +352,37 @@
             this.dgvList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DgvList_Scroll);
             this.dgvList.Paint += new System.Windows.Forms.PaintEventHandler(this.DgvList_Paint);
             // 
+            // txtBilling_Date
+            // 
+            this.txtBilling_Date.Location = new System.Drawing.Point(102, 127);
+            this.txtBilling_Date.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtBilling_Date.Name = "txtBilling_Date";
+            this.txtBilling_Date.Size = new System.Drawing.Size(139, 22);
+            this.txtBilling_Date.TabIndex = 125;
+            // 
+            // displayItemLabel2
+            // 
+            this.displayItemLabel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel2.LabelText = "請求年月";
+            this.displayItemLabel2.Location = new System.Drawing.Point(18, 127);
+            this.displayItemLabel2.Margin = new System.Windows.Forms.Padding(4);
+            this.displayItemLabel2.Name = "displayItemLabel2";
+            this.displayItemLabel2.Size = new System.Drawing.Size(84, 22);
+            this.displayItemLabel2.TabIndex = 130;
+            // 
+            // displayItemLabel1
+            // 
+            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = "表示件数";
+            this.displayItemLabel1.Location = new System.Drawing.Point(17, 166);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4);
+            this.displayItemLabel1.Name = "displayItemLabel1";
+            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
+            this.displayItemLabel1.TabIndex = 129;
+            // 
             // colNo
             // 
-            this.colNo.DataPropertyName = "NO";
+            this.colNo.DataPropertyName = "No";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             this.colNo.DefaultCellStyle = dataGridViewCellStyle1;
             this.colNo.Frozen = true;
@@ -521,34 +549,6 @@
             this.View_production_information_Annual_usage_fee_REQ_SEQ.HeaderText = "View_production_information_Annual_usage_fee_REQ_SEQ";
             this.View_production_information_Annual_usage_fee_REQ_SEQ.Name = "View_production_information_Annual_usage_fee_REQ_SEQ";
             this.View_production_information_Annual_usage_fee_REQ_SEQ.Visible = false;
-            // 
-            // txtBilling_Date
-            // 
-            this.txtBilling_Date.Location = new System.Drawing.Point(102, 127);
-            this.txtBilling_Date.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtBilling_Date.Name = "txtBilling_Date";
-            this.txtBilling_Date.Size = new System.Drawing.Size(139, 22);
-            this.txtBilling_Date.TabIndex = 125;
-            // 
-            // displayItemLabel2
-            // 
-            this.displayItemLabel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel2.LabelText = "請求年月";
-            this.displayItemLabel2.Location = new System.Drawing.Point(18, 127);
-            this.displayItemLabel2.Margin = new System.Windows.Forms.Padding(4);
-            this.displayItemLabel2.Name = "displayItemLabel2";
-            this.displayItemLabel2.Size = new System.Drawing.Size(84, 22);
-            this.displayItemLabel2.TabIndex = 130;
-            // 
-            // displayItemLabel1
-            // 
-            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel1.LabelText = "表示件数";
-            this.displayItemLabel1.Location = new System.Drawing.Point(17, 166);
-            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4);
-            this.displayItemLabel1.Name = "displayItemLabel1";
-            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
-            this.displayItemLabel1.TabIndex = 129;
             // 
             // frmInvoiceList
             // 
