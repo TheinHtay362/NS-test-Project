@@ -598,25 +598,55 @@ namespace AmigoPaperWorkProcessSystem.Forms
         #region CellContentClickEvent
         private void DgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string s= dgvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-            string Key_source_Monthly_usage_fee_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
-            string Supplier_Initial_expense_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
-            string Supplier_Monthly_usage_fee_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
-            string Production_information_browsing_Initial_expense_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
-            string View_production_information_Annual_usage_fee_REQ_SEQ = dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString();
+            int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
+            int Supplier_Initial_expense_REQ_SEQ = 0;
+            int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+            int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+            int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+
+            string COMPANY_NO_BOX= dgvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            int REQ_SEQ;
 
 
+            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString()))
+            {
+                Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Key_source_Monthly_usage_fee_REQ_SEQ"].Value.ToString());
 
+            }
+
+            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Supplier_Initial_expense_REQ_SEQ"].Value.ToString()))
+            {
+                Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Supplier_Initial_expense_REQ_SEQ"].Value.ToString());
+            }
+
+            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Supplier_Monthly_usage_fee_REQ_SEQ"].Value.ToString()))
+            {
+                Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Supplier_Monthly_usage_fee_REQ_SEQ"].Value.ToString());
+            }
+
+            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["Production_information_browsing_Initial_expense_REQ_SEQ"].Value.ToString()))
+            {
+                Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["Production_information_browsing_Initial_expense_REQ_SEQ"].Value.ToString());
+            }
+
+            if (!String.IsNullOrEmpty(dgvList.Rows[e.RowIndex].Cells["View_production_information_Annual_usage_fee_REQ_SEQ"].Value.ToString()))
+            {
+                View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(dgvList.Rows[e.RowIndex].Cells["View_production_information_Annual_usage_fee_REQ_SEQ"].Value.ToString());
+            }
+
+            var anArray = new int[] { Key_source_Monthly_usage_fee_REQ_SEQ, Supplier_Initial_expense_REQ_SEQ, Supplier_Monthly_usage_fee_REQ_SEQ, Production_information_browsing_Initial_expense_REQ_SEQ, View_production_information_Annual_usage_fee_REQ_SEQ };
+            REQ_SEQ = anArray.Max();
 
             //string value = Convert.ToString(row.Cells["colBREAK_DOWN"].Value);
             //if (value != null)
             //{
-            //    frmCustomerMasterPopup frm = new frmCustomerMasterPopup(
-            //    Convert.ToString(row.Cells["colCOMPANY_NO_BOX"].Value),
-            //    Convert.ToString(row.Cells["colREQ_SEQ"].Value)
-            //    );
+            frmCustomerMasterPopup frm = new frmCustomerMasterPopup(
+            COMPANY_NO_BOX,
+            REQ_SEQ.ToString()
+                );
 
-            //    frm.Show();
+                frm.Show();
+
             //    //if (frm.Close()==true)
             //    //{
             //    //    row.Cells["colORDER_DATE"].Value = frm.ORDER_DATE;
