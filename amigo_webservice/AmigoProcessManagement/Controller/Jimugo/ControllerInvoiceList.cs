@@ -259,13 +259,13 @@ namespace AmigoProcessManagement.Controller
             {
                 //Call Create InvoiceData Method
                 CreateInvoiceData(BILLING_DATE, status);
-
+                return response;
             }
             else
             {
                 DataRow dr = result.NewRow();
                 dr["Count"] = count;
-                dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //I000WC001
+                dr["Error Message"] = Utility.Messages.Jimugo.I000WC001; //I000WC001
                 result.Rows.Add(dr);
             }
 
@@ -282,13 +282,14 @@ namespace AmigoProcessManagement.Controller
         {
             using (TransactionScope dbTxn = new TransactionScope())
             {
+                DataTable result = new DataTable();
+                result.Clear();
+                result.Columns.Add("Count");
+                result.Columns.Add("Error Message");
+                result.Columns.Add("Message Info");
                 try
                 {
-                    DataTable result = new DataTable();
-                    result.Clear();
-                    result.Columns.Add("Count");
-                    result.Columns.Add("Error Message");
-                    result.Columns.Add("textcolumn");
+                    
 
                     int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
                     int Supplier_Initial_expense_REQ_SEQ = 0;
@@ -311,8 +312,8 @@ namespace AmigoProcessManagement.Controller
                         if (!checkDelete)
                         {
                             DataRow dr = result.NewRow();
-                            //dr["Count"] = count;
-                            dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //E000WC003
+                            dr["Message Info"] = "Fail";
+                            dr["Error Message"] = Utility.Messages.Jimugo.E000WC003; //E000WC003
                             result.Rows.Add(dr);
 
                             response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
@@ -571,12 +572,12 @@ namespace AmigoProcessManagement.Controller
                         #endregion
                     }
 
-                    if (!string.IsNullOrEmpty(strMessage))
+                    if (string.IsNullOrEmpty(strMessage))
                     {
                         dbTxn.Complete();
                         DataRow dr = result.NewRow();
-                        //dr["Count"] = count;
-                        dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //I000WC002
+                        dr["Message Info"] = "Success";
+                        dr["Error Message"] = Utility.Messages.Jimugo.I000WC002; //I000WC002
                         result.Rows.Add(dr);
 
                         response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
@@ -584,8 +585,8 @@ namespace AmigoProcessManagement.Controller
                     else
                     {
                         DataRow dr = result.NewRow();
-                        //dr["Count"] = count;
-                        dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //E000WC002
+                        dr["Message Info"] = "Fail";
+                        dr["Error Message"] = Utility.Messages.Jimugo.E000WC002; //E000WC002
                         result.Rows.Add(dr);
 
                         response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
@@ -598,6 +599,12 @@ namespace AmigoProcessManagement.Controller
                 }
                 catch (Exception ex)
                 {
+                    DataRow dr = result.NewRow();
+                    dr["Message Info"] = "Fail";
+                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC002; //E000WC002
+                    result.Rows.Add(dr);
+
+                    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
                 }
             }
             return response;

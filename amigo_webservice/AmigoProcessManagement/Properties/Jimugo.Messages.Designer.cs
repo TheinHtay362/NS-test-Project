@@ -385,6 +385,15 @@ namespace AmigoProcessManagement.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 請求データの削除に失敗しました。処理を終了します。既存の請求データは元の状態で残っています。.
+        /// </summary>
+        internal static string E000WC003 {
+            get {
+                return ResourceManager.GetString("E000WC003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 請求データの更新に失敗しました。処理を終了します。既存の請求データは更新前の状態で残っています。.
         /// </summary>
         internal static string E000WC004 {
@@ -867,6 +876,15 @@ namespace AmigoProcessManagement.Properties {
         internal static string I000WB005 {
             get {
                 return ResourceManager.GetString("I000WB005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 既に請求リストデータが作成済みですが再作成しますか？.
+        /// </summary>
+        internal static string I000WC001 {
+            get {
+                return ResourceManager.GetString("I000WC001", resourceCulture);
             }
         }
         

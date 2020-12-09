@@ -612,7 +612,29 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     frmInvoiceListController controller = new frmInvoiceListController();
                     DataTable dtResult = oController.CreateInvoiceData(txtBilling_Date.Text,status);
 
-                    //DataTable result = oController.SubmitConfirmationRequest(dt, out uIUtility.MetaData);
+                    string strMsg = "";
+                    string messageInfo = "";
+                    try
+                    {
+                        strMsg = dtResult.Rows[0]["Error Message"].ToString();
+                        messageInfo = dtResult.Rows[0]["Message Info"].ToString();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    if (!string.IsNullOrEmpty(strMsg) && !string.IsNullOrEmpty(messageInfo))
+                    {
+                        if(messageInfo == "Success")
+                        {
+                            MetroMessageBox.Show(this, "\n" + strMsg, "Success", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                        }
+
+                        if (messageInfo == "Fail")
+                        {
+                            MetroMessageBox.Show(this, "\n" + strMsg, "Fail", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                        }
+                    }
 
                 }
             }
