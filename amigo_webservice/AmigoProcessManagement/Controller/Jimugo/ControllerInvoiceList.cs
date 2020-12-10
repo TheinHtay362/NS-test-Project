@@ -122,7 +122,7 @@ namespace AmigoProcessManagement.Controller
                     Supplier_Initial_expense_INCLUDING_TAX = NullOrEmpty(row["Supplier_Initial_expense_INCLUDING_TAX"].ToString());
 
                     Supplier_Monthly_usage_fee_REQ_SEQ = NullOrEmpty(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString());
-                    supplier_Monthly_usage_fee = NullOrEmpty(row["supplier_Monthly_usage_fee"].ToString());
+                    supplier_Monthly_usage_fee = NullOrEmpty(row["Supplier_Monthly_usage_fee"].ToString());
                     Supplier_Monthly_usage_fee_DISCOUNTED = NullOrEmpty(row["Supplier_Monthly_usage_fee_DISCOUNTED"].ToString());
                     Supplier_Monthly_usage_fee_TAX = NullOrEmpty(row["Supplier_Monthly_usage_fee_TAX"].ToString());
                     Supplier_Monthly_usage_fee_INCLUDING_TAX = NullOrEmpty(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
@@ -289,14 +289,6 @@ namespace AmigoProcessManagement.Controller
                 result.Columns.Add("Message Info");
                 try
                 {
-                    
-
-                    //int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
-                    //int Supplier_Initial_expense_REQ_SEQ = 0;
-                    //int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
-                    //int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
-                    //int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
-
                     int OFFSET = 0;
                     int LIMIT = 0;
                     String strMessage = "";
@@ -319,10 +311,6 @@ namespace AmigoProcessManagement.Controller
                             response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
                             return response;
                         }
-                        //else
-                        //{
-                        //    dbTxn.Complete();
-                        //}
                     }
 
                     
@@ -331,37 +319,37 @@ namespace AmigoProcessManagement.Controller
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
-                        int Supplier_Initial_expense_REQ_SEQ = 0;
-                        int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
-                        int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
-                        int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+                        decimal Key_source_Monthly_usage_fee_REQ_SEQ = 0;
+                        decimal Supplier_Initial_expense_REQ_SEQ = 0;
+                        decimal Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+                        decimal Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+                        decimal View_production_information_Annual_usage_fee_REQ_SEQ = 0;
 
                         DataRow row = dt.Rows[i];
 
-                        if (!string.IsNullOrEmpty(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString()))
+                        if (!string.IsNullOrEmpty(row["Key_source_Monthly_usage_fee"].ToString()))
                         {
-                            Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString());
+                            Key_source_Monthly_usage_fee_REQ_SEQ = Convert.ToDecimal(row["Key_source_Monthly_usage_fee"].ToString());
                         }
 
-                        if (!string.IsNullOrEmpty(row["Supplier_Initial_expense_REQ_SEQ"].ToString()))
+                        if (!string.IsNullOrEmpty(row["Supplier_Initial_expense"].ToString()))
                         {
-                            Supplier_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Supplier_Initial_expense_REQ_SEQ"].ToString());
+                            Supplier_Initial_expense_REQ_SEQ = Convert.ToDecimal(row["Supplier_Initial_expense"].ToString());
                         }
 
-                        if (!string.IsNullOrEmpty(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString()))
+                        if (!string.IsNullOrEmpty(row["Supplier_Monthly_usage_fee"].ToString()))
                         {
-                            Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToInt32(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString());
+                            Supplier_Monthly_usage_fee_REQ_SEQ = Convert.ToDecimal(row["Supplier_Monthly_usage_fee"].ToString());
                         }
 
-                        if (!string.IsNullOrEmpty(row["Production_information_browsing_Initial_expense_REQ_SEQ"].ToString()))
+                        if (!string.IsNullOrEmpty(row["Production_information_browsing_Initial_expense"].ToString()))
                         {
-                            Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToInt32(row["Production_information_browsing_Initial_expense_REQ_SEQ"].ToString());
+                            Production_information_browsing_Initial_expense_REQ_SEQ = Convert.ToDecimal(row["Production_information_browsing_Initial_expense"].ToString());
                         }
 
-                        if (!string.IsNullOrEmpty(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString()))
+                        if (!string.IsNullOrEmpty(row["Viewing_production_information_Annual_usage_fee"].ToString()))
                         {
-                            View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString());
+                            View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToDecimal(row["Viewing_production_information_Annual_usage_fee"].ToString());
                         }
 
                         BOL_INVOICE_INFO oINVOICE_INFO = new BOL_INVOICE_INFO();
@@ -536,7 +524,7 @@ namespace AmigoProcessManagement.Controller
                             string TRANSACTION_TYPE = "22";
                             oINVOICE_INFO.TRANSACTION_TYPE = TRANSACTION_TYPE;
                             oINVOICE_INFO.YEAR_MONTH = "-" + yearMonth.ToString("yyMM");
-                            oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["supplier_Monthly_usage_fee"].ToString());
+                            oINVOICE_INFO.BILL_AMOUNT = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee"].ToString());
                             oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_TAX"].ToString());
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
 
@@ -711,7 +699,7 @@ namespace AmigoProcessManagement.Controller
                 {
                     DataRow dr = result.NewRow();
                     //dr["Count"] = count;
-                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC004; //E000WC004
+                    dr["Error Message"] = Utility.Messages.Jimugo.E000WA001; //E000WC004
                     result.Rows.Add(dr);
 
                     response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");

@@ -51,10 +51,10 @@
             this.btnGeneratePassword = new System.Windows.Forms.Button();
             this.btnSendMail = new System.Windows.Forms.Button();
             this.txtCompanyNoBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblCompanyNoBox = new System.Windows.Forms.Label();
+            this.lblCompanyName = new System.Windows.Forms.Label();
             this.txtCompanyName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.cboLimit = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -69,6 +69,8 @@
             this.btnFirst = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
             this.dgvList = new System.Windows.Forms.DataGridView();
+            this.lblClear = new System.Windows.Forms.Label();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,8 +98,6 @@
             this.colCOMPANY_BOX = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ROW_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UPDATED_AT_RAW = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblClear = new System.Windows.Forms.Label();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.pTitle.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
@@ -230,27 +230,27 @@
             this.txtCompanyNoBox.Size = new System.Drawing.Size(120, 21);
             this.txtCompanyNoBox.TabIndex = 12;
             // 
-            // label1
+            // lblCompanyNoBox
             // 
-            this.label1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(18, 114);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 21);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "会社番号＋BOX";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyNoBox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyNoBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyNoBox.Location = new System.Drawing.Point(18, 114);
+            this.lblCompanyNoBox.Name = "lblCompanyNoBox";
+            this.lblCompanyNoBox.Size = new System.Drawing.Size(112, 21);
+            this.lblCompanyNoBox.TabIndex = 12;
+            this.lblCompanyNoBox.Text = "会社番号＋BOX";
+            this.lblCompanyNoBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label2
+            // lblCompanyName
             // 
-            this.label2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(263, 114);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 21);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "会社名";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyName.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyName.Location = new System.Drawing.Point(263, 114);
+            this.lblCompanyName.Name = "lblCompanyName";
+            this.lblCompanyName.Size = new System.Drawing.Size(77, 21);
+            this.lblCompanyName.TabIndex = 15;
+            this.lblCompanyName.Text = "会社名";
+            this.lblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompanyName
             // 
@@ -260,16 +260,16 @@
             this.txtCompanyName.Size = new System.Drawing.Size(156, 21);
             this.txtCompanyName.TabIndex = 14;
             // 
-            // label3
+            // lblEmail
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(512, 114);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 21);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "メールアドレス";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEmail.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEmail.Location = new System.Drawing.Point(512, 114);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(77, 21);
+            this.lblEmail.TabIndex = 17;
+            this.lblEmail.Text = "メールアドレス";
+            this.lblEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtEmail
             // 
@@ -485,6 +485,28 @@
             this.dgvList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DgvList_Scroll);
             this.dgvList.Paint += new System.Windows.Forms.PaintEventHandler(this.DgvList_Paint);
             // 
+            // lblClear
+            // 
+            this.lblClear.AutoSize = true;
+            this.lblClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblClear.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblClear.Location = new System.Drawing.Point(259, 160);
+            this.lblClear.Name = "lblClear";
+            this.lblClear.Size = new System.Drawing.Size(82, 14);
+            this.lblClear.TabIndex = 23;
+            this.lblClear.Text = "検索条件のクリア";
+            this.lblClear.Click += new System.EventHandler(this.LblClear_Click);
+            // 
+            // displayItemLabel1
+            // 
+            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = " 表示件数";
+            this.displayItemLabel1.Location = new System.Drawing.Point(18, 156);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4);
+            this.displayItemLabel1.Name = "displayItemLabel1";
+            this.displayItemLabel1.Size = new System.Drawing.Size(77, 22);
+            this.displayItemLabel1.TabIndex = 24;
+            // 
             // colNo
             // 
             this.colNo.DataPropertyName = "NO";
@@ -526,6 +548,7 @@
             this.colCOMPANY_NO_BOX.ReadOnly = true;
             this.colCOMPANY_NO_BOX.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colCOMPANY_NO_BOX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCOMPANY_NO_BOX.Width = 110;
             // 
             // colAUTO_INDEX_ID
             // 
@@ -541,6 +564,7 @@
             "socios"});
             this.colAUTO_INDEX_ID.Name = "colAUTO_INDEX_ID";
             this.colAUTO_INDEX_ID.ReadOnly = true;
+            this.colAUTO_INDEX_ID.Width = 70;
             // 
             // colCOMPANY_NAME
             // 
@@ -551,6 +575,7 @@
             this.colCOMPANY_NAME.ReadOnly = true;
             this.colCOMPANY_NAME.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colCOMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCOMPANY_NAME.Width = 150;
             // 
             // colPASSWORD_
             // 
@@ -569,6 +594,7 @@
             this.colPASSWORD_SET_DATE.Name = "colPASSWORD_SET_DATE";
             this.colPASSWORD_SET_DATE.ReadOnly = true;
             this.colPASSWORD_SET_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colPASSWORD_SET_DATE.Width = 145;
             // 
             // colPASSWORD_EXPIRATION_DATE
             // 
@@ -579,6 +605,7 @@
             this.colPASSWORD_EXPIRATION_DATE.Name = "colPASSWORD_EXPIRATION_DATE";
             this.colPASSWORD_EXPIRATION_DATE.ReadOnly = true;
             this.colPASSWORD_EXPIRATION_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colPASSWORD_EXPIRATION_DATE.Width = 145;
             // 
             // colEMAIL_ADDRESS
             // 
@@ -587,6 +614,7 @@
             this.colEMAIL_ADDRESS.Name = "colEMAIL_ADDRESS";
             this.colEMAIL_ADDRESS.ReadOnly = true;
             this.colEMAIL_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colEMAIL_ADDRESS.Width = 200;
             // 
             // colEMAIL_SEND_DATE
             // 
@@ -596,6 +624,7 @@
             this.colEMAIL_SEND_DATE.HeaderText = "メール送信日時";
             this.colEMAIL_SEND_DATE.Name = "colEMAIL_SEND_DATE";
             this.colEMAIL_SEND_DATE.ReadOnly = true;
+            this.colEMAIL_SEND_DATE.Width = 145;
             // 
             // colLOGIN_FAIL_COUNT
             // 
@@ -606,6 +635,7 @@
             this.colLOGIN_FAIL_COUNT.HeaderText = "失敗回数";
             this.colLOGIN_FAIL_COUNT.Name = "colLOGIN_FAIL_COUNT";
             this.colLOGIN_FAIL_COUNT.ReadOnly = true;
+            this.colLOGIN_FAIL_COUNT.Width = 75;
             // 
             // colSESSION_ID
             // 
@@ -622,6 +652,7 @@
             this.colLAST_ACCESS_DATE.HeaderText = "最終アクセス日時";
             this.colLAST_ACCESS_DATE.Name = "colLAST_ACCESS_DATE";
             this.colLAST_ACCESS_DATE.ReadOnly = true;
+            this.colLAST_ACCESS_DATE.Width = 145;
             // 
             // colLAST_FAIL_DATE
             // 
@@ -632,6 +663,7 @@
             this.colLAST_FAIL_DATE.HeaderText = "最終ログイン失敗日時";
             this.colLAST_FAIL_DATE.Name = "colLAST_FAIL_DATE";
             this.colLAST_FAIL_DATE.ReadOnly = true;
+            this.colLAST_FAIL_DATE.Width = 145;
             // 
             // colGD_CODE
             // 
@@ -639,6 +671,7 @@
             this.colGD_CODE.HeaderText = "GDコード";
             this.colGD_CODE.Name = "colGD_CODE";
             this.colGD_CODE.ReadOnly = true;
+            this.colGD_CODE.Width = 80;
             // 
             // colDISABLED_FLG
             // 
@@ -657,6 +690,7 @@
             this.colMEMO.HeaderText = "備考";
             this.colMEMO.Name = "colMEMO";
             this.colMEMO.ReadOnly = true;
+            this.colMEMO.Width = 200;
             // 
             // colUPDATED_AT
             // 
@@ -668,6 +702,7 @@
             this.colUPDATED_AT.HeaderText = "更新日時";
             this.colUPDATED_AT.Name = "colUPDATED_AT";
             this.colUPDATED_AT.ReadOnly = true;
+            this.colUPDATED_AT.Width = 145;
             // 
             // colUPDATED_BY
             // 
@@ -675,6 +710,7 @@
             this.colUPDATED_BY.HeaderText = "更新ユーザーID";
             this.colUPDATED_BY.Name = "colUPDATED_BY";
             this.colUPDATED_BY.ReadOnly = true;
+            this.colUPDATED_BY.Width = 120;
             // 
             // colUPDATE_MESSAGE
             // 
@@ -682,6 +718,7 @@
             this.colUPDATE_MESSAGE.HeaderText = "更新メッセージ";
             this.colUPDATE_MESSAGE.Name = "colUPDATE_MESSAGE";
             this.colUPDATE_MESSAGE.ReadOnly = true;
+            this.colUPDATE_MESSAGE.Width = 350;
             // 
             // colSOCIOS_USER_FLG
             // 
@@ -728,26 +765,6 @@
             this.UPDATED_AT_RAW.Name = "UPDATED_AT_RAW";
             this.UPDATED_AT_RAW.Visible = false;
             // 
-            // lblClear
-            // 
-            this.lblClear.AutoSize = true;
-            this.lblClear.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClear.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblClear.Location = new System.Drawing.Point(259, 160);
-            this.lblClear.Name = "lblClear";
-            this.lblClear.Size = new System.Drawing.Size(82, 14);
-            this.lblClear.TabIndex = 23;
-            this.lblClear.Text = "検索条件のクリア";
-            this.lblClear.Click += new System.EventHandler(this.LblClear_Click);
-            // 
-            // displayItemLabel1
-            // 
-            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel1.Location = new System.Drawing.Point(18, 156);
-            this.displayItemLabel1.Name = "displayItemLabel1";
-            this.displayItemLabel1.Size = new System.Drawing.Size(77, 22);
-            this.displayItemLabel1.TabIndex = 24;
-            // 
             // frmCompanyCodeList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -758,11 +775,11 @@
             this.Controls.Add(this.dgvList);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cboLimit);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblCompanyName);
             this.Controls.Add(this.txtCompanyName);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblCompanyNoBox);
             this.Controls.Add(this.txtCompanyNoBox);
             this.Controls.Add(this.btnSendMail);
             this.Controls.Add(this.btnGeneratePassword);
@@ -807,10 +824,10 @@
         private System.Windows.Forms.Button btnGeneratePassword;
         private System.Windows.Forms.Button btnSendMail;
         private System.Windows.Forms.TextBox txtCompanyNoBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblCompanyNoBox;
+        private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.TextBox txtCompanyName;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.ComboBox cboLimit;
         private System.Windows.Forms.Panel panel1;

@@ -251,7 +251,7 @@ namespace AmigoProcessManagement.Controller
                 {
                     #region Copy Record
                     //get max company number from REQUEST_ID
-                    oREQUEST_ID.COMPANY_BOX++;
+                    oREQUEST_ID.COMPANY_BOX = DAL_REQUEST_ID.GetMaxCompanyBox(oREQUEST_ID.COMPANY_NO, out strMsg);
                     string COMPANY_NO = oREQUEST_ID.COMPANY_NO;
                     int COMPANY_BOX = oREQUEST_ID.COMPANY_BOX;
                     string COMPANY_NO_BOX = COMPANY_NO + "-" + COMPANY_BOX.ToString().PadLeft(2, '0');
@@ -261,6 +261,9 @@ namespace AmigoProcessManagement.Controller
                     row["COMPANY_NO_BOX"] = COMPANY_NO_BOX;
                     row["COMPANY_NO"] = COMPANY_NO;
                     row["COMPANY_BOX"] = COMPANY_BOX;
+
+                    //generate hashed password
+                    oREQUEST_ID.PASSWORD_HASHED = Crypto.HashPassword(oREQUEST_ID.PASSWORD);
 
                     //insert the record
                     oREQUEST_ID.GD = string.IsNullOrEmpty(oREQUEST_ID.GD_CODE) ? 0 : 2;
@@ -392,9 +395,12 @@ namespace AmigoProcessManagement.Controller
                 dt.Columns.Add("PASSWORD_EXPIRATION_DATE");
                 #endregion
 
+                //get expire date from config tbl
+                BOL_CONFIG config = new BOL_CONFIG("CTS010", con);
+
                 //add row and data
                 DateTime startDate = DateTime.Now;
-                DateTime stopDate = DateTime.Today.AddDays(7).AddTicks(-1);
+                DateTime stopDate = DateTime.Today.AddDays(config.getIntValue("password.days.add") + 1).AddTicks(-1);
 
                 DataRow dr = dt.NewRow();
                 dr["PASSWORD"] = raw_password;
@@ -448,7 +454,7 @@ namespace AmigoProcessManagement.Controller
                             {
                                 //success message
                                 dgvList.Rows[i]["EMAIL_SEND_DATE"] = UPDATED_AT_DATETIME;
-                                ResponseUtility.ReturnMailSuccessMessage(dgvList.Rows[i]);
+                                ResponseUtility.ReturnMailSuccessMessage(dgvList.Rows[i], UPDATED_AT_DATETIME, CURRENT_DATETIME, CURRENT_USER);
                             }
                             else
                             {
@@ -490,8 +496,8 @@ namespace AmigoProcessManagement.Controller
 
             Dictionary<string, string> map = new Dictionary<string, string>() {
                         { "${companyName}", oREQUEST_ID.COMPANY_NAME },
-                        { "${aventailUserName}", config.getStringValue("emai.aventail.user.name")},// come from config table
-                        { "${aventailPassword}", config.getStringValue("emai.aventail.password")},// come from config table
+                        { "${aventailUserName}", config.getStringValue("email.aventail.user.name")},// come from config table
+                        { "${aventailPassword}", config.getStringValue("email.aventail.user.password")},// come from config table
                         { "${companyNoBox}", oREQUEST_ID.COMPANY_NO_BOX},
                         { "${password}", oREQUEST_ID.PASSWORD},
                         { "${limitDate}",  expire_date},
@@ -500,8 +506,8 @@ namespace AmigoProcessManagement.Controller
 
             //prepare for mail header
             string template_base_name = "CTS010_CompanyCode"; 
-            string subject = config.getStringValue("emailSubject.login.info"); //come from config table
-
+            string subject = config.getStringValue("emailSubject.login.info");
+            string cc = config.getStringValue("emailAddress.cc");
 
             //read email template
             string body = "";
@@ -516,7 +522,7 @@ namespace AmigoProcessManagement.Controller
             }
 
             //send mail
-            return Utility.Mail.sendMail(oREQUEST_ID.EMAIL_ADDRESS,"", subject, body, map);
+            return Utility.Mail.sendMail(oREQUEST_ID.EMAIL_ADDRESS, cc, subject, body, map);
         }
         #endregion
 

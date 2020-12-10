@@ -60,6 +60,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomerMasterMaintenance));
             this.pTitle = new System.Windows.Forms.Panel();
             this.lblMenu = new System.Windows.Forms.Label();
@@ -67,15 +68,15 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblCompanyName = new System.Windows.Forms.Label();
             this.txtCompanyName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblCompanyNameReading = new System.Windows.Forms.Label();
             this.txtCompanyNameReading = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblCompanyNoBox = new System.Windows.Forms.Label();
             this.txtCompanyNoBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblEDIAccount = new System.Windows.Forms.Label();
             this.txtEDIAccount = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblEmailAddress = new System.Windows.Forms.Label();
             this.txtMailAddress = new System.Windows.Forms.TextBox();
             this.lblClear = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -185,8 +186,8 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.btnFirst = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.cboLimit = new System.Windows.Forms.ComboBox();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.pTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.panel1.SuspendLayout();
@@ -255,99 +256,99 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
-            // label1
+            // lblCompanyName
             // 
-            this.label1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(17, 118);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 21);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "会社名";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyName.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyName.Location = new System.Drawing.Point(17, 118);
+            this.lblCompanyName.Name = "lblCompanyName";
+            this.lblCompanyName.Size = new System.Drawing.Size(77, 21);
+            this.lblCompanyName.TabIndex = 13;
+            this.lblCompanyName.Text = "会社名";
+            this.lblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompanyName
             // 
             this.txtCompanyName.Location = new System.Drawing.Point(93, 118);
             this.txtCompanyName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCompanyName.Name = "txtCompanyName";
-            this.txtCompanyName.Size = new System.Drawing.Size(147, 21);
+            this.txtCompanyName.Size = new System.Drawing.Size(147, 25);
             this.txtCompanyName.TabIndex = 14;
             // 
-            // label2
+            // lblCompanyNameReading
             // 
-            this.label2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(260, 118);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 21);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "会社名フリガナ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyNameReading.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyNameReading.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyNameReading.Location = new System.Drawing.Point(260, 118);
+            this.lblCompanyNameReading.Name = "lblCompanyNameReading";
+            this.lblCompanyNameReading.Size = new System.Drawing.Size(89, 21);
+            this.lblCompanyNameReading.TabIndex = 15;
+            this.lblCompanyNameReading.Text = "会社名フリガナ";
+            this.lblCompanyNameReading.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompanyNameReading
             // 
             this.txtCompanyNameReading.Location = new System.Drawing.Point(348, 118);
             this.txtCompanyNameReading.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCompanyNameReading.Name = "txtCompanyNameReading";
-            this.txtCompanyNameReading.Size = new System.Drawing.Size(147, 21);
+            this.txtCompanyNameReading.Size = new System.Drawing.Size(147, 25);
             this.txtCompanyNameReading.TabIndex = 16;
             // 
-            // label3
+            // lblCompanyNoBox
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(514, 118);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 21);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "会社番号＋BOX";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyNoBox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyNoBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyNoBox.Location = new System.Drawing.Point(514, 118);
+            this.lblCompanyNoBox.Name = "lblCompanyNoBox";
+            this.lblCompanyNoBox.Size = new System.Drawing.Size(97, 21);
+            this.lblCompanyNoBox.TabIndex = 17;
+            this.lblCompanyNoBox.Text = "会社番号＋BOX";
+            this.lblCompanyNoBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompanyNoBox
             // 
             this.txtCompanyNoBox.Location = new System.Drawing.Point(610, 118);
             this.txtCompanyNoBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCompanyNoBox.Name = "txtCompanyNoBox";
-            this.txtCompanyNoBox.Size = new System.Drawing.Size(147, 21);
+            this.txtCompanyNoBox.Size = new System.Drawing.Size(147, 25);
             this.txtCompanyNoBox.TabIndex = 18;
             // 
-            // label4
+            // lblEDIAccount
             // 
-            this.label4.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Location = new System.Drawing.Point(774, 118);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 21);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "EDIアカウント";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEDIAccount.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblEDIAccount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEDIAccount.Location = new System.Drawing.Point(774, 118);
+            this.lblEDIAccount.Name = "lblEDIAccount";
+            this.lblEDIAccount.Size = new System.Drawing.Size(80, 21);
+            this.lblEDIAccount.TabIndex = 19;
+            this.lblEDIAccount.Text = "EDIアカウント";
+            this.lblEDIAccount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtEDIAccount
             // 
             this.txtEDIAccount.Location = new System.Drawing.Point(853, 118);
             this.txtEDIAccount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEDIAccount.Name = "txtEDIAccount";
-            this.txtEDIAccount.Size = new System.Drawing.Size(147, 21);
+            this.txtEDIAccount.Size = new System.Drawing.Size(147, 25);
             this.txtEDIAccount.TabIndex = 20;
             // 
-            // label5
+            // lblEmailAddress
             // 
-            this.label5.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.Location = new System.Drawing.Point(17, 160);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(112, 21);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "メールアドレス";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEmailAddress.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblEmailAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEmailAddress.Location = new System.Drawing.Point(17, 160);
+            this.lblEmailAddress.Name = "lblEmailAddress";
+            this.lblEmailAddress.Size = new System.Drawing.Size(112, 21);
+            this.lblEmailAddress.TabIndex = 21;
+            this.lblEmailAddress.Text = "メールアドレス";
+            this.lblEmailAddress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtMailAddress
             // 
             this.txtMailAddress.Location = new System.Drawing.Point(128, 160);
             this.txtMailAddress.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMailAddress.Name = "txtMailAddress";
-            this.txtMailAddress.Size = new System.Drawing.Size(367, 21);
+            this.txtMailAddress.Size = new System.Drawing.Size(367, 25);
             this.txtMailAddress.TabIndex = 22;
             // 
             // lblClear
@@ -357,7 +358,7 @@
             this.lblClear.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lblClear.Location = new System.Drawing.Point(258, 201);
             this.lblClear.Name = "lblClear";
-            this.lblClear.Size = new System.Drawing.Size(82, 14);
+            this.lblClear.Size = new System.Drawing.Size(104, 18);
             this.lblClear.TabIndex = 26;
             this.lblClear.Text = "検索条件のクリア";
             this.lblClear.Click += new System.EventHandler(this.LblClear_Click);
@@ -367,7 +368,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(515, 163);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(94, 14);
+            this.label7.Size = new System.Drawing.Size(121, 18);
             this.label7.TabIndex = 27;
             this.label7.Text = "アドレス検索対象：";
             // 
@@ -378,7 +379,7 @@
             this.chkContractor.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkContractor.Location = new System.Drawing.Point(618, 162);
             this.chkContractor.Name = "chkContractor";
-            this.chkContractor.Size = new System.Drawing.Size(59, 18);
+            this.chkContractor.Size = new System.Drawing.Size(72, 22);
             this.chkContractor.TabIndex = 31;
             this.chkContractor.Text = "契約先";
             this.chkContractor.UseVisualStyleBackColor = true;
@@ -390,7 +391,7 @@
             this.chkInvoice.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkInvoice.Location = new System.Drawing.Point(697, 162);
             this.chkInvoice.Name = "chkInvoice";
-            this.chkInvoice.Size = new System.Drawing.Size(92, 18);
+            this.chkInvoice.Size = new System.Drawing.Size(114, 22);
             this.chkInvoice.TabIndex = 32;
             this.chkInvoice.Text = "請求書送付先";
             this.chkInvoice.UseVisualStyleBackColor = true;
@@ -402,7 +403,7 @@
             this.chkServiceDesk.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkServiceDesk.Location = new System.Drawing.Point(809, 161);
             this.chkServiceDesk.Name = "chkServiceDesk";
-            this.chkServiceDesk.Size = new System.Drawing.Size(85, 18);
+            this.chkServiceDesk.Size = new System.Drawing.Size(105, 22);
             this.chkServiceDesk.TabIndex = 33;
             this.chkServiceDesk.Text = "サービスデスク";
             this.chkServiceDesk.UseVisualStyleBackColor = true;
@@ -414,7 +415,7 @@
             this.chkNotificationDestination.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkNotificationDestination.Location = new System.Drawing.Point(916, 162);
             this.chkNotificationDestination.Name = "chkNotificationDestination";
-            this.chkNotificationDestination.Size = new System.Drawing.Size(84, 18);
+            this.chkNotificationDestination.Size = new System.Drawing.Size(104, 22);
             this.chkNotificationDestination.TabIndex = 34;
             this.chkNotificationDestination.Text = "エラー通知先";
             this.chkNotificationDestination.UseVisualStyleBackColor = true;
@@ -582,6 +583,7 @@
             this.colCOMPANY_NO_BOX.Name = "colCOMPANY_NO_BOX";
             this.colCOMPANY_NO_BOX.ReadOnly = true;
             this.colCOMPANY_NO_BOX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCOMPANY_NO_BOX.Width = 110;
             // 
             // colTRANSACTION_TYPE
             // 
@@ -600,6 +602,7 @@
             this.colTRANSACTION_TYPE.Name = "colTRANSACTION_TYPE";
             this.colTRANSACTION_TYPE.ReadOnly = true;
             this.colTRANSACTION_TYPE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colTRANSACTION_TYPE.Width = 90;
             // 
             // colEFFECTIVE_DATE
             // 
@@ -628,6 +631,7 @@
             this.colUPDATE_CONTENT.Name = "colUPDATE_CONTENT";
             this.colUPDATE_CONTENT.ReadOnly = true;
             this.colUPDATE_CONTENT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colUPDATE_CONTENT.Width = 120;
             // 
             // colCOMPANY_NAME
             // 
@@ -639,6 +643,7 @@
             this.colCOMPANY_NAME.Name = "colCOMPANY_NAME";
             this.colCOMPANY_NAME.ReadOnly = true;
             this.colCOMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCOMPANY_NAME.Width = 150;
             // 
             // colCOMPANY_NAME_READING
             // 
@@ -649,6 +654,7 @@
             this.colCOMPANY_NAME_READING.Name = "colCOMPANY_NAME_READING";
             this.colCOMPANY_NAME_READING.ReadOnly = true;
             this.colCOMPANY_NAME_READING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCOMPANY_NAME_READING.Width = 250;
             // 
             // colQUOTATION_DATE
             // 
@@ -675,7 +681,7 @@
             this.colCOMPLETION_NOTIFICATION_DATE.DataPropertyName = "COMPLETION_NOTIFICATION_DATE";
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.colCOMPLETION_NOTIFICATION_DATE.DefaultCellStyle = dataGridViewCellStyle11;
-            this.colCOMPLETION_NOTIFICATION_DATE.HeaderText = "登録完了通知送付日";
+            this.colCOMPLETION_NOTIFICATION_DATE.HeaderText = "登録完了通知日";
             this.colCOMPLETION_NOTIFICATION_DATE.Name = "colCOMPLETION_NOTIFICATION_DATE";
             this.colCOMPLETION_NOTIFICATION_DATE.ReadOnly = true;
             this.colCOMPLETION_NOTIFICATION_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -689,6 +695,7 @@
             this.colCONTRACTOR_COMPANY_NAME.Name = "colCONTRACTOR_COMPANY_NAME";
             this.colCONTRACTOR_COMPANY_NAME.ReadOnly = true;
             this.colCONTRACTOR_COMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_COMPANY_NAME.Width = 160;
             // 
             // colCONTRACTOR_DEPARTMENT_IN_CHARGE
             // 
@@ -697,6 +704,7 @@
             this.colCONTRACTOR_DEPARTMENT_IN_CHARGE.Name = "colCONTRACTOR_DEPARTMENT_IN_CHARGE";
             this.colCONTRACTOR_DEPARTMENT_IN_CHARGE.ReadOnly = true;
             this.colCONTRACTOR_DEPARTMENT_IN_CHARGE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_DEPARTMENT_IN_CHARGE.Width = 160;
             // 
             // colCONTRACTOR_CONTACT_NAME
             // 
@@ -705,6 +713,7 @@
             this.colCONTRACTOR_CONTACT_NAME.Name = "colCONTRACTOR_CONTACT_NAME";
             this.colCONTRACTOR_CONTACT_NAME.ReadOnly = true;
             this.colCONTRACTOR_CONTACT_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_CONTACT_NAME.Width = 80;
             // 
             // colCONTRACTOR_CONTACT_NAME_READING
             // 
@@ -713,6 +722,7 @@
             this.colCONTRACTOR_CONTACT_NAME_READING.Name = "colCONTRACTOR_CONTACT_NAME_READING";
             this.colCONTRACTOR_CONTACT_NAME_READING.ReadOnly = true;
             this.colCONTRACTOR_CONTACT_NAME_READING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_CONTACT_NAME_READING.Width = 120;
             // 
             // colCONTRACTOR_POSTAL_CODE
             // 
@@ -721,6 +731,7 @@
             this.colCONTRACTOR_POSTAL_CODE.Name = "colCONTRACTOR_POSTAL_CODE";
             this.colCONTRACTOR_POSTAL_CODE.ReadOnly = true;
             this.colCONTRACTOR_POSTAL_CODE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_POSTAL_CODE.Width = 80;
             // 
             // colCONTRACTOR_ADDRESS
             // 
@@ -729,6 +740,7 @@
             this.colCONTRACTOR_ADDRESS.Name = "colCONTRACTOR_ADDRESS";
             this.colCONTRACTOR_ADDRESS.ReadOnly = true;
             this.colCONTRACTOR_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_ADDRESS.Width = 250;
             // 
             // colCONTRACTOR_ADDRESS_BUILDING
             // 
@@ -737,6 +749,7 @@
             this.colCONTRACTOR_ADDRESS_BUILDING.Name = "colCONTRACTOR_ADDRESS_BUILDING";
             this.colCONTRACTOR_ADDRESS_BUILDING.ReadOnly = true;
             this.colCONTRACTOR_ADDRESS_BUILDING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_ADDRESS_BUILDING.Width = 250;
             // 
             // colCONTRACTOR_MAIL_ADDRESS
             // 
@@ -745,6 +758,7 @@
             this.colCONTRACTOR_MAIL_ADDRESS.Name = "colCONTRACTOR_MAIL_ADDRESS";
             this.colCONTRACTOR_MAIL_ADDRESS.ReadOnly = true;
             this.colCONTRACTOR_MAIL_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_MAIL_ADDRESS.Width = 200;
             // 
             // colCONTRACTOR_PHONE_NUMBER
             // 
@@ -753,6 +767,7 @@
             this.colCONTRACTOR_PHONE_NUMBER.Name = "colCONTRACTOR_PHONE_NUMBER";
             this.colCONTRACTOR_PHONE_NUMBER.ReadOnly = true;
             this.colCONTRACTOR_PHONE_NUMBER.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACTOR_PHONE_NUMBER.Width = 110;
             // 
             // colBILL_SUPPLIER_NAME
             // 
@@ -761,6 +776,7 @@
             this.colBILL_SUPPLIER_NAME.Name = "colBILL_SUPPLIER_NAME";
             this.colBILL_SUPPLIER_NAME.ReadOnly = true;
             this.colBILL_SUPPLIER_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_SUPPLIER_NAME.Width = 150;
             // 
             // colBILL_SUPPLIER_NAME_READING
             // 
@@ -769,6 +785,7 @@
             this.colBILL_SUPPLIER_NAME_READING.Name = "colBILL_SUPPLIER_NAME_READING";
             this.colBILL_SUPPLIER_NAME_READING.ReadOnly = true;
             this.colBILL_SUPPLIER_NAME_READING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_SUPPLIER_NAME_READING.Width = 250;
             // 
             // colBILL_COMPANY_NAME
             // 
@@ -776,6 +793,7 @@
             this.colBILL_COMPANY_NAME.HeaderText = "会社名";
             this.colBILL_COMPANY_NAME.Name = "colBILL_COMPANY_NAME";
             this.colBILL_COMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_COMPANY_NAME.Width = 150;
             // 
             // colBILL_DEPARTMENT_IN_CHARGE
             // 
@@ -784,6 +802,7 @@
             this.colBILL_DEPARTMENT_IN_CHARGE.Name = "colBILL_DEPARTMENT_IN_CHARGE";
             this.colBILL_DEPARTMENT_IN_CHARGE.ReadOnly = true;
             this.colBILL_DEPARTMENT_IN_CHARGE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_DEPARTMENT_IN_CHARGE.Width = 160;
             // 
             // colBILL_CONTACT_NAME
             // 
@@ -792,6 +811,7 @@
             this.colBILL_CONTACT_NAME.Name = "colBILL_CONTACT_NAME";
             this.colBILL_CONTACT_NAME.ReadOnly = true;
             this.colBILL_CONTACT_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_CONTACT_NAME.Width = 80;
             // 
             // colBILL_CONTACT_NAME_READING
             // 
@@ -800,6 +820,7 @@
             this.colBILL_CONTACT_NAME_READING.Name = "colBILL_CONTACT_NAME_READING";
             this.colBILL_CONTACT_NAME_READING.ReadOnly = true;
             this.colBILL_CONTACT_NAME_READING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_CONTACT_NAME_READING.Width = 120;
             // 
             // colBILL_POSTAL_CODE
             // 
@@ -808,6 +829,7 @@
             this.colBILL_POSTAL_CODE.Name = "colBILL_POSTAL_CODE";
             this.colBILL_POSTAL_CODE.ReadOnly = true;
             this.colBILL_POSTAL_CODE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_POSTAL_CODE.Width = 80;
             // 
             // colBILL_ADDRESS
             // 
@@ -816,6 +838,7 @@
             this.colBILL_ADDRESS.Name = "colBILL_ADDRESS";
             this.colBILL_ADDRESS.ReadOnly = true;
             this.colBILL_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_ADDRESS.Width = 250;
             // 
             // colBILL_ADDRESS_BUILDING
             // 
@@ -824,6 +847,7 @@
             this.colBILL_ADDRESS_BUILDING.Name = "colBILL_ADDRESS_BUILDING";
             this.colBILL_ADDRESS_BUILDING.ReadOnly = true;
             this.colBILL_ADDRESS_BUILDING.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_ADDRESS_BUILDING.Width = 250;
             // 
             // colBILL_MAIL_ADDRESS
             // 
@@ -832,6 +856,7 @@
             this.colBILL_MAIL_ADDRESS.Name = "colBILL_MAIL_ADDRESS";
             this.colBILL_MAIL_ADDRESS.ReadOnly = true;
             this.colBILL_MAIL_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_MAIL_ADDRESS.Width = 200;
             // 
             // colBILL_PHONE_NUMBER
             // 
@@ -840,6 +865,7 @@
             this.colBILL_PHONE_NUMBER.Name = "colBILL_PHONE_NUMBER";
             this.colBILL_PHONE_NUMBER.ReadOnly = true;
             this.colBILL_PHONE_NUMBER.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_PHONE_NUMBER.Width = 110;
             // 
             // colSPECIAL_NOTES_1
             // 
@@ -848,6 +874,7 @@
             this.colSPECIAL_NOTES_1.Name = "colSPECIAL_NOTES_1";
             this.colSPECIAL_NOTES_1.ReadOnly = true;
             this.colSPECIAL_NOTES_1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSPECIAL_NOTES_1.Width = 250;
             // 
             // colSPECIAL_NOTES_2
             // 
@@ -856,6 +883,7 @@
             this.colSPECIAL_NOTES_2.Name = "colSPECIAL_NOTES_2";
             this.colSPECIAL_NOTES_2.ReadOnly = true;
             this.colSPECIAL_NOTES_2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSPECIAL_NOTES_2.Width = 250;
             // 
             // colSPECIAL_NOTES_3
             // 
@@ -864,6 +892,7 @@
             this.colSPECIAL_NOTES_3.Name = "colSPECIAL_NOTES_3";
             this.colSPECIAL_NOTES_3.ReadOnly = true;
             this.colSPECIAL_NOTES_3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSPECIAL_NOTES_3.Width = 250;
             // 
             // colSPECIAL_NOTES_4
             // 
@@ -872,6 +901,7 @@
             this.colSPECIAL_NOTES_4.Name = "colSPECIAL_NOTES_4";
             this.colSPECIAL_NOTES_4.ReadOnly = true;
             this.colSPECIAL_NOTES_4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSPECIAL_NOTES_4.Width = 250;
             // 
             // colBILL_TYPE
             // 
@@ -890,6 +920,7 @@
             this.colBILL_METHOD1.ReadOnly = true;
             this.colBILL_METHOD1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colBILL_METHOD1.TrueValue = "True";
+            this.colBILL_METHOD1.Width = 50;
             // 
             // colBILL_METHOD2
             // 
@@ -900,6 +931,7 @@
             this.colBILL_METHOD2.ReadOnly = true;
             this.colBILL_METHOD2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colBILL_METHOD2.TrueValue = "True";
+            this.colBILL_METHOD2.Width = 50;
             // 
             // colBILL_METHOD3
             // 
@@ -910,6 +942,7 @@
             this.colBILL_METHOD3.ReadOnly = true;
             this.colBILL_METHOD3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colBILL_METHOD3.TrueValue = "True";
+            this.colBILL_METHOD3.Width = 50;
             // 
             // colBILL_METHOD5
             // 
@@ -920,6 +953,7 @@
             this.colBILL_METHOD5.ReadOnly = true;
             this.colBILL_METHOD5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colBILL_METHOD5.TrueValue = "True";
+            this.colBILL_METHOD5.Width = 50;
             // 
             // colNCS_CUSTOMER_CODE
             // 
@@ -928,6 +962,7 @@
             this.colNCS_CUSTOMER_CODE.Name = "colNCS_CUSTOMER_CODE";
             this.colNCS_CUSTOMER_CODE.ReadOnly = true;
             this.colNCS_CUSTOMER_CODE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colNCS_CUSTOMER_CODE.Width = 90;
             // 
             // colBILL_BANK_ACCOUNT_NAME_1
             // 
@@ -1019,6 +1054,7 @@
             this.colBILL_DEPOSIT_RULES.Name = "colBILL_DEPOSIT_RULES";
             this.colBILL_DEPOSIT_RULES.ReadOnly = true;
             this.colBILL_DEPOSIT_RULES.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colBILL_DEPOSIT_RULES.Width = 110;
             // 
             // colBILL_TRANSFER_FEE
             // 
@@ -1029,6 +1065,7 @@
             this.colBILL_TRANSFER_FEE.Name = "colBILL_TRANSFER_FEE";
             this.colBILL_TRANSFER_FEE.ReadOnly = true;
             this.colBILL_TRANSFER_FEE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_TRANSFER_FEE.Width = 115;
             // 
             // colBILL_EXPENSES
             // 
@@ -1039,6 +1076,7 @@
             this.colBILL_EXPENSES.Name = "colBILL_EXPENSES";
             this.colBILL_EXPENSES.ReadOnly = true;
             this.colBILL_EXPENSES.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBILL_EXPENSES.Width = 90;
             // 
             // colPLAN_AMIGO_CAI
             // 
@@ -1049,6 +1087,7 @@
             this.colPLAN_AMIGO_CAI.Name = "colPLAN_AMIGO_CAI";
             this.colPLAN_AMIGO_CAI.ReadOnly = true;
             this.colPLAN_AMIGO_CAI.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colPLAN_AMIGO_CAI.Width = 90;
             // 
             // colPLAN_AMIGO_BIZ
             // 
@@ -1059,6 +1098,7 @@
             this.colPLAN_AMIGO_BIZ.Name = "colPLAN_AMIGO_BIZ";
             this.colPLAN_AMIGO_BIZ.ReadOnly = true;
             this.colPLAN_AMIGO_BIZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colPLAN_AMIGO_BIZ.Width = 90;
             // 
             // colBOX_SIZE
             // 
@@ -1069,6 +1109,7 @@
             this.colBOX_SIZE.Name = "colBOX_SIZE";
             this.colBOX_SIZE.ReadOnly = true;
             this.colBOX_SIZE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colBOX_SIZE.Width = 90;
             // 
             // colINITIAL_COST
             // 
@@ -1079,6 +1120,7 @@
             this.colINITIAL_COST.Name = "colINITIAL_COST";
             this.colINITIAL_COST.ReadOnly = true;
             this.colINITIAL_COST.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colINITIAL_COST.Width = 90;
             // 
             // colMONTHLY_COST
             // 
@@ -1089,6 +1131,7 @@
             this.colMONTHLY_COST.Name = "colMONTHLY_COST";
             this.colMONTHLY_COST.ReadOnly = true;
             this.colMONTHLY_COST.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colMONTHLY_COST.Width = 90;
             // 
             // colYEAR_COST
             // 
@@ -1098,6 +1141,7 @@
             this.colYEAR_COST.HeaderText = "年額利用料";
             this.colYEAR_COST.Name = "colYEAR_COST";
             this.colYEAR_COST.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colYEAR_COST.Width = 90;
             // 
             // colBREAK_DOWN
             // 
@@ -1108,6 +1152,7 @@
             this.colBREAK_DOWN.Name = "colBREAK_DOWN";
             this.colBREAK_DOWN.ReadOnly = true;
             this.colBREAK_DOWN.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colBREAK_DOWN.Width = 50;
             // 
             // colCONTRACT_PLAN
             // 
@@ -1116,6 +1161,7 @@
             this.colCONTRACT_PLAN.Name = "colCONTRACT_PLAN";
             this.colCONTRACT_PLAN.ReadOnly = true;
             this.colCONTRACT_PLAN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACT_PLAN.Width = 115;
             // 
             // colOP_AMIGO_CAI
             // 
@@ -1126,6 +1172,7 @@
             this.colOP_AMIGO_CAI.Name = "colOP_AMIGO_CAI";
             this.colOP_AMIGO_CAI.ReadOnly = true;
             this.colOP_AMIGO_CAI.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_AMIGO_CAI.Width = 120;
             // 
             // colOP_AMIGO_BIZ
             // 
@@ -1136,6 +1183,7 @@
             this.colOP_AMIGO_BIZ.Name = "colOP_AMIGO_BIZ";
             this.colOP_AMIGO_BIZ.ReadOnly = true;
             this.colOP_AMIGO_BIZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_AMIGO_BIZ.Width = 120;
             // 
             // colOP_BOX_SERVER
             // 
@@ -1146,6 +1194,7 @@
             this.colOP_BOX_SERVER.Name = "colOP_BOX_SERVER";
             this.colOP_BOX_SERVER.ReadOnly = true;
             this.colOP_BOX_SERVER.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_BOX_SERVER.Width = 120;
             // 
             // colOP_BOX_BROWSER
             // 
@@ -1156,6 +1205,7 @@
             this.colOP_BOX_BROWSER.Name = "colOP_BOX_BROWSER";
             this.colOP_BOX_BROWSER.ReadOnly = true;
             this.colOP_BOX_BROWSER.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_BOX_BROWSER.Width = 120;
             // 
             // colOP_FLAT
             // 
@@ -1166,6 +1216,7 @@
             this.colOP_FLAT.Name = "colOP_FLAT";
             this.colOP_FLAT.ReadOnly = true;
             this.colOP_FLAT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_FLAT.Width = 120;
             // 
             // colOP_CLIENT
             // 
@@ -1176,6 +1227,7 @@
             this.colOP_CLIENT.Name = "colOP_CLIENT";
             this.colOP_CLIENT.ReadOnly = true;
             this.colOP_CLIENT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_CLIENT.Width = 120;
             // 
             // colOP_BASIC_SERVICE
             // 
@@ -1186,6 +1238,7 @@
             this.colOP_BASIC_SERVICE.Name = "colOP_BASIC_SERVICE";
             this.colOP_BASIC_SERVICE.ReadOnly = true;
             this.colOP_BASIC_SERVICE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_BASIC_SERVICE.Width = 120;
             // 
             // colOP_ADD_SERVICE
             // 
@@ -1196,20 +1249,24 @@
             this.colOP_ADD_SERVICE.Name = "colOP_ADD_SERVICE";
             this.colOP_ADD_SERVICE.ReadOnly = true;
             this.colOP_ADD_SERVICE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colOP_ADD_SERVICE.Width = 120;
             // 
             // colSOCIOS_USER_FLG
             // 
             this.colSOCIOS_USER_FLG.DataPropertyName = "SOCIOS_USER_FLG";
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colSOCIOS_USER_FLG.DefaultCellStyle = dataGridViewCellStyle30;
             this.colSOCIOS_USER_FLG.HeaderText = "Sociosユーザー";
             this.colSOCIOS_USER_FLG.Name = "colSOCIOS_USER_FLG";
             this.colSOCIOS_USER_FLG.ReadOnly = true;
             this.colSOCIOS_USER_FLG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colSOCIOS_USER_FLG.Width = 90;
             // 
             // colCOMPANY_NAME_CHANGED_DATE
             // 
             this.colCOMPANY_NAME_CHANGED_DATE.DataPropertyName = "COMPANY_NAME_CHANGED_DATE";
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colCOMPANY_NAME_CHANGED_DATE.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colCOMPANY_NAME_CHANGED_DATE.DefaultCellStyle = dataGridViewCellStyle31;
             this.colCOMPANY_NAME_CHANGED_DATE.HeaderText = "変更日";
             this.colCOMPANY_NAME_CHANGED_DATE.Name = "colCOMPANY_NAME_CHANGED_DATE";
             this.colCOMPANY_NAME_CHANGED_DATE.ReadOnly = true;
@@ -1222,6 +1279,7 @@
             this.colPREVIOUS_COMPANY_NAME.Name = "colPREVIOUS_COMPANY_NAME";
             this.colPREVIOUS_COMPANY_NAME.ReadOnly = true;
             this.colPREVIOUS_COMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colPREVIOUS_COMPANY_NAME.Width = 150;
             // 
             // colNML_CODE_NISSAN
             // 
@@ -1266,8 +1324,8 @@
             // colOBOEGAKI_DATE
             // 
             this.colOBOEGAKI_DATE.DataPropertyName = "OBOEGAKI_DATE";
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colOBOEGAKI_DATE.DefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colOBOEGAKI_DATE.DefaultCellStyle = dataGridViewCellStyle32;
             this.colOBOEGAKI_DATE.HeaderText = "覚書締結日";
             this.colOBOEGAKI_DATE.Name = "colOBOEGAKI_DATE";
             this.colOBOEGAKI_DATE.ReadOnly = true;
@@ -1280,14 +1338,16 @@
             this.colEDI_ACCOUNT.Name = "colEDI_ACCOUNT";
             this.colEDI_ACCOUNT.ReadOnly = true;
             this.colEDI_ACCOUNT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colEDI_ACCOUNT.Width = 80;
             // 
             // colMAIL_ADDRESS
             // 
             this.colMAIL_ADDRESS.DataPropertyName = "CONSTRACTOR_SERVICE_DESK_MAIL";
-            this.colMAIL_ADDRESS.HeaderText = "サービスデスク契約者 メールアドレス";
+            this.colMAIL_ADDRESS.HeaderText = "サービスデスク契約者  メールアドレス";
             this.colMAIL_ADDRESS.Name = "colMAIL_ADDRESS";
             this.colMAIL_ADDRESS.ReadOnly = true;
             this.colMAIL_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colMAIL_ADDRESS.Width = 200;
             // 
             // colREQ_MAIL_ADDRESS
             // 
@@ -1296,16 +1356,18 @@
             this.colREQ_MAIL_ADDRESS.Name = "colREQ_MAIL_ADDRESS";
             this.colREQ_MAIL_ADDRESS.ReadOnly = true;
             this.colREQ_MAIL_ADDRESS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colREQ_MAIL_ADDRESS.Width = 200;
             // 
             // colUPDATED_AT
             // 
             this.colUPDATED_AT.DataPropertyName = "UPDATED_AT";
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colUPDATED_AT.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colUPDATED_AT.DefaultCellStyle = dataGridViewCellStyle33;
             this.colUPDATED_AT.HeaderText = "更新日時";
             this.colUPDATED_AT.Name = "colUPDATED_AT";
             this.colUPDATED_AT.ReadOnly = true;
             this.colUPDATED_AT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colUPDATED_AT.Width = 145;
             // 
             // colUPDATED_BY
             // 
@@ -1314,6 +1376,7 @@
             this.colUPDATED_BY.Name = "colUPDATED_BY";
             this.colUPDATED_BY.ReadOnly = true;
             this.colUPDATED_BY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colUPDATED_BY.Width = 120;
             // 
             // colUPDATE_MESSAGE
             // 
@@ -1321,6 +1384,7 @@
             this.colUPDATE_MESSAGE.HeaderText = "更新メッセージ";
             this.colUPDATE_MESSAGE.Name = "colUPDATE_MESSAGE";
             this.colUPDATE_MESSAGE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colUPDATE_MESSAGE.Width = 350;
             // 
             // UPDATED_AT_RAW
             // 
@@ -1391,7 +1455,7 @@
             this.lblTotalRecords.AutoSize = true;
             this.lblTotalRecords.Location = new System.Drawing.Point(3, 11);
             this.lblTotalRecords.Name = "lblTotalRecords";
-            this.lblTotalRecords.Size = new System.Drawing.Size(0, 14);
+            this.lblTotalRecords.Size = new System.Drawing.Size(0, 18);
             this.lblTotalRecords.TabIndex = 36;
             // 
             // btnCheck
@@ -1428,7 +1492,7 @@
             this.lblTotalPages.AutoSize = true;
             this.lblTotalPages.Location = new System.Drawing.Point(1104, 10);
             this.lblTotalPages.Name = "lblTotalPages";
-            this.lblTotalPages.Size = new System.Drawing.Size(14, 14);
+            this.lblTotalPages.Size = new System.Drawing.Size(17, 18);
             this.lblTotalPages.TabIndex = 31;
             this.lblTotalPages.Text = "0";
             // 
@@ -1438,7 +1502,7 @@
             this.lblcurrentPage.AutoSize = true;
             this.lblcurrentPage.Location = new System.Drawing.Point(1016, 10);
             this.lblcurrentPage.Name = "lblcurrentPage";
-            this.lblcurrentPage.Size = new System.Drawing.Size(14, 14);
+            this.lblcurrentPage.Size = new System.Drawing.Size(17, 18);
             this.lblcurrentPage.TabIndex = 30;
             this.lblcurrentPage.Text = "0";
             // 
@@ -1462,7 +1526,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(1063, 10);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(19, 14);
+            this.label8.Size = new System.Drawing.Size(24, 18);
             this.label8.TabIndex = 25;
             this.label8.Text = "Of";
             // 
@@ -1508,14 +1572,6 @@
             this.btnPrev.UseVisualStyleBackColor = true;
             this.btnPrev.Click += new System.EventHandler(this.BtnPrev_Click);
             // 
-            // displayItemLabel1
-            // 
-            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel1.Location = new System.Drawing.Point(17, 197);
-            this.displayItemLabel1.Name = "displayItemLabel1";
-            this.displayItemLabel1.Size = new System.Drawing.Size(68, 22);
-            this.displayItemLabel1.TabIndex = 38;
-            // 
             // cboLimit
             // 
             this.cboLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1523,12 +1579,22 @@
             this.cboLimit.Location = new System.Drawing.Point(84, 197);
             this.cboLimit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboLimit.Name = "cboLimit";
-            this.cboLimit.Size = new System.Drawing.Size(156, 22);
+            this.cboLimit.Size = new System.Drawing.Size(156, 26);
             this.cboLimit.TabIndex = 37;
+            // 
+            // displayItemLabel1
+            // 
+            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = " 表示件数";
+            this.displayItemLabel1.Location = new System.Drawing.Point(17, 197);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.displayItemLabel1.Name = "displayItemLabel1";
+            this.displayItemLabel1.Size = new System.Drawing.Size(68, 22);
+            this.displayItemLabel1.TabIndex = 38;
             // 
             // frmCustomerMasterMaintenance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 601);
             this.Controls.Add(this.displayItemLabel1);
@@ -1541,15 +1607,15 @@
             this.Controls.Add(this.chkContractor);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lblClear);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblEmailAddress);
             this.Controls.Add(this.txtMailAddress);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lblEDIAccount);
             this.Controls.Add(this.txtEDIAccount);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblCompanyNoBox);
             this.Controls.Add(this.txtCompanyNoBox);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblCompanyNameReading);
             this.Controls.Add(this.txtCompanyNameReading);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblCompanyName);
             this.Controls.Add(this.txtCompanyName);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnCancel);
@@ -1579,15 +1645,15 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.TextBox txtCompanyName;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblCompanyNameReading;
         private System.Windows.Forms.TextBox txtCompanyNameReading;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCompanyNoBox;
         private System.Windows.Forms.TextBox txtCompanyNoBox;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblEDIAccount;
         private System.Windows.Forms.TextBox txtEDIAccount;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblEmailAddress;
         private System.Windows.Forms.TextBox txtMailAddress;
         private System.Windows.Forms.Label lblClear;
         private System.Windows.Forms.Label label7;

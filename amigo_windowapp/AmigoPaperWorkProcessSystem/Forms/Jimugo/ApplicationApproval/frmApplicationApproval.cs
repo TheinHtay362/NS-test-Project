@@ -105,8 +105,10 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             "MAIL_SENDING_TARGET_FLG",
             "MAIL_DESTINATION",
             "UPDATED_AT_RAW",
-            "REQ_SEQ"
+            "REQ_SEQ",
+            "CONTRACT_PLAN_RAW"
         };
+
         private string[] alignBottoms = {
                "NML_CODE_NISSAN",
                "NML_CODE_NS",
@@ -152,8 +154,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 "MONTHLY_COST",
                 "YEAR_COST",
                 "BREAKDOWN",
-                "PLAN_AMIGO_CAI",
-                "PLAN_AMIGO_BIZ",
                 "OP_AMIGO_CAI",
                 "OP_AMIGO_BIZ",
                 "OP_BOX_SERVER",
@@ -163,6 +163,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 "OP_BASIC_SERVICE",
                 "OP_ADD_SERVICE"
         };
+
         private Dictionary<string, string> OperationItems = new Dictionary<string,string> {
             { "COMPANY_NAME", "会社名" },
             { "NML_CODE_NISSAN", "サプライヤコード(日産)" },
@@ -195,6 +196,8 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         public string _REQ_SEQ { get; set; }
         private string _req_status;
         public DialogResult Dialog { get; set; }
+        public string UPDATED_AT { get; set; }
+        public string UPDATED_AT_RAW { get; set; }
         public string REQ_STATUS_RAW { get; set; }
         public string REQ_TYPE_RAW { get; set; }
         public string _REQ_STATUS
@@ -224,9 +227,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 }
             }
         }
-
         private string _req_type;
-
         public string _REQ_TYPE
         {
             get { return _req_type; }
@@ -248,7 +249,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 }
             }
         }
-
         #endregion
 
         #region Constructor
@@ -285,21 +285,17 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         private void ChangeBackGroundColor()
         {
             if (dgvList.Rows.Count > 1)
-            {
-                string START_USE_DATE1 = Convert.ToString(dgvList.Rows[0].Cells["START_USE_DATE"].Value);
-                string START_USE_DATE2 = Convert.ToString(dgvList.Rows[1].Cells["START_USE_DATE"].Value);
-                string COMMA_VALUE = "";
-                if (START_USE_DATE1 == START_USE_DATE2)
-                {
-                    COMMA_VALUE = ", ";
-                }
+            {     
                 for (int i = 0; i < dgvList.Columns.Count; i++)
                 {
                     string first = Convert.ToString(dgvList.Rows[0].Cells[i].Value);
                     string second = Convert.ToString(dgvList.Rows[1].Cells[i].Value);
                     if ((first ==null ? "" : first.Trim()) != (second == null ? "" : second.Trim()))
                     {
-                        dgvList.Rows[1].Cells[i].Style.BackColor = Color.Pink;
+                        if (i != 1)
+                        {
+                            dgvList.Rows[1].Cells[i].Style.BackColor = Color.Pink;
+                        }
                         foreach (var item in OperationItems)
                         {
                             if (dgvList.Columns[i].Name == item.Key)
@@ -311,7 +307,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                                 }
                                 else
                                 {
-                                    txtItemChanged.Text = text + COMMA_VALUE + item.Value; 
+                                    txtItemChanged.Text = text + ", " + item.Value; 
                                 }
                             }
                         }
@@ -319,7 +315,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
 
                     if (dgvList.Columns[i].Name == "SERVICE_DESK")
                     {
-                        if (result.Tables["SERVICE_DESK_CURRENT"].Rows.Count != result.Tables["SERVICE_DESK_CHANGE"].Rows.Count)
+                        if (!CheckUtility.AreTablesTheSame(result.Tables["SERVICE_DESK_CURRENT"], result.Tables["SERVICE_DESK_CHANGE"]))
                         {
                             dgvList.Rows[1].Cells[i].Style.BackColor = Color.Pink;
                         }
@@ -327,7 +323,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
 
                     if (dgvList.Columns[i].Name == "BREAKDOWN")
                     {
-                        if (result.Tables["BREAKDOWN_CURRENT"].Rows.Count != result.Tables["BREAKDOWN_CURRENT"].Rows.Count)
+                        if (!CheckUtility.AreTablesTheSame(result.Tables["BREAKDOWN_CURRENT"], result.Tables["BREAKDOWN_CHANGE"]))
                         {
                             dgvList.Rows[1].Cells[i].Style.BackColor = Color.Pink;
                         }
@@ -335,10 +331,10 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
 
                     if (dgvList.Columns[i].Name == "ERROR_NOTIFICATION")
                     {
-                        if (result.Tables["ERROR_NOTI_CURRENT"].Rows.Count != result.Tables["ERROR_NOTI_CURRENT"].Rows.Count)
+                        if (!CheckUtility.AreTablesTheSame(result.Tables["ERROR_NOTI_CURRENT"], result.Tables["ERROR_NOTI_CHANGE"]))
                         {
                             dgvList.Rows[1].Cells[i].Style.BackColor = Color.Pink;
-                            txtItemChanged.Text = txtItemChanged.Text + COMMA_VALUE + "エラー通知";
+                            txtItemChanged.Text = txtItemChanged.Text + ", " + "エラー通知";
                         }
                     }
 
@@ -350,6 +346,10 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         #region FormLoad
         private void FrmApplicationApproval_Load(object sender, EventArgs e)
         {
+            //set title
+            lblMenu.Text = ProgramName;
+            this.Text = "[" + ProgramID + "] " + ProgramName;
+
             //Theme
             this.pTitle.BackColor = Properties.Settings.Default.JimugoBgColor;
             this.lblMenu.ForeColor = Properties.Settings.Default.jimugoForeColor;
@@ -358,12 +358,15 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             this.dgvList.ColumnHeadersDefaultCellStyle.ForeColor = Properties.Settings.Default.GridHeaderFontColor;
             this.Font = Properties.Settings.Default.jimugoFont;
 
+            this.dgvList.Columns["BILL_METHOD3"].HeaderText = "WEB\r\nﾀﾞｳﾝﾛｰﾄﾞ";
+            this.dgvList.Columns["BILL_METHOD3"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            this.dgvList.Columns["BOX_SIZE"].HeaderText = "BOXサイズ\r\n(GB)";
+            this.dgvList.Columns["BOX_SIZE"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            
+
             //start parameters
             txtCompanyNoBox.Text = this.COMPANY_NO_BOX;
-
-            //set title
-            lblMenu.Text = ProgramName;
-
             
 
             //UI
@@ -394,13 +397,18 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                     uIUtility.dtList = result.Tables["LISTING"];
                     dgvList.DataSource = uIUtility.dtList;
                     uIUtility.dtOrigin = uIUtility.dtList.Copy();
+                    txtSystemEffectiveDate.Text = dgvList.Rows[0].Cells["START_USE_DATE"].Value.ToString();
+
                     if (_REQ_TYPE == "1")
                     {
-                        dgvList.Rows[0].Cells["DISTINGUISH"].Value = "新規サプライヤ";
+                        dgvList.Rows[0].Cells["DISTINGUISH"].Value = "変更";
+                        txtItemChanged.Text = "新規サプライヤ";
 
-                    }else if (_REQ_TYPE == "9")
+                    }
+                    else if (_REQ_TYPE == "9")
                     {
-                        dgvList.Rows[0].Cells["DISTINGUISH"].Value = "解約";
+                        dgvList.Rows[0].Cells["DISTINGUISH"].Value = "現行";
+                        txtItemChanged.Text = "解約"; 
                     }
                     else
                     {
@@ -408,43 +416,54 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                         {
                             dgvList.Rows[0].Cells["DISTINGUISH"].Value = "現行";
                             dgvList.Rows[1].Cells["DISTINGUISH"].Value = "変更";
+                            txtSystemEffectiveDate.Text = dgvList.Rows[1].Cells["START_USE_DATE"].Value.ToString();
                         }
                     }
-                    #region Mail Sending Condition
 
-                    if (dgvList.Rows[0].Cells["TRANSACTION_TYPE"].Value.ToString() != "現行")
+                    #region Mail Sending Condition
+                    if (_REQ_TYPE == "1")
                     {
-                        if (_REQ_TYPE == "1")
+                        if (
+                            ((dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == "0") && dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == "0") &&
+                             (dgvList.Rows[0].Cells["TRANSACTION_TYPE"].Value.ToString().Trim() != "納代")
+                           )
                         {
-                            if ((dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == "0") && dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == "0")
-                            {
-                                dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
-                                dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 1;
-                            }
-                        }else if (_REQ_TYPE == "2")
+                            dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
+                            dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 1;
+                        }else if (
+                             ((dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == "0") && dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == "0") &&
+                             (dgvList.Rows[0].Cells["TRANSACTION_TYPE"].Value.ToString().Trim() == "納代")
+                             )
                         {
-                            if (
-                                (dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["MONTHLY_COST"].Value.ToString().Trim()) &&
-                                (dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["INITIAL_COST"].Value.ToString().Trim()) &&
-                                (!string.IsNullOrEmpty(txtItemChanged.Text.Trim()))
-                            )
-                            {
-                                dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
-                                dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 1;
-                            }else if (
-                                (dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["MONTHLY_COST"].Value.ToString().Trim()) &&
-                                (dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["INITIAL_COST"].Value.ToString().Trim()) &&
-                                (string.IsNullOrEmpty(txtItemChanged.Text.Trim())) && CheckForSupplierMail()
-                            )
-                            {
-                                dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
-                                dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 2;
-                            }
-                        }else if (_REQ_TYPE == "9")
+                            dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
+                            dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 2;
+                        }
+                    }
+                    else if (_REQ_TYPE == "2")
+                    {
+                        if (
+                            (dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["MONTHLY_COST"].Value.ToString().Trim()) &&
+                            (dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["INITIAL_COST"].Value.ToString().Trim()) &&
+                            (!string.IsNullOrEmpty(txtItemChanged.Text.Trim()))
+                        )
                         {
                             dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
                             dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 1;
                         }
+                        else if (
+                           (dgvList.Rows[0].Cells["MONTHLY_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["MONTHLY_COST"].Value.ToString().Trim()) &&
+                           (dgvList.Rows[0].Cells["INITIAL_COST"].Value.ToString().Trim() == dgvList.Rows[1].Cells["INITIAL_COST"].Value.ToString().Trim()) &&
+                           (string.IsNullOrEmpty(txtItemChanged.Text.Trim())) && CheckForSupplierMail()
+                       )
+                        {
+                            dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
+                            dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 2;
+                        }
+                    }
+                    else if (_REQ_TYPE == "9")
+                    {
+                        dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value = "*";
+                        dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value = 1;
                     }
                     #endregion
                 }
@@ -491,7 +510,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         #endregion
 
         #region DrawColumnHeaders
-
         private void ApplicationForTermination_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row)
         {
          
@@ -642,7 +660,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         {
             try
             {
-                string approvecancelstatus = "申請取消";
+                string approvecancelstatus = "申請中";
                 if (_REQ_STATUS != "2")
                 {
                     MetroMessageBox.Show(this, "\n" + JimugoMessages.E000ZZ036, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -687,19 +705,25 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             {
                 ChangeStatus(value, 0);
             }
+            ChangeBackGroundColor();//check for changes and change color
         }
         private void ChangeStatus(string value, int index)
         {
-            if (dgvList.Rows[index].Cells["UPDATE_MESSAGE"].Value.ToString().Contains(String.Format(JimugoMessages.I000ZZ016, "")))
+            string msg = dgvList.Rows[index].Cells["UPDATE_MESSAGE"].Value.ToString();
+            if (msg.Contains(String.Format(JimugoMessages.I000ZZ016, "")))
             {
                 this._REQ_STATUS = value;
                 this.REQ_STATUS_RAW = value;
                 dgvList.Rows[index].Cells["REQ_STATUS"].Value = value;
+                UPDATED_AT = Convert.ToString(dgvList.Rows[index].Cells["colUPDATED_AT"].Value);
+                UPDATED_AT_RAW = Convert.ToString(dgvList.Rows[index].Cells["colUPDATED_AT_RAW"].Value);
                 Dialog = DialogResult.OK;
+                MetroMessageBox.Show(this, "\n" + msg, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 Dialog = DialogResult.Cancel;
+                MetroMessageBox.Show(this, "\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
@@ -707,34 +731,35 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         #region ApproveDisapproveCheck
         private bool ApproveDisapproveCheck(bool approve)
         {
+            if (_REQ_STATUS != "1")
+            {
+                MetroMessageBox.Show(this, "\n" + JimugoMessages.E000ZZ035, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             if (approve)
             {
-                if (_REQ_STATUS =="1")
+                if (dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value.ToString() == "1" && dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value.ToString() == "*")
                 {
-                    MetroMessageBox.Show(this, "\n" + JimugoMessages.E000ZZ035, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-
-            if (dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value.ToString() =="*")
-            {
-                if (string.IsNullOrEmpty(txtRegDeadline.Text.Trim()) || string.IsNullOrEmpty(txtSystemEffectiveDate.Text.Trim())) //if both dates are empty
-                {
-                    MetroMessageBox.Show(this, "\n" + string.Format(JimugoMessages.E000ZZ051, "システム有効日、システム登録期限"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else
-                {
-                    if (!CheckUtility.SearchConditionCheck(this, txtSystemEffectiveDate.Text.Trim(), true, Utility.DataType.DATE, -1, -1)) {
-                        return false;
-                    }
-
-                    if (!CheckUtility.SearchConditionCheck(this, txtRegDeadline.Text.Trim(), true, Utility.DataType.TIMESTAMP, -1, -1))
+                    if (string.IsNullOrEmpty(txtRegDeadline.Text.Trim()) || string.IsNullOrEmpty(txtSystemEffectiveDate.Text.Trim())) //if both dates are empty
                     {
+                        MetroMessageBox.Show(this, "\n" + string.Format(JimugoMessages.E000ZZ051, "システム有効日、システム登録期限"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
+                    }
+                    else
+                    {
+                        if (!CheckUtility.SearchConditionCheck(this, "システム有効日", txtSystemEffectiveDate.Text.Trim(), true, Utility.DataType.DATE, -1, -1))
+                        {
+                            return false;
+                        }
+
+                        if (!CheckUtility.SearchConditionCheck(this, "システム登録期限", txtRegDeadline.Text.Trim(), true, Utility.DataType.TIMESTAMP, -1, -1))
+                        {
+                            return false;
+                        }
                     }
                 }
             }
+            
             return true;
         }
         #endregion
@@ -744,10 +769,9 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         {
             try
             {
-                string disapprovestatus = "否認";
                 if (ApproveDisapproveCheck(false))
                 {
-
+                    string disapprovestatus = "否認";
                     string List = Utility.DtToJSon(uIUtility.dtList, "LISTING");
                     frmApplicationApprovalController approval = new frmApplicationApprovalController();
                     DataSet ds = approval.Disapprove(txtCompanyNoBox.Text.Trim(), _REQ_TYPE, txtItemChanged.Text.Trim(), txtSystemEffectiveDate.Text.Trim(), txtRegDeadline.Text.Trim(), List);
@@ -757,7 +781,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                         ChangeStatus(disapprovestatus);
                         OpenOutlook(ds.Tables["MAIL"]);
                     }
-
                 }
             }
             catch (System.TimeoutException)
@@ -790,9 +813,9 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             mailItem.Body = Utility.GetParameterByName("TemplateString", dt);
             mailItem.CC = Utility.GetParameterByName("EmailAddressCC", dt);
 
-            mailItem.Importance = Microsoft.Office.Interop.Outlook.OlImportance.olImportanceHigh;
+            mailItem.Importance = Microsoft.Office.Interop.Outlook.OlImportance.olImportanceNormal;
 
-            mailItem.Display(true);
+            mailItem.Display(false);
             #endregion
         }
         #endregion
@@ -805,12 +828,30 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 string approvestatus = "承認済";
                 if (ApproveDisapproveCheck(true))
                 {
-                    var confirmResult = MetroMessageBox.Show(this, "\n" + JimugoMessages.I000ZZ019, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    bool mailsend = false;
+                    var confirmResult = new DialogResult();
+                    if (dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value.ToString() == "*")
+                    {
+                        confirmResult = MetroMessageBox.Show(this, "\n" + JimugoMessages.I000ZZ019, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        mailsend = true;
+                    }
+                    if (mailsend && dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value.ToString() == "2")
+                    {
+                        mailsend = false;
+                    }
+                    else
+                    {
+                        confirmResult = DialogResult.Yes;
+                    }
+                        
                     if (confirmResult == DialogResult.Yes)
                     {
                         //Show mail progress message
                         Thread mailthread = new Thread(new ThreadStart(ShowMailLoading));
-                        mailthread.Start();
+                        if (mailsend)
+                        {
+                            mailthread.Start();
+                        }     
 
                         string List = Utility.DtToJSon(uIUtility.dtList, "LISTING");
                         frmApplicationApprovalController approval = new frmApplicationApprovalController();
@@ -819,14 +860,20 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                         {
                             dgvList.DataSource = ds.Tables["LISTING"];
                             ChangeStatus(approvestatus);
-                        }
 
-                        if (dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value.ToString() == "*" && dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value.ToString() == "2")
+                            if (ds.Tables.Contains("MAIL"))
+                            {
+                                if (dgvList.Rows[0].Cells["MAIL_SENDING_TARGET_FLG"].Value.ToString() == "*" && dgvList.Rows[0].Cells["MAIL_DESTINATION"].Value.ToString() == "2")
+                                {
+                                    OpenOutlook(ds.Tables["MAIL"]);
+                                }
+                            }
+                        }
+                        
+                        if (mailsend)
                         {
-                            OpenOutlook(ds.Tables["MAIL"]);
+                            mailthread.Abort();
                         }
-                        mailthread.Abort();
-
                     }
                 }
             }

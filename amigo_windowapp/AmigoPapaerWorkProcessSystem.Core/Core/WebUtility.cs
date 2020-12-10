@@ -70,23 +70,20 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         public async static Task<bool> Download(string url, string destination)
         {
-            HttpClient client = makeAuthHeader();
-            var response = client.GetAsync(url);
-
             try
             {
-                //call methods
-                using (var fs = new FileStream(destination, FileMode.Create))
-                {
-                    await response.Result.Content.CopyToAsync(fs);
-                    return true;
-                }
+                HttpClient client = makeAuthHeader();
+                var response = client.GetAsync(url);
+                byte[] content = response.Result.Content.ReadAsByteArrayAsync().Result;
+                File.WriteAllBytes(destination, content);
+                return true;
             }
             catch (Exception ex)
             {
                 Utility.WriteErrorLog("Download Failed", ex, true);
                 return false;
             }
+
 
         }
 
@@ -133,6 +130,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
             return dt;
         }
+
 
         public static DataTable Post(string url, DataTable list)
         {
@@ -212,7 +210,6 @@ namespace AmigoPaperWorkProcessSystem.Core
 
             return dt;
         }
-
         public static DataTable Post(string url, string COMPANY_NAME, string COMPANY_NO_BOX, string REQ_SEQ, string EDI_ACCOUNT)
         {
 
@@ -248,6 +245,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         public static DataTable Post(string url, string json)
         {
+
             //encode content
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -272,7 +270,6 @@ namespace AmigoPaperWorkProcessSystem.Core
 
             return dt;
         }
-
         public static DataSet Post(string url)
         {
             HttpClient client = makeAuthHeader();

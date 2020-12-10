@@ -28,7 +28,7 @@ namespace DAL_AmigoProcess.DAL
                                   AND TYPE=4";
         #region Application Approval
         string strGetServiceDeskPopUp = @"SELECT 
-                                        REQ_ADDRESS_SEQ NO,
+                                        ROW_NUMBER() OVER (ORDER BY CONTACT_NAME, MAIL_ADDRESS,PHONE_NUMBER) NO,
                                         CONTACT_NAME,
                                         MAIL_ADDRESS,
                                         PHONE_NUMBER
@@ -38,7 +38,7 @@ namespace DAL_AmigoProcess.DAL
                                         AND TYPE = 3
                                         ORDER BY CONTACT_NAME, MAIL_ADDRESS,PHONE_NUMBER";
         string strGetErrorNotiPopUp = @"SELECT
-                                    REQ_ADDRESS_SEQ NO,
+                                    ROW_NUMBER() OVER (ORDER BY MAIL_ADDRESS) NO,
                                     MAIL_ADDRESS
                                     FROM REQ_ADDRESS
                                     WHERE COMPANY_NO_BOX = @COMPANY_NO_BOX
@@ -48,7 +48,7 @@ namespace DAL_AmigoProcess.DAL
                                     MAIL_ADDRESS";
         string strGetUsageChargeBreakDownPopUp = @"SELECT 
                                                 ROW_NUMBER() OVER (ORDER BY DISPLAY_ORDER) NO,
-                                                TBL.CONTRACT_CODE, 
+                                                TBL.CONTRACT_NAME, 
                                                 SUM(TBL.INITIAL_UNIT_PRICE) INITIAL_UNIT_PRICE,
                                                 SUM(TBL.INITIAL_QUANTITY) INITIAL_QUANTITY,
                                                 SUM(TBL.INITIAL_AMOUNT) INITIAL_AMOUNT,
@@ -109,7 +109,8 @@ namespace DAL_AmigoProcess.DAL
                                                 WHERE ADOPTION_DATE <= GETDATE()) USAGE_FEE_MASTER
                                                 ON REQ_USAGE_FEE.CONTRACT_CODE = USAGE_FEE_MASTER.CONTRACT_CODE
                                                 WHERE COMPANY_NO_BOX=@COMPANY_NO_BOX
-                                                AND REQ_SEQ = @REQ_SEQ) TBL
+                                                AND REQ_SEQ = @REQ_SEQ
+                                                AND num = 1) TBL
                                                 GROUP BY TBL.CONTRACT_CODE, TBL.CONTRACT_NAME, TBL.DISPLAY_ORDER";
         #endregion
         #endregion

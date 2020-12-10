@@ -51,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Newtonsoft.Json.DLL</HintPath>
     </Reference>
+    <Reference Include="NodaTime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.2.0.0\lib\net45\NodaTime.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.License, Version=1.3.8.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.XLS.10.10.0\lib\net40\Spire.License.dll</HintPath>
     </Reference>
@@ -84,13 +87,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Jimugo\MonthlySaleComparisonList.asmx" />
     <Content Include="Jimugo\opt_ApplicationApproval.asmx" />
     <Content Include="Jimugo\opt_ClientCertificateList.asmx" />
     <Content Include="Jimugo\opt_CompanyCodeList.asmx" />
     <Content Include="Jimugo\opt_CustomerMasterMaintenance.asmx" />
+    <Content Include="Jimugo\opt_FileServices.asmx" />
     <Content Include="Jimugo\opt_InvoiceList.asmx" />
     <Content Include="Jimugo\opt_IssueQuotation.asmx" />
     <Content Include="Jimugo\opt_jimugo.asmx" />
+    <Content Include="Jimugo\opt_MonthlySaleAggregationList.asmx" />
     <Content Include="Jimugo\opt_PurchaseOrder.asmx" />
     <Content Include="Jimugo\opt_RegisterCompleteNotificationSending.asmx" />
     <Content Include="Jimugo\opt_UsageApplicationList.asmx" />
@@ -135,15 +141,22 @@
     <Compile Include="Controller\Jimugo\ControllerCompanyCodeList.cs" />
     <Compile Include="Controller\Jimugo\ControllerCustomerMasterMaintenance.cs" />
     <Compile Include="Controller\Jimugo\ControllerEDICandicate.cs" />
+    <Compile Include="Controller\Jimugo\ControllerFiles.cs" />
     <Compile Include="Controller\Jimugo\ControllerInvoiceList.cs" />
     <Compile Include="Controller\Jimugo\ControllerIssueQuotation.cs" />
     <Compile Include="Controller\Jimugo\ControllerJimugo.cs" />
     <Compile Include="Controller\Jimugo\ControllerJimugoMenu.cs" />
+    <Compile Include="Controller\Jimugo\ControllerMonthlySaleAggregation.cs" />
+    <Compile Include="Controller\Jimugo\ControllerMonthlySaleComparisonList.cs" />
     <Compile Include="Controller\Jimugo\ControllerPurchaseOrder.cs" />
     <Compile Include="Controller\Jimugo\ControllerRegisterCompleteNotificationSending.cs" />
     <Compile Include="Controller\Jimugo\ControllerUsageApplicationList.cs" />
     <Compile Include="Controller\Jimugo\ControllerUsageChargeMaster.cs" />
     <Compile Include="Controller\Jimugo\ControllerUsageInfoRegistrationList.cs" />
+    <Compile Include="Jimugo\MonthlySaleComparisonList.asmx.cs">
+      <DependentUpon>MonthlySaleComparisonList.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Jimugo\opt_ApplicationApproval.asmx.cs">
       <DependentUpon>opt_ApplicationApproval.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -160,6 +173,10 @@
       <DependentUpon>opt_CustomerMasterMaintenance.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Jimugo\opt_FileServices.asmx.cs">
+      <DependentUpon>opt_FileServices.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Jimugo\opt_InvoiceList.asmx.cs">
       <DependentUpon>opt_InvoiceList.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -170,6 +187,10 @@
     </Compile>
     <Compile Include="Jimugo\opt_jimugo.asmx.cs">
       <DependentUpon>opt_jimugo.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Jimugo\opt_MonthlySaleAggregationList.asmx.cs">
+      <DependentUpon>opt_MonthlySaleAggregationList.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Jimugo\opt_PurchaseOrder.asmx.cs">
@@ -280,6 +301,9 @@
     <Content Include="Templates\Excel\InitialQuotation_Template.xlsx" />
     <Content Include="Templates\Excel\MonthlyQuotation_Template.xlsx" />
     <Content Include="Templates\Excel\PurchaseOrder_Template.xlsx" />
+    <Content Include="Storage\PDF\ClientCertificate\Temp\doc_sample.pdf" />
+    <Content Include="Storage\PDF\ClientCertificate\2015\client_sample 2.pdf" />
+    <Content Include="Storage\PDF\ClientCertificate\2015\client_sample.pdf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

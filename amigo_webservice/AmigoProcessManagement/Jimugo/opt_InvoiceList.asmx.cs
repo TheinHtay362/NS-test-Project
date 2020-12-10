@@ -31,7 +31,7 @@ namespace AmigoProcessManagement.Jimugo
 
             Response auth = Controller.ControllerCheckIn.CheckLogIn_forProcess(authHeader);
 
-            if (auth.Message == "")
+            if (auth.Message != "")
             {
                 Context.Response.Clear();
                 Context.Response.ContentType = "application/json";
@@ -63,7 +63,7 @@ namespace AmigoProcessManagement.Jimugo
 
             Response auth = Controller.ControllerCheckIn.CheckLogIn_forProcess(authHeader);
 
-            if (auth.Message == "")
+            if (auth.Message != "")
             {
                 Context.Response.Clear();
                 Context.Response.ContentType = "application/json";
@@ -95,7 +95,7 @@ namespace AmigoProcessManagement.Jimugo
 
             Response auth = Controller.ControllerCheckIn.CheckLogIn_forProcess(authHeader);
 
-            if (auth.Message == "") // changeCondition
+            if (auth.Message != "") // changeCondition
             {
                 Context.Response.Clear();
                 Context.Response.ContentType = "application/json";

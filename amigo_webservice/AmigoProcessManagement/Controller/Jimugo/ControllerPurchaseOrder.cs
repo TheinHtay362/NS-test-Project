@@ -37,6 +37,8 @@ namespace AmigoProcessManagement.Controller
             BodyMessage = new DataTable();
             BodyMessage.Columns.Add("Message");
             BodyMessage.Columns.Add("Error Message");
+            BodyMessage.Columns.Add("UPDATED_AT");
+            BodyMessage.Columns.Add("UPDATED_AT_RAW");
         }
 
         public ControllerPurchaseOrder(string authHeader) : this()
@@ -96,7 +98,7 @@ namespace AmigoProcessManagement.Controller
             oREQUEST_DETAIL.SYSTEM_EFFECTIVE_DATE = Utility_Component.dtColumnToDateTime(GetParameterByKey("SYSTEM_EFFECTIVE_DATE"));
             oREQUEST_DETAIL.SYSTEM_REGIST_DEADLINE = Utility_Component.dtColumnToDateTime(GetParameterByKey("SYSTEM_REGISTER_DEADLINE"));
             oREQUEST_DETAIL.COMPANY_NO_BOX = GetParameterByKey("COMPANY_NO_BOX");
-            oREQUEST_DETAIL.REQ_SEQ = Utility_Component.dtColumnToInt(GetParameterByKey("SYSTEM_REGISTER_DEADLINE"));
+            oREQUEST_DETAIL.REQ_SEQ = Utility_Component.dtColumnToInt(GetParameterByKey("REQ_SEQ"));
             return oREQUEST_DETAIL;
         }
         #endregion
@@ -167,7 +169,7 @@ namespace AmigoProcessManagement.Controller
         {
             try
             {
-                file.SaveAs(HttpContext.Current.Server.MapPath("~/" + destination) + "/" + filename);
+                file.SaveAs(destination + "/" + filename);
                 msg = "";
             }
             catch (Exception ex)
@@ -192,6 +194,7 @@ namespace AmigoProcessManagement.Controller
                     //cast to REQUEST DETAIL OBJECT
                     BOL_REQUEST_DETAIL oREQUEST_DETAIL = new BOL_REQUEST_DETAIL();
                     oREQUEST_DETAIL = Cast_REQUEST_DETAIL();
+                    oREQUEST_DETAIL.SYSTEM_SETTING_STATUS = 1;
 
                     REQUEST_DETAIL DAL_REQUEST_DETAIL = new REQUEST_DETAIL(con);
                     DAL_REQUEST_DETAIL.Update(oREQUEST_DETAIL, CURRENT_DATETIME, CURRENT_USER, out msg);
@@ -206,7 +209,6 @@ namespace AmigoProcessManagement.Controller
 
                     #region Insert CUSTOMER MASTER
                     //COUNT IN CUSTOMER MASTER
-                    //string UPDATE_CONTENT = GetParameterByKey("UPDATE_CONTENT");
                     string COMPANY_NAME = GetParameterByKey("COMPANY_NAME");
                     string COMPANY_NO_BOX = GetParameterByKey("COMPANY_NO_BOX");
                     string CONTRACT_PLAN = GetParameterByKey("CONTRACT_PLAN");
@@ -216,19 +218,20 @@ namespace AmigoProcessManagement.Controller
                     DateTime START_USE_DATE = DateTime.Parse(GetParameterByKey("START_USE_DATE"));
 
                     CUSTOMER_MASTER DAL_CUSTOMER_MASTER = new CUSTOMER_MASTER(con);
-                    int customer_count = DAL_CUSTOMER_MASTER.getCustomerCountByKeys(COMPANY_NO_BOX, TRANSACTION_TYPE, START_USE_DATE, out msg);
+                    int customer_count = DAL_CUSTOMER_MASTER.getCustomerCountByKeys(COMPANY_NO_BOX, TRANSACTION_TYPE, START_USE_DATE, REQ_SEQ, out msg);
 
                     if (customer_count == 0) //if customer not found
                     {
+                        DataTable LatestCustomer = new DataTable();
                         BOL_CUSTOMER_MASTER oCUSTOMER_MASTER = new BOL_CUSTOMER_MASTER();
 
-                        if (REQ_SEQ == 2)
+                        if (REQ_TYPE == 2)
                         {
-                            DataTable CustomerList = DAL_CUSTOMER_MASTER.GetTopCustomerByKeys(COMPANY_NO_BOX, TRANSACTION_TYPE, START_USE_DATE, out msg);
+                            LatestCustomer = DAL_CUSTOMER_MASTER.GetTopCustomerByKeys(COMPANY_NO_BOX, TRANSACTION_TYPE, START_USE_DATE, out msg);
 
-                            if (CustomerList.Rows.Count > 0)
+                            if (LatestCustomer.Rows.Count > 0)
                             {
-                                oCUSTOMER_MASTER = Cast_CUSTOMER_MASTER(CustomerList.Rows[0]);
+                                oCUSTOMER_MASTER = Cast_CUSTOMER_MASTER(LatestCustomer.Rows[0]);
                                 oCUSTOMER_MASTER.UPDATE_CONTENT = 3;
                             }
                             else //Need another message?
@@ -238,12 +241,9 @@ namespace AmigoProcessManagement.Controller
                             }
                             
                         }
-                        if (REQ_SEQ == 1) //if REQ_SEQ == 1
+                        if (REQ_TYPE == 1) 
                         {
-                            if (oCUSTOMER_MASTER.UPDATE_CONTENT != 1)
-                            {
-                                oCUSTOMER_MASTER.UPDATE_CONTENT = 3;
-                            }
+                            oCUSTOMER_MASTER.UPDATE_CONTENT = 1;
                         }
                         //insert info form screen
                         oCUSTOMER_MASTER.COMPANY_NO_BOX = COMPANY_NO_BOX;
@@ -260,40 +260,33 @@ namespace AmigoProcessManagement.Controller
                             return ResponseUtility.ReturnFailMessage(response, timer, BodyMessage);
                         }
 
-                    }
-                    #endregion
+                        #region Insert Browsing supplier CUSTOMER MASTER
+                        BOL_CUSTOMER_MASTER oBROWSING_SUPPLIER = new BOL_CUSTOMER_MASTER();
+                       
 
-                    #region Insert Browsing supplier CUSTOMER MASTER
-                    DataTable LatestCustomer = DAL_CUSTOMER_MASTER.GetTopCustomerByKeys(COMPANY_NO_BOX, TRANSACTION_TYPE, START_USE_DATE, out msg);
-                    BOL_CUSTOMER_MASTER oBROWSING_SUPPLIER = new BOL_CUSTOMER_MASTER();
-                    oBROWSING_SUPPLIER = Cast_CUSTOMER_MASTER(LatestCustomer.Rows[0]);
-
-                    if (CONTRACT_PLAN == "PRODUCT" && REQ_TYPE == 2 && (!Utility_Component.IsYearMonthEqual(START_USE_DATE, oBROWSING_SUPPLIER.EFFECTIVE_DATE)))
-                    {
-
-                        oBROWSING_SUPPLIER.COMPANY_NO_BOX = COMPANY_NO_BOX;
-                        oBROWSING_SUPPLIER.TRANSACTION_TYPE = TRANSACTION_TYPE;
-                        DateTime FINAL_DATE;
-                        if (Utility_Component.IsFirstYearMonthGreater(oBROWSING_SUPPLIER.EFFECTIVE_DATE, START_USE_DATE))
+                        if (CONTRACT_PLAN == "PRODUCT" && REQ_TYPE == 2)
                         {
-                            FINAL_DATE = Convert.ToDateTime(START_USE_DATE.Year + "/" + oBROWSING_SUPPLIER.EFFECTIVE_DATE.Month + "/" + oBROWSING_SUPPLIER.EFFECTIVE_DATE.Date);
-                        }
-                        else
-                        {
-                            FINAL_DATE = Convert.ToDateTime((START_USE_DATE.Year +1)+ "/" + oBROWSING_SUPPLIER.EFFECTIVE_DATE.Month + "/" + oBROWSING_SUPPLIER.EFFECTIVE_DATE.Date);
-                        }
-                        oBROWSING_SUPPLIER.EFFECTIVE_DATE = FINAL_DATE;
-                        oBROWSING_SUPPLIER.UPDATE_CONTENT = 3;
+                            DateTime NEW_EFFECTIVE_DATE = Convert.ToDateTime(DAL_CUSTOMER_MASTER.GetEffectiveDateForNewApplyingTime(oREQUEST_DETAIL.COMPANY_NO_BOX, TRANSACTION_TYPE, START_USE_DATE, out msg));
+                            if ((NEW_EFFECTIVE_DATE.Month + NEW_EFFECTIVE_DATE.Day) != (START_USE_DATE.Month + START_USE_DATE.Day))
+                            {
+                                oBROWSING_SUPPLIER = Cast_CUSTOMER_MASTER(LatestCustomer.Rows[0]);
+                                oBROWSING_SUPPLIER.COMPANY_NO_BOX = COMPANY_NO_BOX;
+                                oBROWSING_SUPPLIER.TRANSACTION_TYPE = TRANSACTION_TYPE;
+                                oBROWSING_SUPPLIER.EFFECTIVE_DATE = Convert.ToDateTime(START_USE_DATE.Year + "/" + NEW_EFFECTIVE_DATE.Month + "/" + NEW_EFFECTIVE_DATE.Day);
+                                oBROWSING_SUPPLIER.UPDATE_CONTENT = 3;
+                                oBROWSING_SUPPLIER.REQ_SEQ = REQ_SEQ;
+                                DAL_CUSTOMER_MASTER.Insert(oBROWSING_SUPPLIER, CURRENT_DATETIME, CURRENT_USER, out msg);
+                            }
 
-                        DAL_CUSTOMER_MASTER.Insert(oBROWSING_SUPPLIER, CURRENT_DATETIME, CURRENT_USER, out msg);
+                            //rollback if not success
+                            if (!String.IsNullOrEmpty(msg))
+                            {
+                                dbTxn.Dispose();
+                                return ResponseUtility.ReturnFailMessage(response, timer, BodyMessage);
+                            }
 
-                        //rollback if not success
-                        if (!String.IsNullOrEmpty(msg))
-                        {
-                            dbTxn.Dispose();
-                            return ResponseUtility.ReturnFailMessage(response, timer, BodyMessage);
                         }
-
+                        #endregion
                     }
                     #endregion
 
@@ -316,7 +309,7 @@ namespace AmigoProcessManagement.Controller
 
                     oREPORT_HISTORY.REPORT_HISTORY_SEQ = HISTORY_SEQ;
                     oREPORT_HISTORY.OUTPUT_AT = Utility_Component.dtColumnToDateTime(DateTime.Now.ToString());
-                    oREPORT_HISTORY.OUTPUT_FILE = COMPANY_NO_BOX + "-1-" + REQ_SEQ + "注文書" + COMPANY_NAME + "様.pdf";
+                    oREPORT_HISTORY.OUTPUT_FILE = COMPANY_NO_BOX + "-1-" + REQ_SEQ + "_注文書_" + COMPANY_NAME + "様.pdf";
                     oREPORT_HISTORY.EMAIL_ADDRESS = null;
 
                     DAL_REPORT_HISTORY.Insert(oREPORT_HISTORY, CURRENT_DATETIME, CURRENT_USER, out msg);
@@ -361,14 +354,14 @@ namespace AmigoProcessManagement.Controller
                     }
                     #endregion
 
-                   
-
                     //all process success
                     dbTxn.Complete();
                     response.Status = 1;
                     response.Message = string.Format(Utility.Messages.Jimugo.I000ZZ016, "注文登録");
                     DataRow dr = BodyMessage.NewRow();
                     dr["Message"] = response.Message;
+                    dr["UPDATED_AT"] = UPDATED_AT_DATETIME;
+                    dr["UPDATED_AT_RAW"] = CURRENT_DATETIME;
                     BodyMessage.Rows.Add(dr);
                     response.Data = Utility_Component.DtToJSon(BodyMessage, "Message");
                     timer.Stop();

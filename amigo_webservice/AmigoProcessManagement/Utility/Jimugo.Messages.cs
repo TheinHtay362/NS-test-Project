@@ -1090,31 +1090,14 @@ namespace AmigoProcessManagement.Utility
                     return Properties.Jimugo_Messages.E000WB033;
                 }
             }
-            public static string E000WC004
+
+            public static string I000WC001
             {
                 get
                 {
                     //return message
 
-                    return Properties.Jimugo_Messages.E000WC004;
-                }
-            }
-            public static string E000WC002
-            {
-                get
-                {
-                    //return message
-
-                    return Properties.Jimugo_Messages.E000WC002;
-                }
-            }
-            public static string I000WC002
-            {
-                get
-                {
-                    //return message
-
-                    return Properties.Jimugo_Messages.I000WC002;
+                    return Properties.Jimugo_Messages.I000WC001;
                 }
             }
             public static string E000WC003
@@ -1126,13 +1109,31 @@ namespace AmigoProcessManagement.Utility
                     return Properties.Jimugo_Messages.E000WC003;
                 }
             }
-            public static string I000WC001
+            public static string I000WC002
             {
                 get
                 {
                     //return message
 
-                    return Properties.Jimugo_Messages.I000WC001;
+                    return Properties.Jimugo_Messages.I000WC002;
+                }
+            }
+            public static string E000WC002
+            {
+                get
+                {
+                    //return message
+
+                    return Properties.Jimugo_Messages.E000WC002;
+                }
+            }
+            public static string E000WC004
+            {
+                get
+                {
+                    //return message
+
+                    return Properties.Jimugo_Messages.E000WC004;
                 }
             }
             

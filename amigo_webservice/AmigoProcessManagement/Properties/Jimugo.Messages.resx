@@ -263,7 +263,7 @@
   </data>
   <data name="E000WC003" xml:space="preserve">
     <value>請求データの削除に失敗しました。処理を終了します。既存の請求データは元の状態で残っています。</value>
-    <comment>Failed to delete billing data. The process ends. \ nThe existing billing data remains in its original state.</comment>
+    <comment>Failed to delete billing data. The process ends. The existing billing data remains in its original state.</comment>
   </data>
   <data name="E000WC004" xml:space="preserve">
     <value>請求データの更新に失敗しました。処理を終了します。既存の請求データは更新前の状態で残っています。</value>

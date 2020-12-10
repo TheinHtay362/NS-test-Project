@@ -30,10 +30,11 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvCurrent = new System.Windows.Forms.DataGridView();
             this.NO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MAIL_ADDRESS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,14 +48,16 @@
             // dgvCurrent
             // 
             this.dgvCurrent.AllowUserToAddRows = false;
-            this.dgvCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCurrent.ColumnHeadersHeight = 20;
+            this.dgvCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NO,
             this.MAIL_ADDRESS});
-            this.dgvCurrent.Location = new System.Drawing.Point(32, 67);
+            this.dgvCurrent.EnableHeadersVisualStyles = false;
+            this.dgvCurrent.Location = new System.Drawing.Point(28, 32);
             this.dgvCurrent.Name = "dgvCurrent";
             this.dgvCurrent.RowHeadersVisible = false;
-            this.dgvCurrent.Size = new System.Drawing.Size(450, 260);
+            this.dgvCurrent.Size = new System.Drawing.Size(450, 297);
             this.dgvCurrent.TabIndex = 12;
             // 
             // NO
@@ -75,21 +78,11 @@
             this.MAIL_ADDRESS.Name = "MAIL_ADDRESS";
             this.MAIL_ADDRESS.ReadOnly = true;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Meiryo UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "エラー通知";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(506, 49);
+            this.label2.Location = new System.Drawing.Point(504, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 15);
             this.label2.TabIndex = 10;
@@ -98,7 +91,7 @@
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnOK.Location = new System.Drawing.Point(418, 350);
+            this.btnOK.Location = new System.Drawing.Point(418, 344);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(150, 30);
             this.btnOK.TabIndex = 9;
@@ -110,7 +103,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(29, 48);
+            this.label1.Location = new System.Drawing.Point(25, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 15);
             this.label1.TabIndex = 8;
@@ -119,19 +112,23 @@
             // dgvChange
             // 
             this.dgvChange.AllowUserToAddRows = false;
-            this.dgvChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvChange.ColumnHeadersHeight = 20;
+            this.dgvChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvChange.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn4});
-            this.dgvChange.Location = new System.Drawing.Point(509, 67);
+            this.dgvChange.EnableHeadersVisualStyles = false;
+            this.dgvChange.Location = new System.Drawing.Point(507, 32);
             this.dgvChange.Name = "dgvChange";
             this.dgvChange.RowHeadersVisible = false;
-            this.dgvChange.Size = new System.Drawing.Size(450, 260);
+            this.dgvChange.Size = new System.Drawing.Size(450, 297);
             this.dgvChange.TabIndex = 13;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "NO";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn2.HeaderText = "No";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -139,6 +136,8 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "MAIL_ADDRESS";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn4.HeaderText = "メールアドレス";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -150,12 +149,18 @@
             this.ClientSize = new System.Drawing.Size(984, 390);
             this.Controls.Add(this.dgvChange);
             this.Controls.Add(this.dgvCurrent);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Meiryo UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1000, 429);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1000, 429);
             this.Name = "frmErrrorNotification";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "エラー通知";
             this.Load += new System.EventHandler(this.FrmErrrorNotification_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChange)).EndInit();
@@ -167,7 +172,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvCurrent;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label1;

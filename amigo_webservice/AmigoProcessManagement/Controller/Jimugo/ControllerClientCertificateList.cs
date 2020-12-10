@@ -279,6 +279,7 @@ namespace AmigoProcessManagement.Controller
         }
         #endregion
 
+
         #region Send_Mail
         public MetaResponse SendMail(string ClientCertificateList, string authHeader)
         {
@@ -322,8 +323,8 @@ namespace AmigoProcessManagement.Controller
 
                             if (String.IsNullOrEmpty(strMsg))
                             {
-                                //already use in another process
-                                ResponseUtility.ReturnMailSuccessMessage(dr);
+                                //success
+                                ResponseUtility.ReturnMailSuccessMessage(dr,UPDATED_AT_DATETIME, CURRENT_DATETIME, CURRENT_USER);
                             }
                             else
                             {

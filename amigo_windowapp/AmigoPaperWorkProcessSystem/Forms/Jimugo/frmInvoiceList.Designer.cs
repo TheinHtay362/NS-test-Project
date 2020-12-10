@@ -59,12 +59,8 @@
             this.cboLimit = new System.Windows.Forms.ComboBox();
             this.pTitle = new System.Windows.Forms.Panel();
             this.lblMenu = new System.Windows.Forms.Label();
-            this.lblClear = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.txtBilling_Date = new System.Windows.Forms.TextBox();
-            this.displayItemLabel2 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coLCOMPANY_NO_BOX = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colCOMPANY_NAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,6 +79,9 @@
             this.Supplier_Monthly_usage_fee_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Production_information_browsing_Initial_expense_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.View_production_information_Annual_usage_fee_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtBilling_Date = new System.Windows.Forms.TextBox();
+            this.lblDate = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.panel1.SuspendLayout();
             this.pTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
@@ -114,7 +113,7 @@
             this.lblTotalRecords.AutoSize = true;
             this.lblTotalRecords.Location = new System.Drawing.Point(3, 11);
             this.lblTotalRecords.Name = "lblTotalRecords";
-            this.lblTotalRecords.Size = new System.Drawing.Size(0, 17);
+            this.lblTotalRecords.Size = new System.Drawing.Size(0, 18);
             this.lblTotalRecords.TabIndex = 36;
             // 
             // btnCheck
@@ -149,7 +148,7 @@
             this.lblTotalPages.AutoSize = true;
             this.lblTotalPages.Location = new System.Drawing.Point(1092, 11);
             this.lblTotalPages.Name = "lblTotalPages";
-            this.lblTotalPages.Size = new System.Drawing.Size(16, 17);
+            this.lblTotalPages.Size = new System.Drawing.Size(17, 18);
             this.lblTotalPages.TabIndex = 31;
             this.lblTotalPages.Text = "0";
             // 
@@ -159,7 +158,7 @@
             this.lblcurrentPage.AutoSize = true;
             this.lblcurrentPage.Location = new System.Drawing.Point(997, 11);
             this.lblcurrentPage.Name = "lblcurrentPage";
-            this.lblcurrentPage.Size = new System.Drawing.Size(16, 17);
+            this.lblcurrentPage.Size = new System.Drawing.Size(17, 18);
             this.lblcurrentPage.TabIndex = 30;
             this.lblcurrentPage.Text = "0";
             // 
@@ -182,7 +181,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(1044, 11);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(23, 17);
+            this.label6.Size = new System.Drawing.Size(24, 18);
             this.label6.TabIndex = 25;
             this.label6.Text = "Of";
             // 
@@ -256,6 +255,7 @@
             this.btnDifferent.TabIndex = 115;
             this.btnDifferent.Text = "差異";
             this.btnDifferent.UseVisualStyleBackColor = true;
+            this.btnDifferent.Click += new System.EventHandler(this.BtnDifferent_Click);
             // 
             // cboLimit
             // 
@@ -264,7 +264,7 @@
             this.cboLimit.Location = new System.Drawing.Point(92, 166);
             this.cboLimit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboLimit.Name = "cboLimit";
-            this.cboLimit.Size = new System.Drawing.Size(139, 24);
+            this.cboLimit.Size = new System.Drawing.Size(139, 26);
             this.cboLimit.TabIndex = 121;
             // 
             // pTitle
@@ -287,18 +287,6 @@
             this.lblMenu.Size = new System.Drawing.Size(160, 27);
             this.lblMenu.TabIndex = 0;
             this.lblMenu.Text = "Jimugo - Menu";
-            // 
-            // lblClear
-            // 
-            this.lblClear.AutoSize = true;
-            this.lblClear.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblClear.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblClear.Location = new System.Drawing.Point(240, 171);
-            this.lblClear.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblClear.Name = "lblClear";
-            this.lblClear.Size = new System.Drawing.Size(104, 17);
-            this.lblClear.TabIndex = 123;
-            this.lblClear.Text = "検索条件のクリア";
             // 
             // btnSearch
             // 
@@ -351,34 +339,6 @@
             this.dgvList.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.DgvList_ColumnWidthChanged);
             this.dgvList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DgvList_Scroll);
             this.dgvList.Paint += new System.Windows.Forms.PaintEventHandler(this.DgvList_Paint);
-            // 
-            // txtBilling_Date
-            // 
-            this.txtBilling_Date.Location = new System.Drawing.Point(102, 127);
-            this.txtBilling_Date.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtBilling_Date.Name = "txtBilling_Date";
-            this.txtBilling_Date.Size = new System.Drawing.Size(139, 22);
-            this.txtBilling_Date.TabIndex = 125;
-            // 
-            // displayItemLabel2
-            // 
-            this.displayItemLabel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel2.LabelText = "請求年月";
-            this.displayItemLabel2.Location = new System.Drawing.Point(18, 127);
-            this.displayItemLabel2.Margin = new System.Windows.Forms.Padding(4);
-            this.displayItemLabel2.Name = "displayItemLabel2";
-            this.displayItemLabel2.Size = new System.Drawing.Size(84, 22);
-            this.displayItemLabel2.TabIndex = 130;
-            // 
-            // displayItemLabel1
-            // 
-            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel1.LabelText = "表示件数";
-            this.displayItemLabel1.Location = new System.Drawing.Point(17, 166);
-            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4);
-            this.displayItemLabel1.Name = "displayItemLabel1";
-            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
-            this.displayItemLabel1.TabIndex = 129;
             // 
             // colNo
             // 
@@ -550,12 +510,40 @@
             this.View_production_information_Annual_usage_fee_REQ_SEQ.Name = "View_production_information_Annual_usage_fee_REQ_SEQ";
             this.View_production_information_Annual_usage_fee_REQ_SEQ.Visible = false;
             // 
+            // txtBilling_Date
+            // 
+            this.txtBilling_Date.Location = new System.Drawing.Point(102, 127);
+            this.txtBilling_Date.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtBilling_Date.Name = "txtBilling_Date";
+            this.txtBilling_Date.Size = new System.Drawing.Size(139, 25);
+            this.txtBilling_Date.TabIndex = 125;
+            // 
+            // lblDate
+            // 
+            this.lblDate.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblDate.LabelText = "請求年月";
+            this.lblDate.Location = new System.Drawing.Point(18, 126);
+            this.lblDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(84, 22);
+            this.lblDate.TabIndex = 130;
+            // 
+            // displayItemLabel1
+            // 
+            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = "表示件数";
+            this.displayItemLabel1.Location = new System.Drawing.Point(17, 166);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.displayItemLabel1.Name = "displayItemLabel1";
+            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
+            this.displayItemLabel1.TabIndex = 129;
+            // 
             // frmInvoiceList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 652);
-            this.Controls.Add(this.displayItemLabel2);
+            this.Controls.Add(this.lblDate);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCreateCSVFile);
             this.Controls.Add(this.btnCreateInvoiceData);
@@ -563,10 +551,10 @@
             this.Controls.Add(this.displayItemLabel1);
             this.Controls.Add(this.cboLimit);
             this.Controls.Add(this.pTitle);
-            this.Controls.Add(this.lblClear);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.dgvList);
             this.Controls.Add(this.txtBilling_Date);
+            this.Font = new System.Drawing.Font("Meiryo UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmInvoiceList";
             this.Text = "frmInvoiceList";
             this.Load += new System.EventHandler(this.FrmInvoiceList_Load);
@@ -599,11 +587,10 @@
         private System.Windows.Forms.ComboBox cboLimit;
         private System.Windows.Forms.Panel pTitle;
         private System.Windows.Forms.Label lblMenu;
-        private System.Windows.Forms.Label lblClear;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvList;
         private System.Windows.Forms.TextBox txtBilling_Date;
-        private UserControls.DisplayItemLabel displayItemLabel2;
+        private UserControls.DisplayItemLabel lblDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
         private System.Windows.Forms.DataGridViewLinkColumn coLCOMPANY_NO_BOX;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCOMPANY_NAME;

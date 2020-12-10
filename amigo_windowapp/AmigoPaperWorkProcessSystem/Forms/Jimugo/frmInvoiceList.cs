@@ -170,6 +170,13 @@ namespace AmigoPaperWorkProcessSystem.Forms
         {
             InitializeComponent();
         }
+
+        public frmInvoiceList(string programID, string programName) : this()
+        {
+            this.programID = programID;
+            this.programName = programName;
+        }
+
         #endregion
 
         #region AlignBottomHeaders
@@ -185,9 +192,10 @@ namespace AmigoPaperWorkProcessSystem.Forms
         #region FormLoad
         private void FrmInvoiceList_Load(object sender, EventArgs e)
         {
-            
+
             //set title
             lblMenu.Text = programName;
+            this.Text = "[" + programID + "] " + programName;
 
             //utility
             uIUtility = new UIUtility(dgvList, null, null, null, dummyColumns);
@@ -432,6 +440,10 @@ namespace AmigoPaperWorkProcessSystem.Forms
         {
             try
             {
+                if (!CheckUtility.SearchConditionCheck(this, lblDate.LabelText, txtBilling_Date.Text.Trim(), true, Utility.DataType.YEARMONTH, 7, 6))
+                {
+                    return;
+                }
                 //assign search keywords
                 DateTime YEAR_MONTH = Convert.ToDateTime(txtBilling_Date.Text);
                 String strYearMonth = YEAR_MONTH.ToString("yyyyMM");
@@ -528,6 +540,10 @@ namespace AmigoPaperWorkProcessSystem.Forms
         #region CreateCSVButton
         private void BtnCreateCSVFile_Click(object sender, EventArgs e)
         {
+            if (!CheckUtility.SearchConditionCheck(this, lblDate.LabelText, txtBilling_Date.Text.Trim(), true, Utility.DataType.YEARMONTH, 7, 6))
+            {
+                return;
+            }
             try
             {
                 SaveFileDialog saveCSV = new SaveFileDialog();
@@ -586,6 +602,10 @@ namespace AmigoPaperWorkProcessSystem.Forms
         #region ButtonCreateInvoiceData
         private void BtnCreateInvoiceData_Click(object sender, EventArgs e)
         {
+            if (!CheckUtility.SearchConditionCheck(this, lblDate.LabelText, txtBilling_Date.Text.Trim(), true, Utility.DataType.YEARMONTH, 7, 6))
+            {
+                return;
+            }
             string status = "0";
             frmInvoiceListController oController = new frmInvoiceListController();
             DataTable dt = oController.CreateInvoiceData(txtBilling_Date.Text,status);
@@ -709,5 +729,18 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
         }
         #endregion
+
+        private void BtnDifferent_Click(object sender, EventArgs e)
+        {
+            if (!CheckUtility.SearchConditionCheck(this, lblDate.LabelText, txtBilling_Date.Text.Trim(), true, Utility.DataType.YEARMONTH, 7, 6))
+            {
+                return;
+            }
+            FrmMonthlySaleAggregationList frm = new FrmMonthlySaleAggregationList("CTG010", "月次売上集計", txtBilling_Date.Text.Trim());
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                this.Show();
+            }
+        }
     }
 }

@@ -24,6 +24,12 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
         DataTable _exportTable = new DataTable();
         #endregion
 
+        #region Properties
+        public DialogResult Dialog { get; set; }
+        public string UPDATED_AT { get; set; }
+        public string UPDATED_AT_RAW { get; set; }
+        #endregion
+
         #region Constructors
         public frmIssueQuotationPrevew()
         {
@@ -41,6 +47,12 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
         #region FormLoad
         private void FrmPreviewScreen_Load(object sender, EventArgs e)
         {
+            Dialog = DialogResult.Cancel;
+
+            //theme
+            this.pTitle.BackColor = Properties.Settings.Default.JimugoBgColor;
+            this.lblMenu.ForeColor = Properties.Settings.Default.jimugoForeColor;
+
             try
             {
                 for (int i = 0; i < _exportTable.Rows.Count; i++)
@@ -69,7 +81,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
                 Utility.WriteErrorLog(ex.Message, ex, false);
             }
 
-
         }
         #endregion
 
@@ -83,9 +94,12 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
         #region FormClosing
         private void FrmPreviewScreen_FormClosing(object sender, FormClosingEventArgs e)
         {
+            frmIssuQuotationPreviewController oController = new frmIssuQuotationPreviewController();
+            oController.DeleteTempFiles(_exportTable);
             pdfInitialQuote.Dispose();
             pdfMonthlyQuote.Dispose();
             pdfOrderForm.Dispose();
+            this.DialogResult = Dialog;
         }
         #endregion
 
@@ -99,19 +113,22 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
 
                 DataTable result = oController.GetQuotationMail(
                       Utility.GetParameterByName("COMPANY_NO_BOX", _paraTable),
+                      Utility.GetParameterByName("COMPANY_NAME", _paraTable),
                       Utility.GetParameterByName("REQ_SEQ", _paraTable),
                       Utility.GetParameterByName("CONSUMPTION_TAX", _paraTable),
-                      Utility.GetParameterByName("INITIAL_COST_DISCOUNTS", _paraTable),
-                      Utility.GetParameterByName("MONTHLY_COST_DISCOUNTS", _paraTable),
+                      Utility.GetParameterByName("INITIAL_SPECIAL_DISCOUNT", _paraTable),
+                      Utility.GetParameterByName("MONTHLY_SPECIAL_DISCOUNT", _paraTable),
                       Utility.GetParameterByName("YEARLY_SPECIAL_DISCOUNT", _paraTable),
+                      Utility.GetParameterByName("EMAIL_ADDRESS" , _paraTable),
                       Utility.GetParameterByName("INPUT_PERSON", _paraTable),
                       Utility.DtToJSon(_exportTable, "Export Table"),
                       Utility.GetParameterByName("CONTRACT_PLAN", _paraTable),
-                      Utility.GetParameterByName("Created Time", _paraTable)
+                      Utility.GetParameterByName("Created Time", _paraTable),
+                      Utility.GetParameterByName("PERIOD_FROM", _paraTable),
+                      Utility.GetParameterByName("PERIOD_TO", _paraTable)
                     );
 
                 string error_message = Convert.ToString(result.Rows[0]["Error Message"]);
-
 
                 if (string.IsNullOrEmpty(error_message))
                 {
@@ -130,7 +147,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
                     mailItem.Body = templateString;
                     mailItem.CC = emailAddressCC;
 
-                    mailItem.Importance = Microsoft.Office.Interop.Outlook.OlImportance.olImportanceHigh;
+                    mailItem.Importance = Microsoft.Office.Interop.Outlook.OlImportance.olImportanceNormal;
 
                     for (int i = 0; i < _exportTable.Rows.Count; i++)
                     {
@@ -146,16 +163,30 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo.Issue_Quotation
                             }
                         }
                     }
-                    mailItem.Display(true);
+                    mailItem.Display(false);
                     #endregion
+                    Dialog = DialogResult.OK;
+                    UPDATED_AT = Convert.ToString(result.Rows[0]["UPDATED_AT"]);
+                    UPDATED_AT_RAW = Convert.ToString(result.Rows[0]["UPDATED_AT_RAW"]);
                 }
                 else
                 {
                     MetroMessageBox.Show(this, "\n" + error_message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Dialog = DialogResult.Cancel;
                 }
             }
-            catch (System.Exception)
+            catch (System.TimeoutException)
             {
+                MetroMessageBox.Show(this, "\n" + Messages.General.ServerTimeOut, "Search Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (System.Net.WebException)
+            {
+                MetroMessageBox.Show(this, "\n" + Messages.General.NoConnection, "Search Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (System.Exception ex)
+            {
+                Utility.WriteErrorLog(ex.Message, ex, false);
+                MetroMessageBox.Show(this, "\n" + Messages.General.ThereWasAnError, "Search Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion

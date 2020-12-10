@@ -89,6 +89,7 @@
             this.MinimizeBox = false;
             this.Name = "frmMailLoading";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmMailLoading_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

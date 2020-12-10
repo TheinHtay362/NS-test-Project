@@ -3,6 +3,7 @@ using AmigoPaperWorkProcessSystem.Core.Model;
 using MetroFramework;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace AmigoPaperWorkProcessSystem.Core
     public static class CheckUtility
     {
         #region SearchConditionCheck
-        public static bool SearchConditionCheck(IWin32Window owner, string value, bool require, Utility.DataType encoding, int max, int min)
+        public static bool SearchConditionCheck(IWin32Window owner, string field, string value, bool require, Utility.DataType encoding, int max, int min)
         {
             value = value.Trim();
             int length = value.Length;
@@ -25,25 +26,17 @@ namespace AmigoPaperWorkProcessSystem.Core
                 if (length <= 0)
                 {
                     //error message
-                    MetroMessageBox.Show(owner, "\n" + JimugoMessages.E000ZZ001, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MetroMessageBox.Show(owner, "\n" + string.Format(JimugoMessages.E000ZZ001, field), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
             }
             switch (encoding)
             {
-                case Utility.DataType.FULL_WIDTH:
-                    if (!FullWidth_Check(value))
-                    {
-                        //error message
-                        MetroMessageBox.Show(owner, "\n" + JimugoMessages.E000ZZ002, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return false;
-                    }
-                    break;
                 case Utility.DataType.HALF_NUMBER:
                     if (!IsMatch(value, HALF_NUMBER))
                     {
                         //error message
-                        MetroMessageBox.Show(owner, "\n" + JimugoMessages.E000ZZ002, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(owner, "\n" + string.Format(JimugoMessages.E000ZZ002, field), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return false;
                     }
                     break;
@@ -51,7 +44,7 @@ namespace AmigoPaperWorkProcessSystem.Core
                     if (!IsMatch(value, HALF_ALPHA_NUMERIC))
                     {
                         //error message
-                        MetroMessageBox.Show(owner, "\n" + JimugoMessages.E000ZZ002, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(owner, "\n" + string.Format(JimugoMessages.E000ZZ002, field), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return false;
                     }
                     break;
@@ -59,14 +52,14 @@ namespace AmigoPaperWorkProcessSystem.Core
                     if (!IsMatch(value, HALF_KANA_ALPHA_NUMERIC))
                     {
                         //error message
-                        MetroMessageBox.Show(owner, "\n" + JimugoMessages.E000ZZ002, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(owner, "\n" + string.Format(JimugoMessages.E000ZZ002, field), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return false;
                     }
                     break;
                 case Utility.DataType.DATE:
                     if (!string.IsNullOrEmpty(value))
                     {
-                        if (!DateFormatCheck(value, out msg))
+                        if (!DateFormatCheck(field, value, out msg))
                         {
                             //error message
                             MetroMessageBox.Show(owner, "\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -74,10 +67,22 @@ namespace AmigoPaperWorkProcessSystem.Core
                         }
                     }
                     break;
+                case Utility.DataType.YEARMONTH:
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        if (!YearMonthCheck(value))
+                        {
+                            //error message
+                            MetroMessageBox.Show(owner, "\n" + string.Format(JimugoMessages.E000ZZ002, field), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    }                   
+                    break;
+
                 case Utility.DataType.TIMESTAMP:
                     if (!string.IsNullOrEmpty(value))
                     {
-                        if (!TimeStampCheck(value, out msg))
+                        if (!TimeStampCheck(field, value, out msg))
                         {
                             //error message
                             MetroMessageBox.Show(owner, "\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -88,7 +93,7 @@ namespace AmigoPaperWorkProcessSystem.Core
                 case Utility.DataType.EMAIL:
                     if (!string.IsNullOrEmpty(value))
                     {
-                        if (!EmailCheck(value, out msg))
+                        if (!EmailCheck(field, value, out msg))
                         {
                             //error message
                             MetroMessageBox.Show(owner, "\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -100,7 +105,7 @@ namespace AmigoPaperWorkProcessSystem.Core
                     break;
             }
 
-            if (!DigitRangeCheck(length, min, max, out msg))
+            if (!DigitRangeCheck(field, length, min, max, out msg))
             {
                 //error message
                 MetroMessageBox.Show(owner, "\n" + msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -147,7 +152,7 @@ namespace AmigoPaperWorkProcessSystem.Core
                 string value = dgvList.Rows[rowIndex].Cells[item.Name].Value == null ? null : dgvList.Rows[rowIndex].Cells[item.Name].Value.ToString().Trim();
                 if (String.IsNullOrEmpty(value) && item.Require)
                 {
-                    msg = dgvList.Columns[item.Name].HeaderText + ", " + JimugoMessages.E000ZZ001;
+                    msg = string.Format(JimugoMessages.E000ZZ001, dgvList.Columns[item.Name].HeaderText);
                     pass = false;
                     break;
                 }
@@ -170,30 +175,37 @@ namespace AmigoPaperWorkProcessSystem.Core
             //check for Data types
             foreach (Validate item in items)
             {
+                string field = dgvList.Columns[item.Name].HeaderText;
                 string value = dgvList.Rows[rowIndex].Cells[item.Name].Value == null ? null : dgvList.Rows[rowIndex].Cells[item.Name].Value.ToString().Trim();
                 switch (item.Type)
                 {
                     case Utility.DataType.EMAIL:
-                        EmailCheck(value, out msg);
+                        EmailCheck(field, value, out msg);
                         break;
                     case Utility.DataType.NUMBER:
-                        NumberCheck(value, item.Min, item.Max, out msg);
+                        NumberCheck(field, value, item.Min, item.Max, out msg);
                         break;
                     case Utility.DataType.DATE:
-                        DateFormatCheck(value, out msg);
-                        if (!String.IsNullOrEmpty(msg))
+                        if (!string.IsNullOrEmpty(value))
                         {
-                            msg = string.Format(msg, dgvList.Columns[item.Name].HeaderText);
+                            DateFormatCheck(field, value, out msg);
+                            if (!String.IsNullOrEmpty(msg))
+                            {
+                                msg = string.Format(msg, dgvList.Columns[item.Name].HeaderText);
+                            }
                         }
                         break;
                     case Utility.DataType.TIMESTAMP:
-                        TimeStampCheck(value, out msg);
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            TimeStampCheck(field, value, out msg);
+                        }
                         break;
                     case Utility.DataType.EDI_ACCOUNT:
-                        EDIaccountCheck(value, out msg);
+                        EDIaccountCheck(field, value, out msg);
                         break;
                     case Utility.DataType.ASCII:
-                        ASCIICheck(value, out msg);
+                        ASCIICheck(field,value, out msg);
                         break;
                     case Utility.DataType.DATE_RANGE:
                         string strdate1, strdate2;
@@ -213,29 +225,23 @@ namespace AmigoPaperWorkProcessSystem.Core
                     case Utility.DataType.HALF_NUMBER:
                         if (!IsMatch(value, HALF_NUMBER))
                         {
-                            msg = JimugoMessages.E000ZZ002;
+                            msg = string.Format(JimugoMessages.E000ZZ002, field);
                         }
                         break;
                     case Utility.DataType.HALF_KANA_ALPHA_NUMERIC:
                         if (!IsMatch(value, HALF_KANA_ALPHA_NUMERIC))
                         {
-                            msg = JimugoMessages.E000ZZ002;
+                            msg = string.Format(JimugoMessages.E000ZZ002, field);
                         }
                         break;
                     case Utility.DataType.HALF_ALPHA_NUMERIC:
                         if (!IsMatch(value, HALF_ALPHA_NUMERIC))
                         {
-                            msg = JimugoMessages.E000ZZ002;
-                        }
-                        break;
-                    case Utility.DataType.FULL_WIDTH:
-                        if (!FullWidth_Check(value))
-                        {
-                            msg = JimugoMessages.E000ZZ002;
+                            msg = string.Format(JimugoMessages.E000ZZ002, field);
                         }
                         break;
                     case Utility.DataType.MINIMUM:
-                        MinimumCheck(value, item.Min, out msg);
+                        MinimumCheck(field, value, item.Min, out msg);
                         break;
                     case Utility.DataType.INPUT_TYPE:
                         string data1 = dgvList.Rows[rowIndex].Cells[item.Data1].Value == null ? null : dgvList.Rows[rowIndex].Cells[item.Data1].Value.ToString();
@@ -287,6 +293,7 @@ namespace AmigoPaperWorkProcessSystem.Core
             {
                 if (item.Type != Utility.DataType.MINIMUM)
                 {
+                    string field = dgvList.Columns[item.Name].HeaderText;
                     string value = dgvList.Rows[rowIndex].Cells[item.Name].Value == null ? null : dgvList.Rows[rowIndex].Cells[item.Name].Value.ToString().Trim();
                     if (item.Min == 0)
                     {
@@ -296,7 +303,7 @@ namespace AmigoPaperWorkProcessSystem.Core
                         }
                         else
                         {
-                            pass = DigitRangeCheck(value.Length, item.Min, item.Max, out msg);
+                            pass = DigitRangeCheck(field, value.Length, item.Min, item.Max, out msg);
                         }
 
                     }
@@ -308,7 +315,7 @@ namespace AmigoPaperWorkProcessSystem.Core
                         }
                         else
                         {
-                            pass = IsInRange(value.Length, item.Max, out msg);
+                            pass = IsInRange(field, value.Length, item.Max, out msg);
                         }
                     }
 
@@ -393,7 +400,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         #endregion
 
-        public static bool DateFormatCheck(string value, out string msg)
+        public static bool DateFormatCheck(string field, string value, out string msg)
         {
             bool pass = true;
             msg = "";
@@ -412,13 +419,13 @@ namespace AmigoPaperWorkProcessSystem.Core
                 catch (Exception)
                 {
                     pass = false;
-                    msg = string.Format(JimugoMessages.E000ZZ009, value);
+                    msg = string.Format(JimugoMessages.E000ZZ009, field);
                 }
             }
             return pass;
         }
 
-        public static bool TimeStampCheck(string value, out string msg)
+        public static bool TimeStampCheck(string field, string value, out string msg)
         {
             bool pass = true;
             msg = "";
@@ -431,9 +438,15 @@ namespace AmigoPaperWorkProcessSystem.Core
                 }
                 catch (Exception)
                 {
-                    pass = false;
-                    //data type wrong
-                    msg = JimugoMessages.E000ZZ002;
+                    try
+                    {
+                        Date = DateTime.ParseExact(value, "yyyy/M/d HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None);
+                    }
+                    catch (Exception)
+                    {
+                        pass = false;
+                        msg = string.Format(JimugoMessages.E000ZZ002, field);
+                    }
                 }
             }
             return pass;
@@ -504,7 +517,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         #endregion
 
-        public static bool NumberCheck(string value, int Min, int Max, out string msg)
+        public static bool NumberCheck(string field, string value, int Min, int Max, out string msg)
         {
             msg = "";
             try
@@ -512,17 +525,17 @@ namespace AmigoPaperWorkProcessSystem.Core
                 int result = int.Parse(value);
                 if (result > Max)
                 {
-                    msg = JimugoMessages.E000ZZ005;
+                    msg = string.Format(JimugoMessages.E000ZZ005, field);
                 }
 
                 if (result < Min)
                 {
-                    msg = JimugoMessages.E000ZZ006;
+                    msg = string.Format(JimugoMessages.E000ZZ006, field);
                 }
             }
             catch (Exception)
             {
-                msg = JimugoMessages.E000ZZ007;
+                msg = string.Format(JimugoMessages.E000ZZ007, field);
             }
             if (string.IsNullOrEmpty(msg))
             {
@@ -535,7 +548,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         }
 
-        public static bool MinimumCheck(string value, int Min, out string msg)
+        public static bool MinimumCheck(string field, string value, int Min, out string msg)
         {
             msg = "";
             try
@@ -544,7 +557,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
                 if (result < Min)
                 {
-                    msg = string.Format(JimugoMessages.E000ZZ046, value, Min);
+                    msg = string.Format(JimugoMessages.E000ZZ046, field, Min);
                 }
             }
             catch (Exception)
@@ -562,7 +575,7 @@ namespace AmigoPaperWorkProcessSystem.Core
 
         }
 
-        public static bool DigitRangeCheck(int value, int? min, int max, out string msg)
+        public static bool DigitRangeCheck(string field, int value, int? min, int max, out string msg)
         {
             msg = "";
 
@@ -571,14 +584,14 @@ namespace AmigoPaperWorkProcessSystem.Core
                 if (value < min)
                 {
                     //input is less than minimum
-                    msg = JimugoMessages.E000ZZ006;
+                    msg = string.Format(JimugoMessages.E000ZZ006, field);
                     return false;
                 }
 
                 if (value > max)
                 {
                     //input is greater than maximum
-                    msg = JimugoMessages.E000ZZ005;
+                    msg = string.Format(JimugoMessages.E000ZZ005, field);
                     return false;
                 }
             }
@@ -586,12 +599,12 @@ namespace AmigoPaperWorkProcessSystem.Core
             return true;
         }
 
-        public static bool IsInRange(int value, int max, out string msg)
+        public static bool IsInRange(string field, int value, int max, out string msg)
         {
             if (value > max)
             {
                 //input is greater than maximum
-                msg = JimugoMessages.E000ZZ005;
+                msg = string.Format(JimugoMessages.E000ZZ005, field);
                 return false;
             }
             msg = "";
@@ -607,20 +620,20 @@ namespace AmigoPaperWorkProcessSystem.Core
             return true;
         }
 
-        public static bool EDIaccountCheck(string value, out string msg)
+        public static bool EDIaccountCheck(string field, string value, out string msg)
         {
             msg = "";
             if (!IsMatch(value, EDI_ACCOUNT))
             {
-                msg = "failed";
+                msg = string.Format(JimugoMessages.E000ZZ002, field);
                 return false;
             }
             return true;
         }
 
-        public static bool EmailCheck(string value, out string msg)
+        public static bool EmailCheck(string field, string value, out string msg)
         {
-            msg = string.Format(JimugoMessages.E000ZZ053, value);
+            msg = string.Format(JimugoMessages.E000ZZ053, field);
             if (IsMatch(value, MAIL))
             {
                 msg = "";
@@ -629,16 +642,34 @@ namespace AmigoPaperWorkProcessSystem.Core
             return false;
         }
 
-        public static bool ASCIICheck(string value, out string msg)
+        public static bool ASCIICheck(string field,string value, out string msg)
         {
             msg = "";
-            if (IsMatch(value, ASCII))
+            if (!IsMatch(value, ASCII))
             {
-                msg = "failed";
-                return true;
+                msg = string.Format(JimugoMessages.E000ZZ002, field);
+                return false;
             }
-            return false;
+            return true;
         }
 
+        #region AreTablesSame
+        public static bool AreTablesTheSame(DataTable tbl1, DataTable tbl2)
+        {
+            if (tbl1.Rows.Count != tbl2.Rows.Count || tbl1.Columns.Count != tbl2.Columns.Count)
+                return false;
+
+
+            for (int i = 0; i < tbl1.Rows.Count; i++)
+            {
+                for (int c = 0; c < tbl1.Columns.Count; c++)
+                {
+                    if (!Equals(tbl1.Rows[i][c], tbl2.Rows[i][c]))
+                        return false;
+                }
+            }
+            return true;
+        }
+        #endregion
     }
 }

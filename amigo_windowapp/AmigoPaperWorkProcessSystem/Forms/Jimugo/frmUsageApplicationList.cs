@@ -93,6 +93,10 @@ namespace AmigoPaperWorkProcessSystem.Forms
         #region FormLoad
         private void FrmUsageApplicationList_Load(object sender, EventArgs e)
         {
+            //set title
+            lblMenu.Text = programName;
+            this.Text = "[" + programID + "] " + programName;
+
             uIUtility = new UIUtility(dgvList, null, null, Modifiable, dummyColumns);
 
             uIUtility.ResetCheckBoxSize();//adjust checkbox sizes
@@ -100,14 +104,12 @@ namespace AmigoPaperWorkProcessSystem.Forms
             uIUtility.DisableAutoSort();//disable autosort
             uIUtility.CheckPagination(btnFirst, btnPrev, btnNext, btnLast, lblcurrentPage.Text, lblTotalPages.Text);
             PopulateDropdowns();
-            SetDefaultColumnWidths();//adjust checkbox sizes
+
+            uIUtility.ResetCheckBoxSize();//adjust checkbox sizes
             AlignBottomHeaders();//adjust column headers
 
             //get sub program names to appear in titles
             getSubProgramNames();
-
-            //set title
-            lblMenu.Text = programName;
 
             //Theme
             this.pTitle.BackColor = Properties.Settings.Default.JimugoBgColor;
@@ -246,17 +248,27 @@ namespace AmigoPaperWorkProcessSystem.Forms
             #endregion
 
             #region Validate
-            if (!DateRangeCheck(REQ_DATE_FROM, REQ_DATE_TO))
+            if (!CheckUtility.SearchConditionCheck(this, lblCompanyNoBox.Text, txtCompanyNoBox.Text, false, Utility.DataType.HALF_KANA_ALPHA_NUMERIC, 10, 0))
             {
                 return false;
             }
 
-            if (!DateRangeCheck(QUOTATION_DATE_FROM, QUOTATION_DATE_TO))
+            if (!CheckUtility.SearchConditionCheck(this, lblCompanyName.Text, txtCompanyName.Text, false, Utility.DataType.FULL_WIDTH, 80, 0))
             {
                 return false;
             }
 
-            if (!DateRangeCheck(ORDER_DATE_FROM, ORDER_DATE_TO))
+            if (!DateRangeCheck(REQ_DATE_FROM, REQ_DATE_TO, "申請日"))
+            {
+                return false;
+            }
+
+            if (!DateRangeCheck(QUOTATION_DATE_FROM, QUOTATION_DATE_TO, "見積書発行日"))
+            {
+                return false;
+            }
+
+            if (!DateRangeCheck(ORDER_DATE_FROM, ORDER_DATE_TO, "注文日"))
             {
                 return false;
             }
@@ -265,15 +277,15 @@ namespace AmigoPaperWorkProcessSystem.Forms
         }
 
         #region DateRangeCheck
-        private bool DateRangeCheck(string from, string to)
+        private bool DateRangeCheck(string from, string to, string field)
         {
 
-            if (!CheckUtility.SearchConditionCheck(this, from, false, Utility.DataType.DATE, -1, -1))
+            if (!CheckUtility.SearchConditionCheck(this, field, from, false, Utility.DataType.DATE, -1, -1))
             {
                 return false;
             }
 
-            if (!CheckUtility.SearchConditionCheck(this, to, false, Utility.DataType.DATE, -1, -1))
+            if (!CheckUtility.SearchConditionCheck(this, field, to, false, Utility.DataType.DATE, -1, -1))
             {
                 return false;
             }
@@ -361,10 +373,6 @@ namespace AmigoPaperWorkProcessSystem.Forms
             cboSystemSettingStatus.SelectedIndex = -1;
             cboLimit.SelectedIndex = 0;
             rdoProcessing.Checked = true;
-            uIUtility.ClearDataGrid();
-            lblTotalRecords.Text = "";
-            lblTotalPages.Text = "0";
-            lblcurrentPage.Text = "0";
         }
         #endregion
 
@@ -743,13 +751,12 @@ namespace AmigoPaperWorkProcessSystem.Forms
         }
         #endregion
 
-        #region OpenOrderRegistrationForm
+        #region OpenApplicationApprovalForm
         private void OpenApplicationApprovalForm(DataGridViewRow row)
         {
             frmApplicationApproval frm = new frmApplicationApproval(
                     "CTS030",
                     GetProgramNameByID("CTS030"),
-                    //"利用申請書承認",
                     Convert.ToString(row.Cells["colCOMPANY_NO_BOX"].Value),
                     Convert.ToString(row.Cells["colREQ_SEQ"].Value),
                     Convert.ToString(row.Cells["colREQ_TYPE"].Value),
@@ -758,6 +765,9 @@ namespace AmigoPaperWorkProcessSystem.Forms
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 row.Cells["colREQ_STATUS"].Value = frm.REQ_STATUS_RAW;
+                row.Cells["colUPDATED_AT"].Value = frm.UPDATED_AT;
+                row.Cells["colUPDATED_AT_RAW"].Value = frm.UPDATED_AT_RAW;
+                row.Cells["colUPDATED_BY"].Value = Utility.Id;
                 frm.Dispose();
             }
         }
@@ -778,6 +788,8 @@ namespace AmigoPaperWorkProcessSystem.Forms
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     row.Cells["colSYSTEM_SETTING_STATUS"].Value = frm.SYSTEM_SETTING_STATUS;
+                    row.Cells["colUPDATED_AT"].Value = frm.UPDATED_AT;
+                    row.Cells["colUPDATED_AT_RAW"].Value = frm.UPDATED_AT_RAW;
                     row.Cells["colUPDATED_BY"].Value = Utility.Id;
                     frm.Dispose();
                 }
@@ -795,14 +807,16 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     "CTS050", GetProgramNameByID("CTS050"),
                     Convert.ToString(row.Cells["colCOMPANY_NO_BOX"].Value),
                     Convert.ToString(row.Cells["colREQ_SEQ"].Value),
-                    Convert.ToString(row.Cells["colQUOTATION_DATE"].Value),
-                    Convert.ToString(row.Cells["colORDER_DATE"].Value),
-                    Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value),
+                    Convert.ToString(row.Cells["colQUOTATION_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colQUOTATION_DATE"].Value),
+                    Convert.ToString(row.Cells["colORDER_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colORDER_DATE"].Value),
+                    Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value),
                     Convert.ToString(row.Cells["colCOMPANY_NAME"].Value)
                 );
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     row.Cells["colORDER_DATE"].Value = frm.ORDER_DATE;
+                    row.Cells["colUPDATED_AT"].Value = frm.UPDATED_AT;
+                    row.Cells["colUPDATED_AT_RAW"].Value = frm.UPDATED_AT_RAW;
                     row.Cells["colUPDATED_BY"].Value = Utility.Id;
                     frm.Dispose();
                 }
@@ -820,18 +834,19 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     "CTS040", GetProgramNameByID("CTS040"),
                     Convert.ToString(row.Cells["colCOMPANY_NO_BOX"].Value),
                     Convert.ToString(row.Cells["colREQ_SEQ"].Value),
-                    Convert.ToString(row.Cells["colQUOTATION_DATE"].Value),
-                    Convert.ToString(row.Cells["colORDER_DATE"].Value),
-                    Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value),
+                    Convert.ToString(row.Cells["colQUOTATION_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colQUOTATION_DATE"].Value),
+                    Convert.ToString(row.Cells["colORDER_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colORDER_DATE"].Value),
+                    Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value),
                     Convert.ToString(row.Cells["colCOMPANY_NAME"].Value)
                 );
-                frm.ShowDialog();
-                //if (frm.ShowDialog() == DialogResult.OK)
-                //{
-                //    row.Cells["colORDER_DATE"].Value = frm.ORDER_DATE;
-                //    row.Cells["colUPDATED_BY"].Value = Utility.Id;
-                //    frm.Dispose();
-                //}
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    row.Cells["colQUOTATION_DATE"].Value = frm.QUOTIATION_DATE;
+                    row.Cells["colUPDATED_AT"].Value = frm.UPDATED_AT;
+                    row.Cells["colUPDATED_AT_RAW"].Value = frm.UPDATED_AT_RAW;
+                    row.Cells["colUPDATED_BY"].Value = Utility.Id;
+                    frm.Dispose();
+                }
             }
         }
         #endregion
@@ -848,14 +863,16 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     GetProgramNameByID("CTS060"),
                     row.Cells["colCOMPANY_NO_BOX"].Value.ToString(),
                     row.Cells["colREQ_SEQ"].Value.ToString(),
-                    row.Cells["colQUOTATION_DATE"].Value.ToString(),
-                    row.Cells["colORDER_DATE"].Value.ToString(),
-                    row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value.ToString(),
+                    Convert.ToString(row.Cells["colQUOTATION_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colQUOTATION_DATE"].Value),
+                    Convert.ToString(row.Cells["colORDER_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colORDER_DATE"].Value),
+                    Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value) == "*" ? "" : Convert.ToString(row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value),
                     row.Cells["colCOMPANY_NAME"].Value.ToString()
                 );
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    //row.Cells["colSYSTEM_SETTING_STATUS"].Value = frm.SYSTEM_SETTING_STATUS;
+                    row.Cells["colCOMPLETION_NOTIFICATION_DATE"].Value = frm.COMPLETION_NOTIFICATION_DATE;
+                    row.Cells["colUPDATED_AT"].Value = frm.UPDATED_AT;
+                    row.Cells["colUPDATED_AT_RAW"].Value = frm.UPDATED_AT_RAW;
                     row.Cells["colUPDATED_BY"].Value = Utility.Id;
                     frm.Dispose();
                 }

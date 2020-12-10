@@ -13,9 +13,15 @@ namespace AmigoPaperWorkProcessSystem.Jimugo
 {
     public partial class frmMailLoading : Form
     {
+        public frmMailLoading(string strMessage) : this()
+        {
+            lblMailMsg.Text = strMessage;
+        }
+
         public frmMailLoading()
         {
             InitializeComponent();
+            lblMailMsg.Text = JimugoMessages.I000ZZ020;
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
@@ -25,7 +31,7 @@ namespace AmigoPaperWorkProcessSystem.Jimugo
 
         private void FrmMailLoading_Load(object sender, EventArgs e)
         {
-            lblMailMsg.Text = JimugoMessages.I000ZZ020;
+
         }
     }
 }

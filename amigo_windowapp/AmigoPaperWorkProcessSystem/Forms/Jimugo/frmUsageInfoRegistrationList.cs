@@ -19,7 +19,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         private bool FirstLunch = true;
 
         private List<Validate> Insertable = new List<Validate>{
-            new Validate{ Name = "colEDI_ACCOUNT", Type = Utility.DataType.EDI_ACCOUNT, Edit = true, Require = true, Max = 32, Min = 4},
+            new Validate{ Name = "colEDI_ACCOUNT", Type = Utility.DataType.EDI_ACCOUNT, Edit = true, Require = true, Max = 4, Min = 4},
             new Validate{ Name = "colCOMPANY_NO_BOX", Type = Utility.DataType.HALF_ALPHA_NUMERIC, Edit=true, Require = true, Max = 10 },
             new Validate{ Name = "colCONSIGN_FLG", Edit=true, Require=false, Type = Utility.DataType.HALF_ALPHA_NUMERIC, Max = 1 },
             new Validate{ Name = "colLOGIN_TYPE", Type = Utility.DataType.HALF_ALPHA_NUMERIC, Edit=true, Require=false, Initial="B", Max = 1, Min = 1 },
@@ -42,7 +42,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         };
 
         private List<Validate> Copyable  = new List<Validate>{
-            new Validate{ Name = "colEDI_ACCOUNT", Type = Utility.DataType.EDI_ACCOUNT, Edit = true, Require = true, Max = 32, Min = 4},
+            new Validate{ Name = "colEDI_ACCOUNT", Type = Utility.DataType.EDI_ACCOUNT, Edit = true, Require = true, Max = 4, Min = 4},
             new Validate{ Name = "colCOMPANY_NO_BOX", Type = Utility.DataType.HALF_ALPHA_NUMERIC, Edit=true, Require = true, Max = 10 },
             new Validate{ Name = "colCONSIGN_FLG", Edit=true, Require=false, Type = Utility.DataType.HALF_ALPHA_NUMERIC, Max = 1 },
             new Validate{ Name = "colLOGIN_TYPE", Type = Utility.DataType.HALF_ALPHA_NUMERIC, Edit=true, Require=false, Initial="B", Max = 1, Min = 1 },
@@ -126,6 +126,25 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             "ROW_ID"
         };
 
+        private string[] alignBottoms = {
+               "colMAKER1",
+               "colMAKER2",
+               "colMAKER3",
+               "colMAKER4",
+               "colMAKER5",
+               "colMAKER6",
+               "colMAKER7",
+               "colMAKER8",
+               "colMAKER9",
+               "colMAKER10",
+               "colADM_USER_ID",
+               "colADM_PASSWORD",
+               "colATDL_USER_ID",
+               "colATDL_PASSWORD",
+               "colSSHGW_USER_ID",
+               "colSSHGW_PUBLIC_KEY",
+
+        };
         #endregion
 
         #region Properties
@@ -133,6 +152,10 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         public string programName { get; set; }
 
         public string SYSTEM_SETTING_STATUS { get; set; }
+
+        public string UPDATED_AT { get; set; }
+        public string UPDATED_AT_RAW { get; set; }
+
         public bool SEARCH { get; set; }
         #endregion
 
@@ -161,9 +184,23 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
 
         #endregion
 
+        #region AlignBottomHeaders
+        private void AlignBottomHeaders()
+        {
+            foreach (string item in alignBottoms)
+            {
+                dgvList.Columns[item].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
+            }
+        }
+        #endregion
+
         #region FormLoad
         private void FrmUsageInfoRegistrationList_Load(object sender, EventArgs e)
         {
+            //set title
+            lblMenu.Text = programName;
+            this.Text = "[" + programID + "] " + programName;
+
             //Theme
             this.pTitle.BackColor = Properties.Settings.Default.JimugoBgColor;
             this.lblMenu.ForeColor = Properties.Settings.Default.jimugoForeColor;
@@ -172,15 +209,13 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             this.dgvList.ColumnHeadersDefaultCellStyle.BackColor = Properties.Settings.Default.GridHeaderColor;
             this.dgvList.ColumnHeadersDefaultCellStyle.ForeColor = Properties.Settings.Default.GridHeaderFontColor;
 
-            //set title
-            lblMenu.Text = programName;
-
             uIUtility = new UIUtility(dgvList, Insertable, Copyable, Modifiable, dummyColumns);
             uIUtility.ResetCheckBoxSize();//adjust checkbox sizes
             uIUtility.DummyTable();// add dummy table to merge columns
             uIUtility.DisableAutoSort();//disable autosort
             uIUtility.CheckPagination(btnFirst, btnPrev, btnNext, btnLast, lblcurrentPage.Text, lblTotalPages.Text);
             PopulateDropdowns();
+            AlignBottomHeaders();//adjust column headers
 
             if (this.SEARCH)
             {
@@ -197,17 +232,17 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             {
                 string company_no_box , company_name, edi_account;
 
-                if (!CheckUtility.SearchConditionCheck(this, txtCompanyNoBox.Text, false, Utility.DataType.HALF_ALPHA_NUMERIC, 10, 0))
+                if (!CheckUtility.SearchConditionCheck(this, lblCompanyNoBox.Text , txtCompanyNoBox.Text, false, Utility.DataType.HALF_ALPHA_NUMERIC, 10, 0))
                 {
                     return;
                 }
 
-                if (!CheckUtility.SearchConditionCheck(this, txtCompanyName.Text, false, Utility.DataType.FULL_WIDTH, 10, 0))
+                if (!CheckUtility.SearchConditionCheck(this, lblCompanyName.Text, txtCompanyName.Text, false, Utility.DataType.FULL_WIDTH, 80, 0))
                 {
                     return;
                 }
 
-                if (!CheckUtility.SearchConditionCheck(this, txtEDIAccount.Text, false, Utility.DataType.HALF_ALPHA_NUMERIC, 10, 0))
+                if (!CheckUtility.SearchConditionCheck(this, lblEDIAccount.Text, txtEDIAccount.Text, false, Utility.DataType.EDI_ACCOUNT, 4, 0))
                 {
                     return;
                 }
@@ -231,6 +266,9 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 }
                 else
                 {
+                    //pagination
+                    uIUtility.CalculatePagination(lblcurrentPage, lblTotalPages, lblTotalRecords);
+
                     //clear data except headers
                     uIUtility.ClearDataGrid();
                 }
@@ -274,10 +312,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             txtCompanyNoBox.Text = "";
             txtEDIAccount.Text = "";
             cboLimit.SelectedIndex = 0;
-            uIUtility.ClearDataGrid();
-            lblTotalRecords.Text = "";
-            lblTotalPages.Text = "0";
-            lblcurrentPage.Text = "0";
         }
         #endregion
 
@@ -562,16 +596,16 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             dgvList.Rows[index].Cells["colMAKER1"].Value = EDIDetail["CONTRACT_MAKER1"] == null ? "" : EDIDetail["CONTRACT_MAKER1"].ToString().Trim();
 
             //ADMIN ID
-            dgvList.Rows[index].Cells["colADM_USER_ID"].Value = EDIAccount.Substring(0,2) + "ADM01";
+            dgvList.Rows[index].Cells["colADM_USER_ID"].Value = EDIAccount.Substring(0,3) + "ADM01";
 
             //ADMIN INITIAL PASSWORD
-            dgvList.Rows[index].Cells["colADM_USER_ID"].Value = Crypto.Generate8DigitPassword();
+            dgvList.Rows[index].Cells["colADM_PASSWORD"].Value = Crypto.Generate8DigitPassword();
 
             string SERVER_CONNECTION = EDIDetail["SERVER_CONNECTION_TYPE"].ToString();
             //AUTO PASSWORD ID
             if (SERVER_CONNECTION == "C")
             {
-                dgvList.Rows[index].Cells["colATDL_USER_ID"].Value = EDIAccount.Substring(0, 2) + "ADM01";
+                dgvList.Rows[index].Cells["colATDL_USER_ID"].Value = EDIAccount.Substring(0, 3) + "ATDL01";
             }
             else
             {

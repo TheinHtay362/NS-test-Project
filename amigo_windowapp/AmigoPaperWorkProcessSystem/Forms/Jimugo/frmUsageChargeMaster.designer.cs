@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsageChargeMaster));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -46,6 +45,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsageChargeMaster));
             this.cboLimit = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -54,26 +54,6 @@
             this.lblClear = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnCopy = new System.Windows.Forms.Button();
-            this.btnInsert = new System.Windows.Forms.Button();
-            this.btnModify = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTotalRecords = new System.Windows.Forms.Label();
-            this.btnCheck = new System.Windows.Forms.Button();
-            this.btnUnCheck = new System.Windows.Forms.Button();
-            this.lblTotalPages = new System.Windows.Forms.Label();
-            this.lblcurrentPage = new System.Windows.Forms.Label();
-            this.btnLast = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnFirst = new System.Windows.Forms.Button();
-            this.btnPrev = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtCONSTRACT_NAME = new System.Windows.Forms.TextBox();
-            this.txtCONTRACT_CODE = new System.Windows.Forms.TextBox();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,6 +74,26 @@
             this.colUPDATE_MESSAGE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UPDATED_AT_RAW = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ROW_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.btnInsert = new System.Windows.Forms.Button();
+            this.btnModify = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTotalRecords = new System.Windows.Forms.Label();
+            this.btnCheck = new System.Windows.Forms.Button();
+            this.btnUnCheck = new System.Windows.Forms.Button();
+            this.lblTotalPages = new System.Windows.Forms.Label();
+            this.lblcurrentPage = new System.Windows.Forms.Label();
+            this.btnLast = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnFirst = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.lblCONSTRACT_NAME = new System.Windows.Forms.Label();
+            this.lblCONTRACT_CODE = new System.Windows.Forms.Label();
+            this.txtCONSTRACT_NAME = new System.Windows.Forms.TextBox();
+            this.txtCONTRACT_CODE = new System.Windows.Forms.TextBox();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.pTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.panel1.SuspendLayout();
@@ -106,8 +106,8 @@
             this.cboLimit.Location = new System.Drawing.Point(90, 149);
             this.cboLimit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboLimit.Name = "cboLimit";
-            this.cboLimit.Size = new System.Drawing.Size(139, 22);
-            this.cboLimit.TabIndex = 78;
+            this.cboLimit.Size = new System.Drawing.Size(139, 26);
+            this.cboLimit.TabIndex = 10;
             this.cboLimit.SelectedIndexChanged += new System.EventHandler(this.CboLimit_SelectedIndexChanged);
             // 
             // btnSubmit
@@ -116,7 +116,7 @@
             this.btnSubmit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(100, 30);
-            this.btnSubmit.TabIndex = 72;
+            this.btnSubmit.TabIndex = 7;
             this.btnSubmit.Text = "更新";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.BtnSubmit_Click);
@@ -127,7 +127,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 30);
-            this.btnCancel.TabIndex = 71;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
@@ -149,7 +149,7 @@
             this.lblMenu.Location = new System.Drawing.Point(12, 9);
             this.lblMenu.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMenu.Name = "lblMenu";
-            this.lblMenu.Size = new System.Drawing.Size(126, 21);
+            this.lblMenu.Size = new System.Drawing.Size(160, 27);
             this.lblMenu.TabIndex = 0;
             this.lblMenu.Text = "Jimugo - Menu";
             // 
@@ -161,8 +161,8 @@
             this.lblClear.Location = new System.Drawing.Point(240, 154);
             this.lblClear.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblClear.Name = "lblClear";
-            this.lblClear.Size = new System.Drawing.Size(82, 14);
-            this.lblClear.TabIndex = 81;
+            this.lblClear.Size = new System.Drawing.Size(104, 18);
+            this.lblClear.TabIndex = 11;
             this.lblClear.Text = "検索条件のクリア";
             this.lblClear.Click += new System.EventHandler(this.LblClear_Click);
             // 
@@ -172,7 +172,7 @@
             this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 30);
-            this.btnSearch.TabIndex = 66;
+            this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "検索";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
@@ -214,7 +214,7 @@
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvList.ShowCellToolTips = false;
             this.dgvList.Size = new System.Drawing.Size(1243, 362);
-            this.dgvList.TabIndex = 80;
+            this.dgvList.TabIndex = 18;
             this.dgvList.DataSourceChanged += new System.EventHandler(this.DgvList_DataSourceChanged);
             this.dgvList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvList_CellContentClick);
             this.dgvList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvList_CellValueChanged);
@@ -222,239 +222,6 @@
             this.dgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DgvList_EditingControlShowing);
             this.dgvList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DgvList_Scroll);
             this.dgvList.Paint += new System.Windows.Forms.PaintEventHandler(this.DgvList_Paint);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(461, 64);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(100, 30);
-            this.btnDelete.TabIndex = 70;
-            this.btnDelete.Text = "削除";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Location = new System.Drawing.Point(350, 64);
-            this.btnCopy.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(100, 30);
-            this.btnCopy.TabIndex = 69;
-            this.btnCopy.Text = "行増成";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.BtnCopy_Click);
-            // 
-            // btnInsert
-            // 
-            this.btnInsert.Location = new System.Drawing.Point(240, 64);
-            this.btnInsert.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(100, 30);
-            this.btnInsert.TabIndex = 68;
-            this.btnInsert.Text = "行挿入";
-            this.btnInsert.UseVisualStyleBackColor = true;
-            this.btnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
-            // 
-            // btnModify
-            // 
-            this.btnModify.Location = new System.Drawing.Point(129, 64);
-            this.btnModify.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(100, 30);
-            this.btnModify.TabIndex = 67;
-            this.btnModify.Text = "修正";
-            this.btnModify.UseVisualStyleBackColor = true;
-            this.btnModify.Click += new System.EventHandler(this.BtnModify_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel1.Controls.Add(this.lblTotalRecords);
-            this.panel1.Controls.Add(this.btnCheck);
-            this.panel1.Controls.Add(this.btnUnCheck);
-            this.panel1.Controls.Add(this.lblTotalPages);
-            this.panel1.Controls.Add(this.lblcurrentPage);
-            this.panel1.Controls.Add(this.btnLast);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.btnNext);
-            this.panel1.Controls.Add(this.btnFirst);
-            this.panel1.Controls.Add(this.btnPrev);
-            this.panel1.Location = new System.Drawing.Point(16, 187);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1243, 34);
-            this.panel1.TabIndex = 106;
-            // 
-            // lblTotalRecords
-            // 
-            this.lblTotalRecords.AutoSize = true;
-            this.lblTotalRecords.Location = new System.Drawing.Point(3, 11);
-            this.lblTotalRecords.Name = "lblTotalRecords";
-            this.lblTotalRecords.Size = new System.Drawing.Size(0, 14);
-            this.lblTotalRecords.TabIndex = 36;
-            // 
-            // btnCheck
-            // 
-            this.btnCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCheck.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCheck.BackgroundImage")));
-            this.btnCheck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnCheck.FlatAppearance.BorderSize = 0;
-            this.btnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCheck.Location = new System.Drawing.Point(819, 3);
-            this.btnCheck.Name = "btnCheck";
-            this.btnCheck.Size = new System.Drawing.Size(30, 28);
-            this.btnCheck.TabIndex = 33;
-            this.btnCheck.UseVisualStyleBackColor = true;
-            this.btnCheck.Click += new System.EventHandler(this.BtnCheck_Click);
-            // 
-            // btnUnCheck
-            // 
-            this.btnUnCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUnCheck.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUnCheck.BackgroundImage")));
-            this.btnUnCheck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnUnCheck.FlatAppearance.BorderSize = 0;
-            this.btnUnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUnCheck.Location = new System.Drawing.Point(857, 3);
-            this.btnUnCheck.Name = "btnUnCheck";
-            this.btnUnCheck.Size = new System.Drawing.Size(30, 28);
-            this.btnUnCheck.TabIndex = 32;
-            this.btnUnCheck.UseVisualStyleBackColor = true;
-            this.btnUnCheck.Click += new System.EventHandler(this.BtnUnCheck_Click);
-            // 
-            // lblTotalPages
-            // 
-            this.lblTotalPages.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblTotalPages.AutoSize = true;
-            this.lblTotalPages.Location = new System.Drawing.Point(1092, 11);
-            this.lblTotalPages.Name = "lblTotalPages";
-            this.lblTotalPages.Size = new System.Drawing.Size(14, 14);
-            this.lblTotalPages.TabIndex = 31;
-            this.lblTotalPages.Text = "0";
-            // 
-            // lblcurrentPage
-            // 
-            this.lblcurrentPage.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblcurrentPage.AutoSize = true;
-            this.lblcurrentPage.Location = new System.Drawing.Point(997, 11);
-            this.lblcurrentPage.Name = "lblcurrentPage";
-            this.lblcurrentPage.Size = new System.Drawing.Size(14, 14);
-            this.lblcurrentPage.TabIndex = 30;
-            this.lblcurrentPage.Text = "0";
-            // 
-            // btnLast
-            // 
-            this.btnLast.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnLast.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.next_icon;
-            this.btnLast.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnLast.FlatAppearance.BorderSize = 0;
-            this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLast.Location = new System.Drawing.Point(1190, 3);
-            this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(35, 28);
-            this.btnLast.TabIndex = 28;
-            this.btnLast.UseVisualStyleBackColor = true;
-            this.btnLast.Click += new System.EventHandler(this.BtnLast_Click);
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1044, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 14);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "Of";
-            // 
-            // btnNext
-            // 
-            this.btnNext.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnNext.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.right_arrow;
-            this.btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnNext.FlatAppearance.BorderSize = 0;
-            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNext.Location = new System.Drawing.Point(1148, 3);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(35, 28);
-            this.btnNext.TabIndex = 26;
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
-            // 
-            // btnFirst
-            // 
-            this.btnFirst.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnFirst.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.previous_icon;
-            this.btnFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnFirst.FlatAppearance.BorderSize = 0;
-            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFirst.Location = new System.Drawing.Point(906, 3);
-            this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(35, 28);
-            this.btnFirst.TabIndex = 29;
-            this.btnFirst.UseVisualStyleBackColor = true;
-            this.btnFirst.Click += new System.EventHandler(this.BtnFirst_Click);
-            // 
-            // btnPrev
-            // 
-            this.btnPrev.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnPrev.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.left_arrow;
-            this.btnPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnPrev.FlatAppearance.BorderSize = 0;
-            this.btnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrev.Location = new System.Drawing.Point(948, 3);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(35, 28);
-            this.btnPrev.TabIndex = 27;
-            this.btnPrev.UseVisualStyleBackColor = true;
-            this.btnPrev.Click += new System.EventHandler(this.BtnPrev_Click);
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(241, 110);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 21);
-            this.label2.TabIndex = 110;
-            this.label2.Text = "契約内容";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(16, 110);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 21);
-            this.label3.TabIndex = 109;
-            this.label3.Text = "契約コード";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtCONSTRACT_NAME
-            // 
-            this.txtCONSTRACT_NAME.Location = new System.Drawing.Point(319, 110);
-            this.txtCONSTRACT_NAME.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtCONSTRACT_NAME.Name = "txtCONSTRACT_NAME";
-            this.txtCONSTRACT_NAME.Size = new System.Drawing.Size(132, 21);
-            this.txtCONSTRACT_NAME.TabIndex = 108;
-            // 
-            // txtCONTRACT_CODE
-            // 
-            this.txtCONTRACT_CODE.Location = new System.Drawing.Point(90, 110);
-            this.txtCONTRACT_CODE.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtCONTRACT_CODE.Name = "txtCONTRACT_CODE";
-            this.txtCONTRACT_CODE.Size = new System.Drawing.Size(139, 21);
-            this.txtCONTRACT_CODE.TabIndex = 107;
-            // 
-            // displayItemLabel1
-            // 
-            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel1.Location = new System.Drawing.Point(16, 149);
-            this.displayItemLabel1.Name = "displayItemLabel1";
-            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
-            this.displayItemLabel1.TabIndex = 112;
             // 
             // colNo
             // 
@@ -503,6 +270,7 @@
             this.colFEE_STRUCTURE.Name = "colFEE_STRUCTURE";
             this.colFEE_STRUCTURE.ReadOnly = true;
             this.colFEE_STRUCTURE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colFEE_STRUCTURE.Width = 110;
             // 
             // colCONTRACT_CODE
             // 
@@ -515,6 +283,7 @@
             this.colCONTRACT_CODE.ReadOnly = true;
             this.colCONTRACT_CODE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colCONTRACT_CODE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACT_CODE.Width = 80;
             // 
             // colCONTRACT_NAME
             // 
@@ -526,6 +295,7 @@
             this.colCONTRACT_NAME.ReadOnly = true;
             this.colCONTRACT_NAME.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colCONTRACT_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACT_NAME.Width = 155;
             // 
             // colCONTRACT_QTY
             // 
@@ -536,6 +306,7 @@
             this.colCONTRACT_QTY.Name = "colCONTRACT_QTY";
             this.colCONTRACT_QTY.ReadOnly = true;
             this.colCONTRACT_QTY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACT_QTY.Width = 40;
             // 
             // colCONTRACT_UNIT
             // 
@@ -546,6 +317,7 @@
             this.colCONTRACT_UNIT.Name = "colCONTRACT_UNIT";
             this.colCONTRACT_UNIT.ReadOnly = true;
             this.colCONTRACT_UNIT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCONTRACT_UNIT.Width = 40;
             // 
             // colADOPTION_DATE
             // 
@@ -563,6 +335,7 @@
             // 
             this.colINITIAL_COST.DataPropertyName = "INITIAL_COST";
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N0";
             this.colINITIAL_COST.DefaultCellStyle = dataGridViewCellStyle9;
             this.colINITIAL_COST.HeaderText = "初期費用";
             this.colINITIAL_COST.Name = "colINITIAL_COST";
@@ -573,6 +346,7 @@
             // 
             this.colMONTHLY_COST.DataPropertyName = "MONTHLY_COST";
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N0";
             this.colMONTHLY_COST.DefaultCellStyle = dataGridViewCellStyle10;
             this.colMONTHLY_COST.HeaderText = "月額利用料";
             this.colMONTHLY_COST.Name = "colMONTHLY_COST";
@@ -602,6 +376,7 @@
             this.colNUMBER_DEFAULT.Name = "colNUMBER_DEFAULT";
             this.colNUMBER_DEFAULT.ReadOnly = true;
             this.colNUMBER_DEFAULT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colNUMBER_DEFAULT.Width = 50;
             // 
             // colMEMO
             // 
@@ -612,6 +387,7 @@
             this.colMEMO.Name = "colMEMO";
             this.colMEMO.ReadOnly = true;
             this.colMEMO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colMEMO.Width = 200;
             // 
             // colDISPLAY_ORDER
             // 
@@ -622,6 +398,7 @@
             this.colDISPLAY_ORDER.Name = "colDISPLAY_ORDER";
             this.colDISPLAY_ORDER.ReadOnly = true;
             this.colDISPLAY_ORDER.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colDISPLAY_ORDER.Width = 60;
             // 
             // colUPDATED_AT
             // 
@@ -632,6 +409,7 @@
             this.colUPDATED_AT.Name = "colUPDATED_AT";
             this.colUPDATED_AT.ReadOnly = true;
             this.colUPDATED_AT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colUPDATED_AT.Width = 145;
             // 
             // colUPDATED_BY
             // 
@@ -642,6 +420,7 @@
             this.colUPDATED_BY.Name = "colUPDATED_BY";
             this.colUPDATED_BY.ReadOnly = true;
             this.colUPDATED_BY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colUPDATED_BY.Width = 120;
             // 
             // colUPDATE_MESSAGE
             // 
@@ -652,6 +431,7 @@
             this.colUPDATE_MESSAGE.Name = "colUPDATE_MESSAGE";
             this.colUPDATE_MESSAGE.ReadOnly = true;
             this.colUPDATE_MESSAGE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colUPDATE_MESSAGE.Width = 350;
             // 
             // UPDATED_AT_RAW
             // 
@@ -669,14 +449,249 @@
             this.ROW_ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ROW_ID.Visible = false;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(461, 64);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(100, 30);
+            this.btnDelete.TabIndex = 5;
+            this.btnDelete.Text = "削除";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Location = new System.Drawing.Point(350, 64);
+            this.btnCopy.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(100, 30);
+            this.btnCopy.TabIndex = 4;
+            this.btnCopy.Text = "行増成";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.BtnCopy_Click);
+            // 
+            // btnInsert
+            // 
+            this.btnInsert.Location = new System.Drawing.Point(240, 64);
+            this.btnInsert.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.Size = new System.Drawing.Size(100, 30);
+            this.btnInsert.TabIndex = 3;
+            this.btnInsert.Text = "行挿入";
+            this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
+            // 
+            // btnModify
+            // 
+            this.btnModify.Location = new System.Drawing.Point(129, 64);
+            this.btnModify.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnModify.Name = "btnModify";
+            this.btnModify.Size = new System.Drawing.Size(100, 30);
+            this.btnModify.TabIndex = 2;
+            this.btnModify.Text = "修正";
+            this.btnModify.UseVisualStyleBackColor = true;
+            this.btnModify.Click += new System.EventHandler(this.BtnModify_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.lblTotalRecords);
+            this.panel1.Controls.Add(this.btnCheck);
+            this.panel1.Controls.Add(this.btnUnCheck);
+            this.panel1.Controls.Add(this.lblTotalPages);
+            this.panel1.Controls.Add(this.lblcurrentPage);
+            this.panel1.Controls.Add(this.btnLast);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.btnNext);
+            this.panel1.Controls.Add(this.btnFirst);
+            this.panel1.Controls.Add(this.btnPrev);
+            this.panel1.Location = new System.Drawing.Point(16, 187);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1243, 34);
+            this.panel1.TabIndex = 106;
+            // 
+            // lblTotalRecords
+            // 
+            this.lblTotalRecords.AutoSize = true;
+            this.lblTotalRecords.Location = new System.Drawing.Point(3, 11);
+            this.lblTotalRecords.Name = "lblTotalRecords";
+            this.lblTotalRecords.Size = new System.Drawing.Size(0, 18);
+            this.lblTotalRecords.TabIndex = 36;
+            // 
+            // btnCheck
+            // 
+            this.btnCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCheck.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCheck.BackgroundImage")));
+            this.btnCheck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnCheck.FlatAppearance.BorderSize = 0;
+            this.btnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCheck.Location = new System.Drawing.Point(819, 3);
+            this.btnCheck.Name = "btnCheck";
+            this.btnCheck.Size = new System.Drawing.Size(30, 28);
+            this.btnCheck.TabIndex = 12;
+            this.btnCheck.UseVisualStyleBackColor = true;
+            this.btnCheck.Click += new System.EventHandler(this.BtnCheck_Click);
+            // 
+            // btnUnCheck
+            // 
+            this.btnUnCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUnCheck.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUnCheck.BackgroundImage")));
+            this.btnUnCheck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnUnCheck.FlatAppearance.BorderSize = 0;
+            this.btnUnCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUnCheck.Location = new System.Drawing.Point(857, 3);
+            this.btnUnCheck.Name = "btnUnCheck";
+            this.btnUnCheck.Size = new System.Drawing.Size(30, 28);
+            this.btnUnCheck.TabIndex = 13;
+            this.btnUnCheck.UseVisualStyleBackColor = true;
+            this.btnUnCheck.Click += new System.EventHandler(this.BtnUnCheck_Click);
+            // 
+            // lblTotalPages
+            // 
+            this.lblTotalPages.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblTotalPages.AutoSize = true;
+            this.lblTotalPages.Location = new System.Drawing.Point(1092, 11);
+            this.lblTotalPages.Name = "lblTotalPages";
+            this.lblTotalPages.Size = new System.Drawing.Size(17, 18);
+            this.lblTotalPages.TabIndex = 31;
+            this.lblTotalPages.Text = "0";
+            // 
+            // lblcurrentPage
+            // 
+            this.lblcurrentPage.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblcurrentPage.AutoSize = true;
+            this.lblcurrentPage.Location = new System.Drawing.Point(997, 11);
+            this.lblcurrentPage.Name = "lblcurrentPage";
+            this.lblcurrentPage.Size = new System.Drawing.Size(17, 18);
+            this.lblcurrentPage.TabIndex = 30;
+            this.lblcurrentPage.Text = "0";
+            // 
+            // btnLast
+            // 
+            this.btnLast.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnLast.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.next_icon;
+            this.btnLast.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnLast.FlatAppearance.BorderSize = 0;
+            this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLast.Location = new System.Drawing.Point(1190, 3);
+            this.btnLast.Name = "btnLast";
+            this.btnLast.Size = new System.Drawing.Size(35, 28);
+            this.btnLast.TabIndex = 17;
+            this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Click += new System.EventHandler(this.BtnLast_Click);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1044, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(24, 18);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Of";
+            // 
+            // btnNext
+            // 
+            this.btnNext.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnNext.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.right_arrow;
+            this.btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnNext.FlatAppearance.BorderSize = 0;
+            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNext.Location = new System.Drawing.Point(1148, 3);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(35, 28);
+            this.btnNext.TabIndex = 16;
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
+            // 
+            // btnFirst
+            // 
+            this.btnFirst.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnFirst.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.previous_icon;
+            this.btnFirst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnFirst.FlatAppearance.BorderSize = 0;
+            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFirst.Location = new System.Drawing.Point(906, 3);
+            this.btnFirst.Name = "btnFirst";
+            this.btnFirst.Size = new System.Drawing.Size(35, 28);
+            this.btnFirst.TabIndex = 14;
+            this.btnFirst.UseVisualStyleBackColor = true;
+            this.btnFirst.Click += new System.EventHandler(this.BtnFirst_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnPrev.BackgroundImage = global::AmigoPaperWorkProcessSystem.Properties.Resources.left_arrow;
+            this.btnPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnPrev.FlatAppearance.BorderSize = 0;
+            this.btnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrev.Location = new System.Drawing.Point(948, 3);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(35, 28);
+            this.btnPrev.TabIndex = 15;
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.BtnPrev_Click);
+            // 
+            // lblCONSTRACT_NAME
+            // 
+            this.lblCONSTRACT_NAME.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCONSTRACT_NAME.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCONSTRACT_NAME.Location = new System.Drawing.Point(241, 110);
+            this.lblCONSTRACT_NAME.Name = "lblCONSTRACT_NAME";
+            this.lblCONSTRACT_NAME.Size = new System.Drawing.Size(79, 21);
+            this.lblCONSTRACT_NAME.TabIndex = 110;
+            this.lblCONSTRACT_NAME.Text = "契約内容";
+            this.lblCONSTRACT_NAME.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblCONTRACT_CODE
+            // 
+            this.lblCONTRACT_CODE.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCONTRACT_CODE.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCONTRACT_CODE.Location = new System.Drawing.Point(16, 110);
+            this.lblCONTRACT_CODE.Name = "lblCONTRACT_CODE";
+            this.lblCONTRACT_CODE.Size = new System.Drawing.Size(75, 21);
+            this.lblCONTRACT_CODE.TabIndex = 109;
+            this.lblCONTRACT_CODE.Text = "契約コード";
+            this.lblCONTRACT_CODE.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtCONSTRACT_NAME
+            // 
+            this.txtCONSTRACT_NAME.Location = new System.Drawing.Point(319, 110);
+            this.txtCONSTRACT_NAME.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtCONSTRACT_NAME.Name = "txtCONSTRACT_NAME";
+            this.txtCONSTRACT_NAME.Size = new System.Drawing.Size(132, 25);
+            this.txtCONSTRACT_NAME.TabIndex = 9;
+            // 
+            // txtCONTRACT_CODE
+            // 
+            this.txtCONTRACT_CODE.Location = new System.Drawing.Point(90, 110);
+            this.txtCONTRACT_CODE.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtCONTRACT_CODE.Name = "txtCONTRACT_CODE";
+            this.txtCONTRACT_CODE.Size = new System.Drawing.Size(139, 25);
+            this.txtCONTRACT_CODE.TabIndex = 8;
+            // 
+            // displayItemLabel1
+            // 
+            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = " 表示件数";
+            this.displayItemLabel1.Location = new System.Drawing.Point(16, 149);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.displayItemLabel1.Name = "displayItemLabel1";
+            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
+            this.displayItemLabel1.TabIndex = 112;
+            // 
             // frmUsageChargeMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 601);
             this.Controls.Add(this.displayItemLabel1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblCONSTRACT_NAME);
+            this.Controls.Add(this.lblCONTRACT_CODE);
             this.Controls.Add(this.txtCONSTRACT_NAME);
             this.Controls.Add(this.txtCONTRACT_CODE);
             this.Controls.Add(this.panel1);
@@ -733,8 +748,8 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnFirst;
         private System.Windows.Forms.Button btnPrev;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCONSTRACT_NAME;
+        private System.Windows.Forms.Label lblCONTRACT_CODE;
         private System.Windows.Forms.TextBox txtCONSTRACT_NAME;
         private System.Windows.Forms.TextBox txtCONTRACT_CODE;
         private UserControls.DisplayItemLabel displayItemLabel1;

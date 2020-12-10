@@ -48,12 +48,12 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
             string ID = txtID.Text.Trim();
             string Password = txtPwd.Text.Trim();
 
-            if (!CheckUtility.SearchConditionCheck(this, ID, false, Utility.DataType.HALF_ALPHA_NUMERIC, 6, 0))
+            if (!CheckUtility.SearchConditionCheck(this,"ID", ID, false, Utility.DataType.HALF_ALPHA_NUMERIC, 6, 0))
             {
                 return;
             }
 
-            if (!CheckUtility.SearchConditionCheck(this, Password, false, Utility.DataType.HALF_ALPHA_NUMERIC, 20, 0))
+            if (!CheckUtility.SearchConditionCheck(this,"Password", Password, false, Utility.DataType.HALF_ALPHA_NUMERIC, 20, 0))
             {
                 return;
             }
@@ -194,9 +194,6 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 case "CTS080": //client certificate list
                     OpenClientCertificateScreen(programID, programName);
                     break;
-                case "CTS040": //client certificate list
-                    //OpenIssueQuotationScreen(programID, programName);
-                    break;
                 case "CMS020":
                     OpenUsageChargeMaster(programID, programName);
                     break;
@@ -205,6 +202,12 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                     break;
                 case "CMS010": // customer master maintence
                     OpenCustomerMasterMaintenance(programID, programName);
+                    break;
+                case "CTG010": // Monthly Sale Aggregation
+                    OpenMonthlySaleAggregationList(programID, programName);
+                    break;
+                case "CTB010":
+                    OpenInvoiceList(programID, programName);
                     break;
                 default:
                     break;
@@ -439,6 +442,37 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         }
         #endregion
 
+        #region OpenMonthlySaleAggregationList
+        private void OpenMonthlySaleAggregationList(string programID, string programName)
+        {
+            if (!(Application.OpenForms.OfType<FrmMonthlySaleAggregationList>().Count() == 1))
+            {
+                FrmMonthlySaleAggregationList form = new FrmMonthlySaleAggregationList(programID, programName);
+                form.Show();
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "\n" + Messages.DepositConfirmationMenu.ProcessAlreadyRunning, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //need change after message list
+            }
+        }
+        #endregion
+
+        #region OpenMonthlySaleAggregationList
+        private void OpenInvoiceList(string programID, string programName)
+        {
+            if (!(Application.OpenForms.OfType<FrmMonthlySaleAggregationList>().Count() == 1))
+            {
+                frmInvoiceList form = new frmInvoiceList(programID, programName);
+                form.Show();
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "\n" + Messages.DepositConfirmationMenu.ProcessAlreadyRunning, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //need change after message list
+            }
+        }
+        #endregion
 
         #region NodeDoubleClick
         private void TrvMenu_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)

@@ -62,7 +62,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvCurrent = new System.Windows.Forms.DataGridView();
             this.NO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CONTRACT_CODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CONTRACT_NAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INITIAL_UNIT_PRICE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INITIAL_QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INITIAL_AMOUNT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,7 +72,6 @@
             this.YEAR_UNIT_PRICE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.YEAR_QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.YEAR_AMOUNT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -86,7 +85,7 @@
             this.YEARLY_USAGE1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvChange = new System.Windows.Forms.DataGridView();
             this.NO1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CONTRACT_CODE1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CONTRACT_NAME1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INITIAL_UNIT_PRICE1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INITIAL_QUANTITY1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INITIAL_AMOUNT1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,7 +116,7 @@
             this.dgvCurrent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCurrent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NO,
-            this.CONTRACT_CODE,
+            this.CONTRACT_NAME,
             this.INITIAL_UNIT_PRICE,
             this.INITIAL_QUANTITY,
             this.INITIAL_AMOUNT,
@@ -148,15 +147,15 @@
             this.NO.ReadOnly = true;
             this.NO.Width = 35;
             // 
-            // CONTRACT_CODE
+            // CONTRACT_NAME
             // 
-            this.CONTRACT_CODE.DataPropertyName = "CONTRACT_CODE";
+            this.CONTRACT_NAME.DataPropertyName = "CONTRACT_NAME";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.CONTRACT_CODE.DefaultCellStyle = dataGridViewCellStyle3;
-            this.CONTRACT_CODE.HeaderText = "契約内容";
-            this.CONTRACT_CODE.Name = "CONTRACT_CODE";
-            this.CONTRACT_CODE.ReadOnly = true;
-            this.CONTRACT_CODE.Width = 155;
+            this.CONTRACT_NAME.DefaultCellStyle = dataGridViewCellStyle3;
+            this.CONTRACT_NAME.HeaderText = "契約内容";
+            this.CONTRACT_NAME.Name = "CONTRACT_NAME";
+            this.CONTRACT_NAME.ReadOnly = true;
+            this.CONTRACT_NAME.Width = 155;
             // 
             // INITIAL_UNIT_PRICE
             // 
@@ -256,16 +255,6 @@
             this.YEAR_AMOUNT.Name = "YEAR_AMOUNT";
             this.YEAR_AMOUNT.ReadOnly = true;
             this.YEAR_AMOUNT.Width = 85;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Meiryo UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 17);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "利用料金内訳";
             // 
             // label2
             // 
@@ -412,7 +401,7 @@
             this.dgvChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChange.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NO1,
-            this.CONTRACT_CODE1,
+            this.CONTRACT_NAME1,
             this.INITIAL_UNIT_PRICE1,
             this.INITIAL_QUANTITY1,
             this.INITIAL_AMOUNT1,
@@ -443,15 +432,15 @@
             this.NO1.ReadOnly = true;
             this.NO1.Width = 35;
             // 
-            // CONTRACT_CODE1
+            // CONTRACT_NAME1
             // 
-            this.CONTRACT_CODE1.DataPropertyName = "CONTRACT_CODE";
+            this.CONTRACT_NAME1.DataPropertyName = "CONTRACT_NAME";
             dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.CONTRACT_CODE1.DefaultCellStyle = dataGridViewCellStyle23;
-            this.CONTRACT_CODE1.HeaderText = "契約内容";
-            this.CONTRACT_CODE1.Name = "CONTRACT_CODE1";
-            this.CONTRACT_CODE1.ReadOnly = true;
-            this.CONTRACT_CODE1.Width = 155;
+            this.CONTRACT_NAME1.DefaultCellStyle = dataGridViewCellStyle23;
+            this.CONTRACT_NAME1.HeaderText = "契約内容";
+            this.CONTRACT_NAME1.Name = "CONTRACT_NAME1";
+            this.CONTRACT_NAME1.ReadOnly = true;
+            this.CONTRACT_NAME1.Width = 155;
             // 
             // INITIAL_UNIT_PRICE1
             // 
@@ -561,16 +550,18 @@
             this.Controls.Add(this.dgvChangeTotal);
             this.Controls.Add(this.dgvCurrentTotal);
             this.Controls.Add(this.dgvCurrent);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Meiryo UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1200, 423);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1200, 423);
             this.Name = "frmUsageChargeBreakDown";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "利用料金内訳";
             this.Load += new System.EventHandler(this.FrmUsageChargeBreakDown_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentTotal)).EndInit();
@@ -584,13 +575,20 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvCurrent;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvCurrentTotal;
+        private System.Windows.Forms.DataGridView dgvChangeTotal;
+        private System.Windows.Forms.DataGridView dgvChange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_EXPENSE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MONTHLY_USAGE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn YEARLY_USAGE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_EXPENSE1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MONTHLY_USAGE1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn YEARLY_USAGE1;
         private System.Windows.Forms.DataGridViewTextBoxColumn NO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CONTRACT_CODE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CONTRACT_NAME;
         private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_UNIT_PRICE;
         private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_QUANTITY;
         private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_AMOUNT;
@@ -600,10 +598,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn YEAR_UNIT_PRICE;
         private System.Windows.Forms.DataGridViewTextBoxColumn YEAR_QUANTITY;
         private System.Windows.Forms.DataGridViewTextBoxColumn YEAR_AMOUNT;
-        private System.Windows.Forms.DataGridView dgvChangeTotal;
-        private System.Windows.Forms.DataGridView dgvChange;
         private System.Windows.Forms.DataGridViewTextBoxColumn NO1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CONTRACT_CODE1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CONTRACT_NAME1;
         private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_UNIT_PRICE1;
         private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_QUANTITY1;
         private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_AMOUNT1;
@@ -613,11 +609,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn YEAR_UNIT_PRICE1;
         private System.Windows.Forms.DataGridViewTextBoxColumn YEAR_QUANTITY1;
         private System.Windows.Forms.DataGridViewTextBoxColumn YEAR_AMOUNT1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_EXPENSE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MONTHLY_USAGE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn YEARLY_USAGE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn INITIAL_EXPENSE1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MONTHLY_USAGE1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn YEARLY_USAGE1;
     }
 }

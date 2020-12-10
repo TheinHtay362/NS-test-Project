@@ -55,6 +55,7 @@ namespace DAL_AmigoProcess.DAL
                                                         TRIM(CONVERT(nvarchar(50),COMPANY_NO_BOX))
                                                         IN
                                                         (@COMPANY_NO_BOX)
+                                                        AND YEAR_MONTH = @YEAR_MONTH
                                                         AND ALLOCATED_COMPLETION_DATE IS NULL
                                                         ORDER BY YEAR_MONTH";
 
@@ -65,7 +66,6 @@ namespace DAL_AmigoProcess.DAL
                                     STATUS_ACTUAL_DEPOSIT_YYMM = @STATUS_ACTUAL_DEPOSIT_YYMM,
                                     STATUS_ACTUAL_DEPOSIT_DATE = @STATUS_ACTUAL_DEPOSIT_DATE
                                     WHERE COMPANY_NO_BOX=@COMPANY_NO_BOX AND YEAR_MONTH=@YEAR_MONTH ";
-
         string strUpdateForCancel = @"UPDATE INVOICE_INFO
                                     SET ALLOCATION_TOTAL_AMOUNT = 0,
                                     TYPE_OF_ALLOCATION = 0,
@@ -106,16 +106,16 @@ namespace DAL_AmigoProcess.DAL
 									AND ISNULL(INVOICE_INFO.STATUS_ACTUAL_DEPOSIT_DATE,'') @CBO_STATUS_ACTUAL_DEPOSIT_DATE
                                     ORDER BY INVOICE_INFO.YEAR_MONTH,INVOICE_INFO.COMPANY_NO_BOX, RESERVE_INFO.RESERVE_ID
                                     ";
-        string strAccount_Receivable = @"SELECT '' ORDER_NO,NCS_CUSTOMER_CODE, N'要' INVOICE, FORMAT(INVOICE_DATE, 'yyyy/MM/dd') INVOICE_DATE,N'部分' RangeData,
+        string strAccount_Receivable = @"SELECT '' ORDER_NO,RTRIM(NCS_CUSTOMER_CODE) NCS_CUSTOMER_CODE, N'要' INVOICE, FORMAT(INVOICE_DATE, 'yyyy/MM/dd') INVOICE_DATE,N'部分' RangeData,
                                         (CASE WHEN BILL_SUPPLIER_NAME = N'日産車体株式会社' THEN N'当座' ELSE N'普通' END) Division,
 										(CASE WHEN ISNULL(STATUS_PLAN_DEPOSIT_YYMM,'') <> '' THEN 
 											FORMAT(dbo.fn_LastBusinessDayOfMonth(CONVERT(DATETIME, STATUS_PLAN_DEPOSIT_YYMM + '01')), 'yyyy/MM/dd')
 										END )STATUS_PLAN_DEPOSIT_DATE,
                                         '' ACTUAL_DEPOSIT_DATE,BILL_AMOUNT,BILL_TAX,
-                                        (CASE TRANSACTION_TYPE WHEN 12 THEN N'Amigo要元利用料' + ' 20' + Stuff(REPLACE(YEAR_MONTH,'-',''),Len(REPLACE(YEAR_MONTH,'-',''))-1,0,'/') 
+                                        (CASE TRANSACTION_TYPE WHEN 12 THEN N'Amigo要元利用料' + ' 20' + Stuff(REPLACE(RTRIM(YEAR_MONTH),'-',''),Len(REPLACE(RTRIM(YEAR_MONTH),'-',''))-1,0,'/') 
                                         WHEN 21 THEN N'Amigo初期費用' 
-                                        WHEN 22 THEN N'Amigo月額' + Stuff(REPLACE(YEAR_MONTH,'-',''),3,0,'/')
-                                        WHEN 32 THEN N'Amigo生産情報閲覧' + Stuff(REPLACE(YEAR_MONTH,'-',''),3,0,'/') ELSE ''END) PROPERTY_NAME,
+                                        WHEN 22 THEN N'Amigo月額' + Stuff(REPLACE(RTRIM(YEAR_MONTH),'-',''),3,0,'/')
+                                        WHEN 32 THEN N'Amigo生産情報閲覧' + Stuff(REPLACE(RTRIM(YEAR_MONTH),'-',''),3,0,'/') ELSE ''END) PROPERTY_NAME,
                                         N'無' TRANSFER_DATA,
                                         '' Responsible, FORMAT(GETDATE(), 'yyyy/MM') Hanging, FORMAT(GETDATE(), 'yyyy/MM/dd') RegistrationDate, '' Humor, '' Change_date,'' tax_rate
                                         FROM INVOICE_INFO
@@ -133,9 +133,9 @@ namespace DAL_AmigoProcess.DAL
                                         AND ISNULL(INVOICE_INFO.BILL_DEPOSIT_RULES,'') @CBO_BILL_DEPOSIT_RULES
 									    AND ISNULL(INVOICE_INFO.STATUS_ACTUAL_DEPOSIT_DATE,'') @CBO_STATUS_ACTUAL_DEPOSIT_DATE
                                         ORDER BY BILL_PAYMENT_DATE, NCS_CUSTOMER_CODE";
-        string strScheduled_Payment = @"SELECT YEAR_MONTH, COMPANY_NO_BOX+YEAR_MONTH INVOICE_NO,FORMAT(INVOICE_DATE, 'yyyy/MM/dd') INVOICE_DATE,
-                                        NCS_CUSTOMER_CODE,BILL_SUPPLIER_NAME,BILL_SUPPLIER_NAME_READING,
-                                        N'Amigo月額' +　' ' + Stuff(REPLACE(YEAR_MONTH,'-',''),3,0,'/') Product_name,
+        string strScheduled_Payment = @"SELECT RTRIM(YEAR_MONTH) YEAR_MONTH, COMPANY_NO_BOX+RTRIM(YEAR_MONTH) INVOICE_NO,FORMAT(INVOICE_DATE, 'yyyy/MM/dd') INVOICE_DATE,
+                                        RTRIM(NCS_CUSTOMER_CODE) NCS_CUSTOMER_CODE,BILL_SUPPLIER_NAME,BILL_SUPPLIER_NAME_READING,
+                                        N'Amigo月額' +　' ' + Stuff(REPLACE(RTRIM(YEAR_MONTH),'-',''),3,0,'/') Product_name,
                                         BILL_AMOUNT,BILL_TAX,BILL_PRICE,
                                         (CASE WHEN ISNULL(STATUS_PLAN_DEPOSIT_YYMM,'') = '' THEN '' ELSE  
                                         (CASE WHEN LEN(STATUS_PLAN_DEPOSIT_YYMM) = 4 THEN
@@ -178,6 +178,90 @@ namespace DAL_AmigoProcess.DAL
                                     TYPE_OF_ALLOCATION = @TYPE_OF_ALLOCATION
                                     WHERE COMPANY_NO_BOX = @COMPANY_NO_BOX
                                     AND YEAR_MONTH = @YEAR_MONTH";
+
+        string strMonthlySaleAggregationSale = @"SELECT SUM(MAKER_AMOUNT) AS MAKER_AMOUNT_TTL,SUM(SUPPLIER_INTIAL_AMOUNT) AS SUPPLIER_INTIAL_AMOUNT_TTL,SUM(SUPPLIER_MONTHLY_AMOUNT) AS SUPPLIER_MONTHLY_AMOUNT_TTL,SUM(PRODUCT_AMOUNT) AS PRODUCT_AMOUNT_TTL
+                                             FROM
+                                            (SELECT
+                                            (CASE WHEN TRANSACTION_TYPE='12' THEN BILL_AMOUNT ELSE 0 END) MAKER_AMOUNT,
+                                            (CASE WHEN TRANSACTION_TYPE='21' THEN BILL_AMOUNT ELSE 0 END) SUPPLIER_INTIAL_AMOUNT,
+                                            (CASE WHEN TRANSACTION_TYPE='22' THEN BILL_AMOUNT ELSE 0 END) SUPPLIER_MONTHLY_AMOUNT,
+                                            (CASE WHEN TRANSACTION_TYPE='32' THEN BILL_AMOUNT ELSE 0 END) PRODUCT_AMOUNT
+                                            FROM INVOICE_INFO WHERE SUBSTRING([YEAR_MONTH],2,4) =@YEARMOHTH and TRANSACTION_TYPE in (12,21,22,32)
+                                            UNION ALL
+                                            SELECT 
+                                            (CASE WHEN Ref.BILL_TYPE = '12' THEN Ref.INITIAL_COST - Ref.INITIAL_COST_DISCOUNTS +  Ref.MONTHLY_COST - Ref.MONTHLY_COST_DISCOUNTS ELSE 0 END) MAKER_AMOUNT,
+                                            (CASE WHEN Ref.BILL_TYPE = '22' AND FORMAT(DATEADD(month,1,REQUEST_DETAIL.COMPLETION_NOTIFICATION_DATE),'yyMM') = @YEARMOHTH THEN Ref.INITIAL_COST-Ref.INITIAL_COST_DISCOUNTS ELSE 0 END)SUPPLIER_INTIAL_AMOUNT,
+                                            (CASE WHEN Ref.BILL_TYPE = '22' THEN  Ref.MONTHLY_COST-Ref.MONTHLY_COST_DISCOUNTS ELSE 0 END) SUPPLIER_MONTHLY_AMOUNT,
+                                            (CASE WHEN Ref.BILL_TYPE = '32'
+		                                            THEN CASE WHEN FORMAT(DATEADD(month,1,REQUEST_DETAIL.COMPLETION_NOTIFICATION_DATE),'yyMM')=@YEARMOHTH
+					                                            THEN Ref.INITIAL_COST-Ref.INITIAL_COST_DISCOUNTS + Ref.YEAR_COST-Ref.YEAR_COST_DISCOUNTS
+					                                            ELSE 0 END
+                                            ELSE 
+	                                            CASE WHEN SUBSTRING(FORMAT(Ref.EFFECTIVE_DATE,'yyMM'),3,2) = SUBSTRING(@YEARMOHTH,3,2)
+	                                            THEN Ref.YEAR_COST - Ref.YEAR_COST_DISCOUNTS ELSE 0 END
+                                            END ) PRODUCT_AMOUNT
+                                            FROM REQUEST_DETAIL,
+                                            (
+                                            SELECT *,ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY COMPANY_NO_BOX, EFFECTIVE_DATE DESC, REQ_SEQ DESC) num
+                                            FROM CUSTOMER_MASTER_VIEW
+                                            where FORMAT([EFFECTIVE_DATE],'yyMM') <= @YEARMOHTH
+                                            AND BILL_TYPE IN (12,22,32)
+                                            AND NOT EXISTS ( SELECT * FROM INVOICE_INFO where CUSTOMER_MASTER_VIEW.COMPANY_NO_BOX = COMPANY_NO_BOX and FORMAT(CUSTOMER_MASTER_VIEW.EFFECTIVE_DATE,'yyMM') <= SUBSTRING(YEAR_MONTH,2,4) AND SUBSTRING(YEAR_MONTH,2,4) = @YEARMOHTH )
+                                            ) AS Ref
+
+                                            WHERE REQUEST_DETAIL.COMPANY_NO_BOX=Ref.COMPANY_NO_BOX
+                                            AND REQUEST_DETAIL.REQ_SEQ=Ref.REQ_SEQ
+                                            AND Ref.num = 1
+                                            AND Ref.UPDATE_CONTENT IN (1,3)
+                                            ) TBL";
+
+
+        string strMonthlySaleAggregationPlanDeposit = @"SELECT SUM(MAKER_AMOUNT) AS MAKER_AMOUNT_TTL,SUM(SUPPLIER_INTIAL_AMOUNT) AS SUPPLIER_INTIAL_AMOUNT_TTL,SUM(SUPPLIER_MONTHLY_AMOUNT) AS SUPPLIER_MONTHLY_AMOUNT_TTL,SUM(PRODUCT_AMOUNT) AS PRODUCT_AMOUNT_TTL
+                                                        FROM
+                                                        (SELECT
+                                                        (CASE WHEN TRANSACTION_TYPE='12' THEN BILL_AMOUNT ELSE 0 END) MAKER_AMOUNT,
+                                                        (CASE WHEN TRANSACTION_TYPE='21' THEN BILL_AMOUNT ELSE 0 END) SUPPLIER_INTIAL_AMOUNT,
+                                                        (CASE WHEN TRANSACTION_TYPE='22' THEN BILL_AMOUNT ELSE 0 END) SUPPLIER_MONTHLY_AMOUNT,
+                                                        (CASE WHEN TRANSACTION_TYPE='32' THEN BILL_AMOUNT ELSE 0 END) PRODUCT_AMOUNT
+                                                        FROM INVOICE_INFO WHERE STATUS_PLAN_DEPOSIT_YYMM=@YEARMOHTH and TRANSACTION_TYPE in (12,21,22,32)
+                                                        UNION ALL
+                                                        SELECT 
+                                                        (CASE WHEN Ref.BILL_TYPE = '12' THEN Ref.INITIAL_COST - Ref.INITIAL_COST_DISCOUNTS +  Ref.MONTHLY_COST - Ref.MONTHLY_COST_DISCOUNTS ELSE 0 END) MAKER_AMOUNT,
+                                                        (CASE WHEN FORMAT(DATEADD(MONTH,1,REQUEST_DETAIL.COMPLETION_NOTIFICATION_DATE),'yyMM') = @YEARMOHTH THEN Ref.INITIAL_COST-Ref.INITIAL_COST_DISCOUNTS ELSE 0 END)SUPPLIER_INTIAL_AMOUNT,
+                                                        (CASE WHEN Ref.BILL_TYPE = '22' THEN  Ref.MONTHLY_COST-Ref.MONTHLY_COST_DISCOUNTS ELSE 0 END) SUPPLIER_MONTHLY_AMOUNT,
+                                                        (CASE WHEN Ref.BILL_TYPE = '32'
+		                                                        THEN CASE WHEN FORMAT(DATEADD(MONTH,1,REQUEST_DETAIL.COMPLETION_NOTIFICATION_DATE),'yyMM')=@YEARMOHTH
+					                                                        THEN Ref.INITIAL_COST-Ref.INITIAL_COST_DISCOUNTS + Ref.YEAR_COST-Ref.YEAR_COST_DISCOUNTS
+					                                                        ELSE 0 END
+                                                        ELSE 
+	                                                        CASE WHEN substring(format(Ref.EFFECTIVE_DATE,'yyMM'),3,2) = SUBSTRING(@YEARMOHTH,3,2)
+	                                                        THEN Ref.YEAR_COST - Ref.YEAR_COST_DISCOUNTS ELSE 0 END
+                                                        END ) PRODUCT_AMOUNT
+                                                        FROM REQUEST_DETAIL,
+                                                        (
+                                                        SELECT *,ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY COMPANY_NO_BOX, EFFECTIVE_DATE DESC, REQ_SEQ DESC) num
+                                                        FROM CUSTOMER_MASTER_VIEW
+                                                        WHERE format([EFFECTIVE_DATE],'yyMM') <= @YEARMOHTH
+                                                        AND BILL_DEPOSIT_RULES=1
+                                                        AND BILL_TYPE in(12,22,32)
+                                                        AND NOT EXISTS ( SELECT * FROM INVOICE_INFO WHERE CUSTOMER_MASTER_VIEW.COMPANY_NO_BOX = COMPANY_NO_BOX AND FORMAT(CUSTOMER_MASTER_VIEW.EFFECTIVE_DATE,'yyMM') <= SUBSTRING(YEAR_MONTH,2,4) AND SUBSTRING(YEAR_MONTH,2,4) = @YEARMOHTH )
+                                                        ) AS Ref
+
+                                                        WHERE REQUEST_DETAIL.COMPANY_NO_BOX=Ref.COMPANY_NO_BOX
+                                                        AND REQUEST_DETAIL.REQ_SEQ=Ref.REQ_SEQ
+                                                        AND Ref.num = 1
+                                                        AND Ref.UPDATE_CONTENT in (1,3)
+                                                        ) TBL";
+
+        string strMonthlySaleAggregationActualDeposit = @"SELECT SUM(MAKER_AMOUNT) AS MAKER_AMOUNT_TTL,SUM(SUPPLIER_INTIAL_AMOUNT) AS SUPPLIER_INTIAL_AMOUNT_TTL,SUM(SUPPLIER_MONTHLY_AMOUNT) AS SUPPLIER_MONTHLY_AMOUNT_TTL,SUM(PRODUCT_AMOUNT) AS PRODUCT_AMOUNT_TTL
+                                                        FROM
+                                                        (SELECT
+                                                        (CASE WHEN TRANSACTION_TYPE='12' THEN BILL_AMOUNT ELSE 0 END) MAKER_AMOUNT,
+                                                        (CASE WHEN TRANSACTION_TYPE='21' THEN BILL_AMOUNT ELSE 0 END) SUPPLIER_INTIAL_AMOUNT,
+                                                        (CASE WHEN TRANSACTION_TYPE='22' THEN BILL_AMOUNT ELSE 0 END) SUPPLIER_MONTHLY_AMOUNT,
+                                                        (CASE WHEN TRANSACTION_TYPE='32' THEN BILL_AMOUNT ELSE 0 END) PRODUCT_AMOUNT
+                                                        FROM INVOICE_INFO WHERE ALLOCATED_COMPLETION_DATE IS NOT NULL and  STATUS_ACTUAL_DEPOSIT_YYMM = @YEARMOHTH AND TRANSACTION_TYPE in (12,21,22,32)
+                                                        )TB";
 
         string strInvoiceListTotal = @"select COUNT(Subquery1.COMPANY_NO_BOX)
                                         FROM
@@ -295,7 +379,7 @@ namespace DAL_AmigoProcess.DAL
                                         Subquery3.Supplier_Initial_expense_TAX,
                                         Subquery3.Supplier_Initial_expense_INCLUDING_TAX,
                                         Subquery4.Supplier_Monthly_usage_fee_REQ_SEQ,
-                                        Subquery4.supplier_Monthly_usage_fee,
+                                        Subquery4.Supplier_Monthly_usage_fee,
                                         Subquery4.Supplier_Monthly_usage_fee_DISCOUNTED,
                                         Subquery4.Supplier_Monthly_usage_fee_TAX,
                                         Subquery4.Supplier_Monthly_usage_fee_INCLUDING_TAX,
@@ -358,7 +442,7 @@ namespace DAL_AmigoProcess.DAL
                                         (SELECT *
                                         FROM (SELECT COMPANY_NO_BOX,
                                         REQ_SEQ AS Supplier_Monthly_usage_fee_REQ_SEQ,
-                                        MONTHLY_COST AS supplier_Monthly_usage_fee,
+                                        MONTHLY_COST AS Supplier_Monthly_usage_fee,
                                         (MONTHLY_COST - MONTHLY_COST_DISCOUNTS) AS Supplier_Monthly_usage_fee_DISCOUNTED,
                                         (MONTHLY_COST_INCLUDING_TAX - (MONTHLY_COST - MONTHLY_COST_DISCOUNTS)) AS Supplier_Monthly_usage_fee_TAX,
                                         MONTHLY_COST_INCLUDING_TAX AS Supplier_Monthly_usage_fee_INCLUDING_TAX,
@@ -417,24 +501,6 @@ namespace DAL_AmigoProcess.DAL
                                        FROM INVOICE_INFO 
                                        WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
 
-
-        string strInviceListForCVS = @"SELECT *
-                                       FROM INVOICE_INFO 
-                                       WHERE substring(YEAR_MONTH,2,4) = @BILLING_DATE";
-
-        string strIsAlreadyUpdateForCSVCreate = @"SELECT COUNT(COMPANY_NO_BOX) AS COUNT
-                                                FROM INVOICE_INFO
-                                                WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
-
-
-        string strUpdateForCreateCSV = @"UPDATE INVOICE_INFO
-                                        SET STATUS_PRINT = GETDATE()
-                                        WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
-
-        string strDeleteByYearMonth = @"DELETE FROM INVOICE_INFO 
-									   WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
-
-        #region CMT
         string strInsertInvoiceInfo = @"INSERT INTO [INVOICE_INFO]
                                         ([TRANSACTION_TYPE]
                                         ,[COMPANY_NO_BOX]
@@ -553,8 +619,22 @@ namespace DAL_AmigoProcess.DAL
                                         @SPECIAL_NOTES_2,
                                         @SPECIAL_NOTES_3,
                                         @SPECIAL_NOTES_4)";
-        #endregion
-        #endregion
+
+        string strDeleteByYearMonth = @"DELETE FROM INVOICE_INFO 
+									   WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
+
+        string strInviceListForCVS = @"SELECT *
+                                       FROM INVOICE_INFO 
+                                       WHERE substring(YEAR_MONTH,2,4) = @BILLING_DATE";
+
+        string strIsAlreadyUpdateForCSVCreate = @"SELECT COUNT(COMPANY_NO_BOX) AS COUNT
+                                                FROM INVOICE_INFO
+                                                WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
+
+        string strUpdateForCreateCSV = @"UPDATE INVOICE_INFO
+                                        SET STATUS_PRINT = GETDATE()
+                                        WHERE substring(YEAR_MONTH,2,4) = @YEAR_MONTH";
+        #endregion        
 
         #region insert
 
@@ -635,9 +715,9 @@ namespace DAL_AmigoProcess.DAL
         #endregion
 
         #region getInvoiceByCustomerManualAllocate
-        public DataTable getInvoiceByCustomerManualAllocate(string COMPANY_NO_BOX_S)
+        public DataTable getInvoiceByCustomerManualAllocate(string COMPANY_NO_BOX_S, string YEAR_MONTH)
         {
-            string strQuery = strGetInvoiceByCustomerManualAllocate.Replace("@COMPANY_NO_BOX", COMPANY_NO_BOX_S);
+            string strQuery = strGetInvoiceByCustomerManualAllocate.Replace("@COMPANY_NO_BOX", COMPANY_NO_BOX_S).Replace("@YEAR_MONTH", YEAR_MONTH);
             ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strQuery);
             oMaster.ExcuteQuery(4, out strMessage);
             return oMaster.dtExcuted;
@@ -860,15 +940,45 @@ namespace DAL_AmigoProcess.DAL
 
         #endregion
 
+        #region GetMonthlySaleAggregationSaleList
+        public System.Data.DataTable GetMonthlySaleAggregationSaleList(string strDate, out string strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strMonthlySaleAggregationSale);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEARMOHTH", strDate));
+            oMaster.ExcuteQuery(4, out strMsg);
+            return oMaster.dtExcuted;
+        }
+        #endregion
+
+        #region GetMonthlySaleAggregationPlanDepositList
+        public System.Data.DataTable GetMonthlySaleAggregationPlanDepositList(string strDate, out string strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strMonthlySaleAggregationPlanDeposit);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEARMOHTH", strDate));
+            oMaster.ExcuteQuery(4, out strMsg);
+            return oMaster.dtExcuted;
+        }
+        #endregion
+
+        #region GetMonthlySaleAggregationActualDepositList
+        public System.Data.DataTable GetMonthlySaleAggregationActualDepositList(string strDate, out string strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strMonthlySaleAggregationActualDeposit);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEARMOHTH", strDate));
+            oMaster.ExcuteQuery(4, out strMsg);
+            return oMaster.dtExcuted;
+        }
+        #endregion
+
         #region getInvoiceList
         public DataTable GetInvoiceList(string YEAR_MONTH, int OFFSET, int LIMIT, string checkGetOrCreate, out string strMsg, out int total)
         {
-            if(checkGetOrCreate == "CREATE")
+            if (checkGetOrCreate == "CREATE")
             {
                 strInvoiceList = strInvoiceList.Replace("OFFSET @OFFSET ROWS FETCH NEXT @LIMIT ROWS ONLY", "");
             }
             ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strInvoiceListTotal);//strInvoiceListTotal
-            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH.Trim()));
             oMaster.ExcuteQuery(4, out strMsg);
             total = int.Parse(oMaster.dtExcuted.Rows[0][0].ToString());
             //total = 5;
@@ -881,10 +991,9 @@ namespace DAL_AmigoProcess.DAL
             return oMaster.dtExcuted;
         }
         #endregion
-        //need to add
 
         #region IsAlreadyCreated
-        public int IsAlreadyCreated(string  YEAR_MONTH, out string strMsg)
+        public int IsAlreadyCreated(string YEAR_MONTH, out string strMsg)
         {
             ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strIsAlreadyCreated);
             oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
@@ -901,67 +1010,6 @@ namespace DAL_AmigoProcess.DAL
                 count = 0;
             }
             return count;
-        }
-        #endregion
-        //need to add
-
-        //Update for CreateCSV
-        #region GetInvoiceListForCVS
-        public DataTable GetCSVList(string BILLING_DATE, out string strMsg)
-        {
-            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strInviceListForCVS);
-            oMaster.crudCommand.Parameters.Add(new SqlParameter("@BILLING_DATE", BILLING_DATE));
-            oMaster.ExcuteQuery(4, out strMsg);
-            return oMaster.dtExcuted;
-        }
-        #endregion
-
-        #region IsAlreadyUpdateForCSVCreate
-        public bool IsAlreadyUpdatedForCSVCreate(string YEAR_MONTH, out string strMsg)
-        {
-            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strIsAlreadyUpdateForCSVCreate);
-            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
-
-            oMaster.ExcuteQuery(4, out strMsg);
-
-            int count;
-            try
-            {
-                count = int.Parse(oMaster.dtExcuted.Rows[0][0].ToString());
-            }
-            catch (Exception)
-            {
-                count = 0;
-            }
-
-            if (count <= 0) //check 
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        #endregion
-
-        #region Update for CSVCreate
-        public void Update(string YEAR_MONTH,string CURRENT_DATE, out String strMsg)
-        {
-            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strUpdateForCreateCSV);
-            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
-            //oMaster.crudCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", CURRENT_DATE));
-            oMaster.ExcuteQuery(2, out strMsg);
-        }
-
-        #endregion
-
-        #region DeleteInvoiceInfoByYearMonth
-        public void DeleteInvoiceInfoByYearMonth(string YEAR_MONTH, out String strMsg)
-        {
-            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strDeleteByYearMonth);
-            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
-            oMaster.ExcuteQuery(3, out strMsg);
         }
         #endregion
 
@@ -1031,6 +1079,65 @@ namespace DAL_AmigoProcess.DAL
 
             oMaster.ExcuteQuery(1, out strMsg);
         }
+        #endregion
+
+        #region DeleteInvoiceInfoByYearMonth
+        public void DeleteInvoiceInfoByYearMonth(string YEAR_MONTH, out String strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strDeleteByYearMonth);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
+            oMaster.ExcuteQuery(3, out strMsg);
+        }
+        #endregion
+
+        #region GetInvoiceListForCVS
+        public DataTable GetCSVList(string BILLING_DATE, out string strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strInviceListForCVS);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@BILLING_DATE", BILLING_DATE));
+            oMaster.ExcuteQuery(4, out strMsg);
+            return oMaster.dtExcuted;
+        }
+        #endregion
+
+        #region IsAlreadyUpdateForCSVCreate
+        public bool IsAlreadyUpdatedForCSVCreate(string YEAR_MONTH, out string strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strIsAlreadyUpdateForCSVCreate);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
+
+            oMaster.ExcuteQuery(4, out strMsg);
+
+            int count;
+            try
+            {
+                count = int.Parse(oMaster.dtExcuted.Rows[0][0].ToString());
+            }
+            catch (Exception)
+            {
+                count = 0;
+            }
+
+            if (count <= 0) //check 
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Update for CSVCreate
+        public void Update(string YEAR_MONTH, string CURRENT_DATE, out String strMsg)
+        {
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strUpdateForCreateCSV);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
+            //oMaster.crudCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", CURRENT_DATE));
+            oMaster.ExcuteQuery(2, out strMsg);
+        }
+
         #endregion
     }
     #endregion

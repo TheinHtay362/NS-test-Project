@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsageApplicationList));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -44,6 +43,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsageApplicationList));
             this.cboGD = new System.Windows.Forms.ComboBox();
             this.rdoClose = new System.Windows.Forms.RadioButton();
             this.rdoProcessing = new System.Windows.Forms.RadioButton();
@@ -63,38 +63,6 @@
             this.pTitle = new System.Windows.Forms.Panel();
             this.lblClear = new System.Windows.Forms.Label();
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.cboApplicationStatus = new System.Windows.Forms.ComboBox();
-            this.txtApplicationDateTo = new System.Windows.Forms.TextBox();
-            this.txtQuotationIssueDateTo = new System.Windows.Forms.TextBox();
-            this.txtOrderDateTo = new System.Windows.Forms.TextBox();
-            this.cboSystemSettingStatus = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtCompanyNoBox = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtCompanyName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTotalRecords = new System.Windows.Forms.Label();
-            this.btnCheck = new System.Windows.Forms.Button();
-            this.btnUnCheck = new System.Windows.Forms.Button();
-            this.lblTotalPages = new System.Windows.Forms.Label();
-            this.lblcurrentPage = new System.Windows.Forms.Label();
-            this.btnLast = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnFirst = new System.Windows.Forms.Button();
-            this.btnPrev = new System.Windows.Forms.Button();
-            this.gpRadio = new System.Windows.Forms.GroupBox();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCK = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colMK = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -120,8 +88,40 @@
             this.colUPDATED_AT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUPDATED_BY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUPDATE_MESSAGE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UPDATED_AT_RAW = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colUPDATED_AT_RAW = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ROW_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cboApplicationStatus = new System.Windows.Forms.ComboBox();
+            this.txtApplicationDateTo = new System.Windows.Forms.TextBox();
+            this.txtQuotationIssueDateTo = new System.Windows.Forms.TextBox();
+            this.txtOrderDateTo = new System.Windows.Forms.TextBox();
+            this.cboSystemSettingStatus = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblCompanyNoBox = new System.Windows.Forms.Label();
+            this.txtCompanyNoBox = new System.Windows.Forms.TextBox();
+            this.lblCompanyName = new System.Windows.Forms.Label();
+            this.txtCompanyName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblTotalRecords = new System.Windows.Forms.Label();
+            this.btnCheck = new System.Windows.Forms.Button();
+            this.btnUnCheck = new System.Windows.Forms.Button();
+            this.lblTotalPages = new System.Windows.Forms.Label();
+            this.lblcurrentPage = new System.Windows.Forms.Label();
+            this.btnLast = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnFirst = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.gpRadio = new System.Windows.Forms.GroupBox();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.pTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.panel1.SuspendLayout();
@@ -135,8 +135,8 @@
             this.cboGD.Location = new System.Drawing.Point(870, 106);
             this.cboGD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboGD.Name = "cboGD";
-            this.cboGD.Size = new System.Drawing.Size(87, 22);
-            this.cboGD.TabIndex = 148;
+            this.cboGD.Size = new System.Drawing.Size(87, 26);
+            this.cboGD.TabIndex = 13;
             // 
             // rdoClose
             // 
@@ -144,8 +144,8 @@
             this.rdoClose.Location = new System.Drawing.Point(209, 10);
             this.rdoClose.Margin = new System.Windows.Forms.Padding(2);
             this.rdoClose.Name = "rdoClose";
-            this.rdoClose.Size = new System.Drawing.Size(59, 18);
-            this.rdoClose.TabIndex = 147;
+            this.rdoClose.Size = new System.Drawing.Size(71, 22);
+            this.rdoClose.TabIndex = 12;
             this.rdoClose.Text = "クローズ";
             this.rdoClose.UseVisualStyleBackColor = true;
             // 
@@ -156,8 +156,8 @@
             this.rdoProcessing.Location = new System.Drawing.Point(139, 10);
             this.rdoProcessing.Margin = new System.Windows.Forms.Padding(2);
             this.rdoProcessing.Name = "rdoProcessing";
-            this.rdoProcessing.Size = new System.Drawing.Size(62, 18);
-            this.rdoProcessing.TabIndex = 146;
+            this.rdoProcessing.Size = new System.Drawing.Size(76, 22);
+            this.rdoProcessing.TabIndex = 11;
             this.rdoProcessing.TabStop = true;
             this.rdoProcessing.Text = "処理中 ";
             this.rdoProcessing.UseVisualStyleBackColor = true;
@@ -168,8 +168,8 @@
             this.rdoAll.Location = new System.Drawing.Point(83, 10);
             this.rdoAll.Margin = new System.Windows.Forms.Padding(2);
             this.rdoAll.Name = "rdoAll";
-            this.rdoAll.Size = new System.Drawing.Size(45, 18);
-            this.rdoAll.TabIndex = 145;
+            this.rdoAll.Size = new System.Drawing.Size(54, 22);
+            this.rdoAll.TabIndex = 10;
             this.rdoAll.Text = "全て";
             this.rdoAll.UseVisualStyleBackColor = true;
             // 
@@ -178,24 +178,24 @@
             this.txtOrderDateFrom.Location = new System.Drawing.Point(870, 147);
             this.txtOrderDateFrom.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtOrderDateFrom.Name = "txtOrderDateFrom";
-            this.txtOrderDateFrom.Size = new System.Drawing.Size(87, 21);
-            this.txtOrderDateFrom.TabIndex = 140;
+            this.txtOrderDateFrom.Size = new System.Drawing.Size(87, 25);
+            this.txtOrderDateFrom.TabIndex = 19;
             // 
             // txtQuotationIssueDateFrom
             // 
             this.txtQuotationIssueDateFrom.Location = new System.Drawing.Point(604, 148);
             this.txtQuotationIssueDateFrom.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtQuotationIssueDateFrom.Name = "txtQuotationIssueDateFrom";
-            this.txtQuotationIssueDateFrom.Size = new System.Drawing.Size(87, 21);
-            this.txtQuotationIssueDateFrom.TabIndex = 138;
+            this.txtQuotationIssueDateFrom.Size = new System.Drawing.Size(87, 25);
+            this.txtQuotationIssueDateFrom.TabIndex = 17;
             // 
             // txtApplicationDateFrom
             // 
             this.txtApplicationDateFrom.Location = new System.Drawing.Point(308, 148);
             this.txtApplicationDateFrom.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtApplicationDateFrom.Name = "txtApplicationDateFrom";
-            this.txtApplicationDateFrom.Size = new System.Drawing.Size(87, 21);
-            this.txtApplicationDateFrom.TabIndex = 136;
+            this.txtApplicationDateFrom.Size = new System.Drawing.Size(87, 25);
+            this.txtApplicationDateFrom.TabIndex = 15;
             // 
             // btnUpdate
             // 
@@ -203,7 +203,7 @@
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 30);
-            this.btnUpdate.TabIndex = 118;
+            this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "更新";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
@@ -215,8 +215,8 @@
             this.cboLimit.Location = new System.Drawing.Point(105, 188);
             this.cboLimit.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboLimit.Name = "cboLimit";
-            this.cboLimit.Size = new System.Drawing.Size(124, 22);
-            this.cboLimit.TabIndex = 128;
+            this.cboLimit.Size = new System.Drawing.Size(124, 26);
+            this.cboLimit.TabIndex = 22;
             // 
             // btnGDConfirmationComplete
             // 
@@ -224,7 +224,7 @@
             this.btnGDConfirmationComplete.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnGDConfirmationComplete.Name = "btnGDConfirmationComplete";
             this.btnGDConfirmationComplete.Size = new System.Drawing.Size(100, 30);
-            this.btnGDConfirmationComplete.TabIndex = 121;
+            this.btnGDConfirmationComplete.TabIndex = 7;
             this.btnGDConfirmationComplete.Text = "GD確認完了";
             this.btnGDConfirmationComplete.UseVisualStyleBackColor = true;
             this.btnGDConfirmationComplete.Click += new System.EventHandler(this.BtnGDConfirmationComplete_Click);
@@ -236,7 +236,7 @@
             this.lblMenu.Location = new System.Drawing.Point(12, 9);
             this.lblMenu.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMenu.Name = "lblMenu";
-            this.lblMenu.Size = new System.Drawing.Size(126, 21);
+            this.lblMenu.Size = new System.Drawing.Size(160, 27);
             this.lblMenu.TabIndex = 0;
             this.lblMenu.Text = "Jimugo - Menu";
             // 
@@ -246,7 +246,7 @@
             this.btnCancelApplication.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCancelApplication.Name = "btnCancelApplication";
             this.btnCancelApplication.Size = new System.Drawing.Size(100, 30);
-            this.btnCancelApplication.TabIndex = 119;
+            this.btnCancelApplication.TabIndex = 5;
             this.btnCancelApplication.Text = "申請取消";
             this.btnCancelApplication.UseVisualStyleBackColor = true;
             this.btnCancelApplication.Click += new System.EventHandler(this.BtnCancelApplication_Click);
@@ -257,7 +257,7 @@
             this.btnGDConfirmationRequest.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnGDConfirmationRequest.Name = "btnGDConfirmationRequest";
             this.btnGDConfirmationRequest.Size = new System.Drawing.Size(100, 30);
-            this.btnGDConfirmationRequest.TabIndex = 120;
+            this.btnGDConfirmationRequest.TabIndex = 6;
             this.btnGDConfirmationRequest.Text = "GD確認依頼";
             this.btnGDConfirmationRequest.UseVisualStyleBackColor = true;
             this.btnGDConfirmationRequest.Click += new System.EventHandler(this.BtnGDConfirmationRequest_Click);
@@ -268,7 +268,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 30);
-            this.btnCancel.TabIndex = 117;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
@@ -279,7 +279,7 @@
             this.btnModify.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(100, 30);
-            this.btnModify.TabIndex = 116;
+            this.btnModify.TabIndex = 2;
             this.btnModify.Text = "修正";
             this.btnModify.UseVisualStyleBackColor = true;
             this.btnModify.Click += new System.EventHandler(this.BtnModify_Click);
@@ -290,7 +290,7 @@
             this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 30);
-            this.btnSearch.TabIndex = 115;
+            this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "検索";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
@@ -313,8 +313,8 @@
             this.lblClear.Location = new System.Drawing.Point(242, 191);
             this.lblClear.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblClear.Name = "lblClear";
-            this.lblClear.Size = new System.Drawing.Size(82, 14);
-            this.lblClear.TabIndex = 131;
+            this.lblClear.Size = new System.Drawing.Size(104, 18);
+            this.lblClear.TabIndex = 23;
             this.lblClear.Text = "検索条件のクリア";
             this.lblClear.Click += new System.EventHandler(this.LblClear_Click);
             // 
@@ -352,7 +352,7 @@
             this.colUPDATED_AT,
             this.colUPDATED_BY,
             this.colUPDATE_MESSAGE,
-            this.UPDATED_AT_RAW,
+            this.colUPDATED_AT_RAW,
             this.ROW_ID});
             this.dgvList.EnableHeadersVisualStyles = false;
             this.dgvList.Location = new System.Drawing.Point(17, 267);
@@ -370,6 +370,266 @@
             this.dgvList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DgvList_Scroll);
             this.dgvList.Paint += new System.Windows.Forms.PaintEventHandler(this.DgvList_Paint);
             // 
+            // colNo
+            // 
+            this.colNo.DataPropertyName = "NO";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colNo.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colNo.Frozen = true;
+            this.colNo.HeaderText = "NO";
+            this.colNo.Name = "colNo";
+            this.colNo.ReadOnly = true;
+            // 
+            // colCK
+            // 
+            this.colCK.DataPropertyName = "CK";
+            this.colCK.FalseValue = " ";
+            this.colCK.Frozen = true;
+            this.colCK.HeaderText = "CK";
+            this.colCK.Name = "colCK";
+            this.colCK.TrueValue = "true";
+            // 
+            // colMK
+            // 
+            this.colMK.DataPropertyName = "MK";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colMK.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colMK.Frozen = true;
+            this.colMK.HeaderText = "MK";
+            this.colMK.Name = "colMK";
+            this.colMK.ReadOnly = true;
+            this.colMK.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colMK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // colCOMPANY_NO_BOX
+            // 
+            this.colCOMPANY_NO_BOX.DataPropertyName = "COMPANY_NO_BOX";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.colCOMPANY_NO_BOX.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colCOMPANY_NO_BOX.Frozen = true;
+            this.colCOMPANY_NO_BOX.HeaderText = "会社番号＋BOX";
+            this.colCOMPANY_NO_BOX.Name = "colCOMPANY_NO_BOX";
+            this.colCOMPANY_NO_BOX.Width = 110;
+            // 
+            // colREQ_SEQ
+            // 
+            this.colREQ_SEQ.DataPropertyName = "REQ_SEQ";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colREQ_SEQ.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colREQ_SEQ.Frozen = true;
+            this.colREQ_SEQ.HeaderText = "申請連番";
+            this.colREQ_SEQ.Name = "colREQ_SEQ";
+            this.colREQ_SEQ.ReadOnly = true;
+            this.colREQ_SEQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colREQ_SEQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colREQ_SEQ.Width = 40;
+            // 
+            // colCOMPANY_NAME
+            // 
+            this.colCOMPANY_NAME.DataPropertyName = "COMPANY_NAME";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.colCOMPANY_NAME.DefaultCellStyle = dataGridViewCellStyle5;
+            this.colCOMPANY_NAME.Frozen = true;
+            this.colCOMPANY_NAME.HeaderText = "会社名";
+            this.colCOMPANY_NAME.Name = "colCOMPANY_NAME";
+            this.colCOMPANY_NAME.ReadOnly = true;
+            this.colCOMPANY_NAME.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCOMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCOMPANY_NAME.Width = 150;
+            // 
+            // colCLOSE_FLG
+            // 
+            this.colCLOSE_FLG.DataPropertyName = "CLOSE_FLG";
+            this.colCLOSE_FLG.FalseValue = " ";
+            this.colCLOSE_FLG.HeaderText = "クローズ";
+            this.colCLOSE_FLG.Name = "colCLOSE_FLG";
+            this.colCLOSE_FLG.ReadOnly = true;
+            this.colCLOSE_FLG.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCLOSE_FLG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colCLOSE_FLG.TrueValue = "*";
+            // 
+            // colGD
+            // 
+            this.colGD.DataPropertyName = "GD";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colGD.DefaultCellStyle = dataGridViewCellStyle6;
+            this.colGD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.colGD.HeaderText = "GD";
+            this.colGD.Items.AddRange(new object[] {
+            "未確認",
+            "確認依頼中",
+            "確認済み",
+            "無し"});
+            this.colGD.Name = "colGD";
+            this.colGD.ReadOnly = true;
+            this.colGD.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colGD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colGD.Width = 105;
+            // 
+            // colREQ_TYPE
+            // 
+            this.colREQ_TYPE.DataPropertyName = "REQ_TYPE";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colREQ_TYPE.DefaultCellStyle = dataGridViewCellStyle7;
+            this.colREQ_TYPE.HeaderText = "区分";
+            this.colREQ_TYPE.Name = "colREQ_TYPE";
+            this.colREQ_TYPE.ReadOnly = true;
+            // 
+            // colREQ_STATUS
+            // 
+            this.colREQ_STATUS.DataPropertyName = "REQ_STATUS";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colREQ_STATUS.DefaultCellStyle = dataGridViewCellStyle8;
+            this.colREQ_STATUS.HeaderText = "状況";
+            this.colREQ_STATUS.Name = "colREQ_STATUS";
+            this.colREQ_STATUS.ReadOnly = true;
+            this.colREQ_STATUS.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colREQ_STATUS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colREQ_DATE
+            // 
+            this.colREQ_DATE.DataPropertyName = "REQ_DATE";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colREQ_DATE.DefaultCellStyle = dataGridViewCellStyle9;
+            this.colREQ_DATE.HeaderText = "申請日時";
+            this.colREQ_DATE.Name = "colREQ_DATE";
+            this.colREQ_DATE.ReadOnly = true;
+            this.colREQ_DATE.Width = 145;
+            // 
+            // colQUOTATION_DATE
+            // 
+            this.colQUOTATION_DATE.DataPropertyName = "QUOTATION_DATE";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colQUOTATION_DATE.DefaultCellStyle = dataGridViewCellStyle10;
+            this.colQUOTATION_DATE.HeaderText = "見積書発行日";
+            this.colQUOTATION_DATE.Name = "colQUOTATION_DATE";
+            this.colQUOTATION_DATE.ReadOnly = true;
+            this.colQUOTATION_DATE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colQUOTATION_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colORDER_DATE
+            // 
+            this.colORDER_DATE.DataPropertyName = "ORDER_DATE";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colORDER_DATE.DefaultCellStyle = dataGridViewCellStyle11;
+            this.colORDER_DATE.HeaderText = "注文日";
+            this.colORDER_DATE.Name = "colORDER_DATE";
+            this.colORDER_DATE.ReadOnly = true;
+            this.colORDER_DATE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colORDER_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colSYSTEM_EFFECTIVE_DATE
+            // 
+            this.colSYSTEM_EFFECTIVE_DATE.DataPropertyName = "SYSTEM_EFFECTIVE_DATE";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colSYSTEM_EFFECTIVE_DATE.DefaultCellStyle = dataGridViewCellStyle12;
+            this.colSYSTEM_EFFECTIVE_DATE.HeaderText = "有効日";
+            this.colSYSTEM_EFFECTIVE_DATE.Name = "colSYSTEM_EFFECTIVE_DATE";
+            this.colSYSTEM_EFFECTIVE_DATE.ReadOnly = true;
+            this.colSYSTEM_EFFECTIVE_DATE.Width = 145;
+            // 
+            // colSYSTEM_SETTING_STATUS
+            // 
+            this.colSYSTEM_SETTING_STATUS.DataPropertyName = "SYSTEM_SETTING_STATUS";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colSYSTEM_SETTING_STATUS.DefaultCellStyle = dataGridViewCellStyle13;
+            this.colSYSTEM_SETTING_STATUS.HeaderText = "状況";
+            this.colSYSTEM_SETTING_STATUS.Name = "colSYSTEM_SETTING_STATUS";
+            this.colSYSTEM_SETTING_STATUS.Width = 105;
+            // 
+            // colCOMPLETION_NOTIFICATION_DATE
+            // 
+            this.colCOMPLETION_NOTIFICATION_DATE.DataPropertyName = "COMPLETION_NOTIFICATION_DATE";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colCOMPLETION_NOTIFICATION_DATE.DefaultCellStyle = dataGridViewCellStyle14;
+            this.colCOMPLETION_NOTIFICATION_DATE.HeaderText = "登録完了通知日";
+            this.colCOMPLETION_NOTIFICATION_DATE.Name = "colCOMPLETION_NOTIFICATION_DATE";
+            // 
+            // colNML_CODE_NISSAN
+            // 
+            this.colNML_CODE_NISSAN.DataPropertyName = "NML_CODE_NISSAN";
+            this.colNML_CODE_NISSAN.HeaderText = "サプライヤコード日産";
+            this.colNML_CODE_NISSAN.Name = "colNML_CODE_NISSAN";
+            this.colNML_CODE_NISSAN.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colNML_CODE_NISSAN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colNML_CODE_NISSAN.Visible = false;
+            // 
+            // colNML_CODE_NS
+            // 
+            this.colNML_CODE_NS.DataPropertyName = "NML_CODE_NS";
+            this.colNML_CODE_NS.HeaderText = "サプライヤコードNS";
+            this.colNML_CODE_NS.Name = "colNML_CODE_NS";
+            this.colNML_CODE_NS.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colNML_CODE_NS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colNML_CODE_NS.Visible = false;
+            // 
+            // colNML_CODE_JATCO
+            // 
+            this.colNML_CODE_JATCO.DataPropertyName = "NML_CODE_JATCO";
+            this.colNML_CODE_JATCO.HeaderText = "サプライヤコードJATCO";
+            this.colNML_CODE_JATCO.Name = "colNML_CODE_JATCO";
+            this.colNML_CODE_JATCO.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colNML_CODE_JATCO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colNML_CODE_JATCO.Visible = false;
+            // 
+            // colNML_CODE_AK
+            // 
+            this.colNML_CODE_AK.DataPropertyName = "NML_CODE_AK";
+            this.colNML_CODE_AK.HeaderText = "サプライヤコード愛知機械";
+            this.colNML_CODE_AK.Name = "colNML_CODE_AK";
+            this.colNML_CODE_AK.Visible = false;
+            // 
+            // colNML_CODE_NK
+            // 
+            this.colNML_CODE_NK.DataPropertyName = "NML_CODE_NK";
+            this.colNML_CODE_NK.HeaderText = "サプライヤコード日産工機";
+            this.colNML_CODE_NK.Name = "colNML_CODE_NK";
+            this.colNML_CODE_NK.Visible = false;
+            // 
+            // colDISABLED_FLG
+            // 
+            this.colDISABLED_FLG.DataPropertyName = "DISABLED_FLG";
+            this.colDISABLED_FLG.HeaderText = "休止フラグ";
+            this.colDISABLED_FLG.Name = "colDISABLED_FLG";
+            this.colDISABLED_FLG.Visible = false;
+            // 
+            // colUPDATED_AT
+            // 
+            this.colUPDATED_AT.DataPropertyName = "UPDATED_AT";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colUPDATED_AT.DefaultCellStyle = dataGridViewCellStyle15;
+            this.colUPDATED_AT.HeaderText = "更新日時";
+            this.colUPDATED_AT.Name = "colUPDATED_AT";
+            this.colUPDATED_AT.Width = 145;
+            // 
+            // colUPDATED_BY
+            // 
+            this.colUPDATED_BY.DataPropertyName = "UPDATED_BY";
+            this.colUPDATED_BY.HeaderText = "更新ユーザーID";
+            this.colUPDATED_BY.Name = "colUPDATED_BY";
+            this.colUPDATED_BY.Width = 120;
+            // 
+            // colUPDATE_MESSAGE
+            // 
+            this.colUPDATE_MESSAGE.DataPropertyName = "UPDATE_MESSAGE";
+            this.colUPDATE_MESSAGE.HeaderText = "更新メッセージ";
+            this.colUPDATE_MESSAGE.Name = "colUPDATE_MESSAGE";
+            this.colUPDATE_MESSAGE.Width = 350;
+            // 
+            // colUPDATED_AT_RAW
+            // 
+            this.colUPDATED_AT_RAW.DataPropertyName = "UPDATED_AT_RAW";
+            this.colUPDATED_AT_RAW.HeaderText = "UPDATED_AT_RAW";
+            this.colUPDATED_AT_RAW.Name = "colUPDATED_AT_RAW";
+            this.colUPDATED_AT_RAW.Visible = false;
+            // 
+            // ROW_ID
+            // 
+            this.ROW_ID.DataPropertyName = "ROW_ID";
+            this.ROW_ID.HeaderText = "ROW_ID";
+            this.ROW_ID.Name = "ROW_ID";
+            this.ROW_ID.Visible = false;
+            // 
             // cboApplicationStatus
             // 
             this.cboApplicationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -377,32 +637,32 @@
             this.cboApplicationStatus.Location = new System.Drawing.Point(105, 148);
             this.cboApplicationStatus.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboApplicationStatus.Name = "cboApplicationStatus";
-            this.cboApplicationStatus.Size = new System.Drawing.Size(124, 22);
-            this.cboApplicationStatus.TabIndex = 149;
+            this.cboApplicationStatus.Size = new System.Drawing.Size(124, 26);
+            this.cboApplicationStatus.TabIndex = 14;
             // 
             // txtApplicationDateTo
             // 
             this.txtApplicationDateTo.Location = new System.Drawing.Point(417, 148);
             this.txtApplicationDateTo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtApplicationDateTo.Name = "txtApplicationDateTo";
-            this.txtApplicationDateTo.Size = new System.Drawing.Size(87, 21);
-            this.txtApplicationDateTo.TabIndex = 150;
+            this.txtApplicationDateTo.Size = new System.Drawing.Size(87, 25);
+            this.txtApplicationDateTo.TabIndex = 16;
             // 
             // txtQuotationIssueDateTo
             // 
             this.txtQuotationIssueDateTo.Location = new System.Drawing.Point(713, 148);
             this.txtQuotationIssueDateTo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtQuotationIssueDateTo.Name = "txtQuotationIssueDateTo";
-            this.txtQuotationIssueDateTo.Size = new System.Drawing.Size(87, 21);
-            this.txtQuotationIssueDateTo.TabIndex = 152;
+            this.txtQuotationIssueDateTo.Size = new System.Drawing.Size(87, 25);
+            this.txtQuotationIssueDateTo.TabIndex = 18;
             // 
             // txtOrderDateTo
             // 
             this.txtOrderDateTo.Location = new System.Drawing.Point(978, 147);
             this.txtOrderDateTo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtOrderDateTo.Name = "txtOrderDateTo";
-            this.txtOrderDateTo.Size = new System.Drawing.Size(87, 21);
-            this.txtOrderDateTo.TabIndex = 154;
+            this.txtOrderDateTo.Size = new System.Drawing.Size(87, 25);
+            this.txtOrderDateTo.TabIndex = 20;
             // 
             // cboSystemSettingStatus
             // 
@@ -411,8 +671,8 @@
             this.cboSystemSettingStatus.Location = new System.Drawing.Point(1168, 146);
             this.cboSystemSettingStatus.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboSystemSettingStatus.Name = "cboSystemSettingStatus";
-            this.cboSystemSettingStatus.Size = new System.Drawing.Size(86, 22);
-            this.cboSystemSettingStatus.TabIndex = 156;
+            this.cboSystemSettingStatus.Size = new System.Drawing.Size(86, 26);
+            this.cboSystemSettingStatus.TabIndex = 21;
             // 
             // label3
             // 
@@ -455,43 +715,43 @@
             this.label11.Text = "~";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label13
+            // lblCompanyNoBox
             // 
-            this.label13.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label13.Location = new System.Drawing.Point(18, 108);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(100, 21);
-            this.label13.TabIndex = 170;
-            this.label13.Text = "会社番号＋BOX";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyNoBox.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyNoBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyNoBox.Location = new System.Drawing.Point(18, 108);
+            this.lblCompanyNoBox.Name = "lblCompanyNoBox";
+            this.lblCompanyNoBox.Size = new System.Drawing.Size(100, 21);
+            this.lblCompanyNoBox.TabIndex = 170;
+            this.lblCompanyNoBox.Text = "会社番号＋BOX";
+            this.lblCompanyNoBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompanyNoBox
             // 
             this.txtCompanyNoBox.Location = new System.Drawing.Point(117, 108);
             this.txtCompanyNoBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtCompanyNoBox.Name = "txtCompanyNoBox";
-            this.txtCompanyNoBox.Size = new System.Drawing.Size(112, 21);
-            this.txtCompanyNoBox.TabIndex = 169;
+            this.txtCompanyNoBox.Size = new System.Drawing.Size(112, 25);
+            this.txtCompanyNoBox.TabIndex = 8;
             // 
-            // label15
+            // lblCompanyName
             // 
-            this.label15.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label15.Location = new System.Drawing.Point(244, 107);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(64, 21);
-            this.label15.TabIndex = 172;
-            this.label15.Text = "会社名";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCompanyName.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblCompanyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCompanyName.Location = new System.Drawing.Point(244, 107);
+            this.lblCompanyName.Name = "lblCompanyName";
+            this.lblCompanyName.Size = new System.Drawing.Size(64, 21);
+            this.lblCompanyName.TabIndex = 172;
+            this.lblCompanyName.Text = "会社名";
+            this.lblCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompanyName
             // 
             this.txtCompanyName.Location = new System.Drawing.Point(307, 107);
             this.txtCompanyName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtCompanyName.Name = "txtCompanyName";
-            this.txtCompanyName.Size = new System.Drawing.Size(196, 21);
-            this.txtCompanyName.TabIndex = 171;
+            this.txtCompanyName.Size = new System.Drawing.Size(196, 25);
+            this.txtCompanyName.TabIndex = 9;
             // 
             // label1
             // 
@@ -586,7 +846,7 @@
             this.lblTotalRecords.Font = new System.Drawing.Font("Meiryo UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalRecords.Location = new System.Drawing.Point(3, 11);
             this.lblTotalRecords.Name = "lblTotalRecords";
-            this.lblTotalRecords.Size = new System.Drawing.Size(0, 14);
+            this.lblTotalRecords.Size = new System.Drawing.Size(0, 18);
             this.lblTotalRecords.TabIndex = 36;
             // 
             // btnCheck
@@ -599,7 +859,7 @@
             this.btnCheck.Location = new System.Drawing.Point(823, 3);
             this.btnCheck.Name = "btnCheck";
             this.btnCheck.Size = new System.Drawing.Size(30, 28);
-            this.btnCheck.TabIndex = 33;
+            this.btnCheck.TabIndex = 24;
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.BtnCheck_Click);
             // 
@@ -613,7 +873,7 @@
             this.btnUnCheck.Location = new System.Drawing.Point(861, 3);
             this.btnUnCheck.Name = "btnUnCheck";
             this.btnUnCheck.Size = new System.Drawing.Size(30, 28);
-            this.btnUnCheck.TabIndex = 32;
+            this.btnUnCheck.TabIndex = 25;
             this.btnUnCheck.UseVisualStyleBackColor = true;
             this.btnUnCheck.Click += new System.EventHandler(this.BtnUnCheck_Click);
             // 
@@ -623,7 +883,7 @@
             this.lblTotalPages.AutoSize = true;
             this.lblTotalPages.Location = new System.Drawing.Point(1096, 11);
             this.lblTotalPages.Name = "lblTotalPages";
-            this.lblTotalPages.Size = new System.Drawing.Size(14, 14);
+            this.lblTotalPages.Size = new System.Drawing.Size(17, 18);
             this.lblTotalPages.TabIndex = 31;
             this.lblTotalPages.Text = "0";
             // 
@@ -633,7 +893,7 @@
             this.lblcurrentPage.AutoSize = true;
             this.lblcurrentPage.Location = new System.Drawing.Point(1001, 11);
             this.lblcurrentPage.Name = "lblcurrentPage";
-            this.lblcurrentPage.Size = new System.Drawing.Size(14, 14);
+            this.lblcurrentPage.Size = new System.Drawing.Size(17, 18);
             this.lblcurrentPage.TabIndex = 30;
             this.lblcurrentPage.Text = "0";
             // 
@@ -647,7 +907,7 @@
             this.btnLast.Location = new System.Drawing.Point(1196, 3);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(35, 28);
-            this.btnLast.TabIndex = 28;
+            this.btnLast.TabIndex = 29;
             this.btnLast.UseVisualStyleBackColor = true;
             this.btnLast.Click += new System.EventHandler(this.BtnLast_Click);
             // 
@@ -657,7 +917,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(1048, 11);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(19, 14);
+            this.label6.Size = new System.Drawing.Size(24, 18);
             this.label6.TabIndex = 25;
             this.label6.Text = "Of";
             // 
@@ -671,7 +931,7 @@
             this.btnNext.Location = new System.Drawing.Point(1154, 3);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(35, 28);
-            this.btnNext.TabIndex = 26;
+            this.btnNext.TabIndex = 28;
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
             // 
@@ -685,7 +945,7 @@
             this.btnFirst.Location = new System.Drawing.Point(910, 3);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(35, 28);
-            this.btnFirst.TabIndex = 29;
+            this.btnFirst.TabIndex = 26;
             this.btnFirst.UseVisualStyleBackColor = true;
             this.btnFirst.Click += new System.EventHandler(this.BtnFirst_Click);
             // 
@@ -718,264 +978,16 @@
             // displayItemLabel1
             // 
             this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = " 表示件数";
             this.displayItemLabel1.Location = new System.Drawing.Point(18, 188);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.displayItemLabel1.Name = "displayItemLabel1";
             this.displayItemLabel1.Size = new System.Drawing.Size(88, 22);
             this.displayItemLabel1.TabIndex = 180;
             // 
-            // colNo
-            // 
-            this.colNo.DataPropertyName = "NO";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colNo.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colNo.Frozen = true;
-            this.colNo.HeaderText = "NO";
-            this.colNo.Name = "colNo";
-            this.colNo.ReadOnly = true;
-            // 
-            // colCK
-            // 
-            this.colCK.DataPropertyName = "CK";
-            this.colCK.FalseValue = " ";
-            this.colCK.Frozen = true;
-            this.colCK.HeaderText = "CK";
-            this.colCK.Name = "colCK";
-            this.colCK.TrueValue = "true";
-            // 
-            // colMK
-            // 
-            this.colMK.DataPropertyName = "MK";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colMK.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colMK.Frozen = true;
-            this.colMK.HeaderText = "MK";
-            this.colMK.Name = "colMK";
-            this.colMK.ReadOnly = true;
-            this.colMK.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colMK.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colCOMPANY_NO_BOX
-            // 
-            this.colCOMPANY_NO_BOX.DataPropertyName = "COMPANY_NO_BOX";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.colCOMPANY_NO_BOX.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colCOMPANY_NO_BOX.Frozen = true;
-            this.colCOMPANY_NO_BOX.HeaderText = "会社番号＋BOX";
-            this.colCOMPANY_NO_BOX.Name = "colCOMPANY_NO_BOX";
-            // 
-            // colREQ_SEQ
-            // 
-            this.colREQ_SEQ.DataPropertyName = "REQ_SEQ";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colREQ_SEQ.DefaultCellStyle = dataGridViewCellStyle4;
-            this.colREQ_SEQ.Frozen = true;
-            this.colREQ_SEQ.HeaderText = "申請連番";
-            this.colREQ_SEQ.Name = "colREQ_SEQ";
-            this.colREQ_SEQ.ReadOnly = true;
-            this.colREQ_SEQ.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colREQ_SEQ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colCOMPANY_NAME
-            // 
-            this.colCOMPANY_NAME.DataPropertyName = "COMPANY_NAME";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.colCOMPANY_NAME.DefaultCellStyle = dataGridViewCellStyle5;
-            this.colCOMPANY_NAME.Frozen = true;
-            this.colCOMPANY_NAME.HeaderText = "会社名";
-            this.colCOMPANY_NAME.Name = "colCOMPANY_NAME";
-            this.colCOMPANY_NAME.ReadOnly = true;
-            this.colCOMPANY_NAME.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colCOMPANY_NAME.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colCLOSE_FLG
-            // 
-            this.colCLOSE_FLG.DataPropertyName = "CLOSE_FLG";
-            this.colCLOSE_FLG.FalseValue = " ";
-            this.colCLOSE_FLG.HeaderText = "クローズ";
-            this.colCLOSE_FLG.Name = "colCLOSE_FLG";
-            this.colCLOSE_FLG.ReadOnly = true;
-            this.colCLOSE_FLG.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colCLOSE_FLG.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colCLOSE_FLG.TrueValue = "*";
-            // 
-            // colGD
-            // 
-            this.colGD.DataPropertyName = "GD";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colGD.DefaultCellStyle = dataGridViewCellStyle6;
-            this.colGD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.colGD.HeaderText = "GD";
-            this.colGD.Items.AddRange(new object[] {
-            "未確認",
-            "確認依頼中",
-            "確認済み",
-            "無し"});
-            this.colGD.Name = "colGD";
-            this.colGD.ReadOnly = true;
-            this.colGD.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colGD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colREQ_TYPE
-            // 
-            this.colREQ_TYPE.DataPropertyName = "REQ_TYPE";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colREQ_TYPE.DefaultCellStyle = dataGridViewCellStyle7;
-            this.colREQ_TYPE.HeaderText = "区分";
-            this.colREQ_TYPE.Name = "colREQ_TYPE";
-            this.colREQ_TYPE.ReadOnly = true;
-            // 
-            // colREQ_STATUS
-            // 
-            this.colREQ_STATUS.DataPropertyName = "REQ_STATUS";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colREQ_STATUS.DefaultCellStyle = dataGridViewCellStyle8;
-            this.colREQ_STATUS.HeaderText = "状況";
-            this.colREQ_STATUS.Name = "colREQ_STATUS";
-            this.colREQ_STATUS.ReadOnly = true;
-            this.colREQ_STATUS.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colREQ_STATUS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colREQ_DATE
-            // 
-            this.colREQ_DATE.DataPropertyName = "REQ_DATE";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colREQ_DATE.DefaultCellStyle = dataGridViewCellStyle9;
-            this.colREQ_DATE.HeaderText = "申請日時";
-            this.colREQ_DATE.Name = "colREQ_DATE";
-            this.colREQ_DATE.ReadOnly = true;
-            // 
-            // colQUOTATION_DATE
-            // 
-            this.colQUOTATION_DATE.DataPropertyName = "QUOTATION_DATE";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colQUOTATION_DATE.DefaultCellStyle = dataGridViewCellStyle10;
-            this.colQUOTATION_DATE.HeaderText = "見積書発行日";
-            this.colQUOTATION_DATE.Name = "colQUOTATION_DATE";
-            this.colQUOTATION_DATE.ReadOnly = true;
-            this.colQUOTATION_DATE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colQUOTATION_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colORDER_DATE
-            // 
-            this.colORDER_DATE.DataPropertyName = "ORDER_DATE";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colORDER_DATE.DefaultCellStyle = dataGridViewCellStyle11;
-            this.colORDER_DATE.HeaderText = "注文日";
-            this.colORDER_DATE.Name = "colORDER_DATE";
-            this.colORDER_DATE.ReadOnly = true;
-            this.colORDER_DATE.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colORDER_DATE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // colSYSTEM_EFFECTIVE_DATE
-            // 
-            this.colSYSTEM_EFFECTIVE_DATE.DataPropertyName = "SYSTEM_EFFECTIVE_DATE";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colSYSTEM_EFFECTIVE_DATE.DefaultCellStyle = dataGridViewCellStyle12;
-            this.colSYSTEM_EFFECTIVE_DATE.HeaderText = "有効日";
-            this.colSYSTEM_EFFECTIVE_DATE.Name = "colSYSTEM_EFFECTIVE_DATE";
-            this.colSYSTEM_EFFECTIVE_DATE.ReadOnly = true;
-            // 
-            // colSYSTEM_SETTING_STATUS
-            // 
-            this.colSYSTEM_SETTING_STATUS.DataPropertyName = "SYSTEM_SETTING_STATUS";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colSYSTEM_SETTING_STATUS.DefaultCellStyle = dataGridViewCellStyle13;
-            this.colSYSTEM_SETTING_STATUS.HeaderText = "状況";
-            this.colSYSTEM_SETTING_STATUS.Name = "colSYSTEM_SETTING_STATUS";
-            // 
-            // colCOMPLETION_NOTIFICATION_DATE
-            // 
-            this.colCOMPLETION_NOTIFICATION_DATE.DataPropertyName = "COMPLETION_NOTIFICATION_DATE";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colCOMPLETION_NOTIFICATION_DATE.DefaultCellStyle = dataGridViewCellStyle14;
-            this.colCOMPLETION_NOTIFICATION_DATE.HeaderText = "登録完了通知日";
-            this.colCOMPLETION_NOTIFICATION_DATE.Name = "colCOMPLETION_NOTIFICATION_DATE";
-            // 
-            // colNML_CODE_NISSAN
-            // 
-            this.colNML_CODE_NISSAN.DataPropertyName = "NML_CODE_NISSAN";
-            this.colNML_CODE_NISSAN.HeaderText = "サプライヤコード日産";
-            this.colNML_CODE_NISSAN.Name = "colNML_CODE_NISSAN";
-            this.colNML_CODE_NISSAN.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colNML_CODE_NISSAN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colNML_CODE_NISSAN.Visible = false;
-            // 
-            // colNML_CODE_NS
-            // 
-            this.colNML_CODE_NS.DataPropertyName = "NML_CODE_NS";
-            this.colNML_CODE_NS.HeaderText = "サプライヤコードNS";
-            this.colNML_CODE_NS.Name = "colNML_CODE_NS";
-            this.colNML_CODE_NS.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colNML_CODE_NS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colNML_CODE_NS.Visible = false;
-            // 
-            // colNML_CODE_JATCO
-            // 
-            this.colNML_CODE_JATCO.DataPropertyName = "NML_CODE_JATCO";
-            this.colNML_CODE_JATCO.HeaderText = "サプライヤコードJATCO";
-            this.colNML_CODE_JATCO.Name = "colNML_CODE_JATCO";
-            this.colNML_CODE_JATCO.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colNML_CODE_JATCO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colNML_CODE_JATCO.Visible = false;
-            // 
-            // colNML_CODE_AK
-            // 
-            this.colNML_CODE_AK.DataPropertyName = "NML_CODE_AK";
-            this.colNML_CODE_AK.HeaderText = "サプライヤコード愛知機械";
-            this.colNML_CODE_AK.Name = "colNML_CODE_AK";
-            this.colNML_CODE_AK.Visible = false;
-            // 
-            // colNML_CODE_NK
-            // 
-            this.colNML_CODE_NK.DataPropertyName = "NML_CODE_NK";
-            this.colNML_CODE_NK.HeaderText = "サプライヤコード日産工機";
-            this.colNML_CODE_NK.Name = "colNML_CODE_NK";
-            this.colNML_CODE_NK.Visible = false;
-            // 
-            // colDISABLED_FLG
-            // 
-            this.colDISABLED_FLG.DataPropertyName = "DISABLED_FLG";
-            this.colDISABLED_FLG.HeaderText = "休止フラグ";
-            this.colDISABLED_FLG.Name = "colDISABLED_FLG";
-            this.colDISABLED_FLG.Visible = false;
-            // 
-            // colUPDATED_AT
-            // 
-            this.colUPDATED_AT.DataPropertyName = "UPDATED_AT";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colUPDATED_AT.DefaultCellStyle = dataGridViewCellStyle15;
-            this.colUPDATED_AT.HeaderText = "更新日時";
-            this.colUPDATED_AT.Name = "colUPDATED_AT";
-            // 
-            // colUPDATED_BY
-            // 
-            this.colUPDATED_BY.DataPropertyName = "UPDATED_BY";
-            this.colUPDATED_BY.HeaderText = "更新ユーザーID";
-            this.colUPDATED_BY.Name = "colUPDATED_BY";
-            // 
-            // colUPDATE_MESSAGE
-            // 
-            this.colUPDATE_MESSAGE.DataPropertyName = "UPDATE_MESSAGE";
-            this.colUPDATE_MESSAGE.HeaderText = "更新メッセージ";
-            this.colUPDATE_MESSAGE.Name = "colUPDATE_MESSAGE";
-            // 
-            // UPDATED_AT_RAW
-            // 
-            this.UPDATED_AT_RAW.DataPropertyName = "UPDATED_AT_RAW";
-            this.UPDATED_AT_RAW.HeaderText = "UPDATED_AT_RAW";
-            this.UPDATED_AT_RAW.Name = "UPDATED_AT_RAW";
-            this.UPDATED_AT_RAW.Visible = false;
-            // 
-            // ROW_ID
-            // 
-            this.ROW_ID.DataPropertyName = "ROW_ID";
-            this.ROW_ID.HeaderText = "ROW_ID";
-            this.ROW_ID.Name = "ROW_ID";
-            this.ROW_ID.Visible = false;
-            // 
             // frmUsageApplicationList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 601);
             this.Controls.Add(this.displayItemLabel1);
@@ -995,9 +1007,9 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label15);
+            this.Controls.Add(this.lblCompanyName);
             this.Controls.Add(this.txtCompanyName);
-            this.Controls.Add(this.label13);
+            this.Controls.Add(this.lblCompanyNoBox);
             this.Controls.Add(this.txtCompanyNoBox);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label16);
@@ -1063,9 +1075,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblCompanyNoBox;
         private System.Windows.Forms.TextBox txtCompanyNoBox;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.TextBox txtCompanyName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -1111,7 +1123,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colUPDATED_AT;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUPDATED_BY;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUPDATE_MESSAGE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UPDATED_AT_RAW;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colUPDATED_AT_RAW;
         private System.Windows.Forms.DataGridViewTextBoxColumn ROW_ID;
     }
 }

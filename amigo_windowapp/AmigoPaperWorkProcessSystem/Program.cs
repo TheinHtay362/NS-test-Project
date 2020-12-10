@@ -31,7 +31,7 @@ namespace AmigoPaperWorkProcessSystem
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmInvoiceList());
+            Application.Run(new frmJimugo());
         }
     }
 }
