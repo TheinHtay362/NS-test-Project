@@ -322,7 +322,7 @@ namespace DAL_AmigoProcess.DAL
                                         MONTHLY_COST_INCLUDING_TAX AS Supplier_Monthly_usage_fee_INCLUDING_TAX,
                                         ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY EFFECTIVE_DATE DESC) num
                                         FROM CUSTOMER_MASTER_VIEW
-                                        WHERE FORMAT(EFFECTIVE_DATE,'yyyyMM') = @YEAR_MONTH
+                                        WHERE FORMAT(EFFECTIVE_DATE,'yyyyMM') <= @YEAR_MONTH
                                         AND BILL_TYPE = 22
                                         AND UPDATE_CONTENT IN (1,3)
                                         AND MONTHLY_COST > 0 ) A
@@ -454,7 +454,7 @@ namespace DAL_AmigoProcess.DAL
                                         MONTHLY_COST_INCLUDING_TAX AS Supplier_Monthly_usage_fee_INCLUDING_TAX,
                                         ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY EFFECTIVE_DATE DESC) num
                                         FROM CUSTOMER_MASTER_VIEW
-                                        WHERE FORMAT(EFFECTIVE_DATE,'yyyyMM') = @YEAR_MONTH
+                                        WHERE FORMAT(EFFECTIVE_DATE,'yyyyMM') <= @YEAR_MONTH
                                         AND BILL_TYPE = 22
                                         AND UPDATE_CONTENT IN (1,3)
                                         AND MONTHLY_COST > 0 ) A
