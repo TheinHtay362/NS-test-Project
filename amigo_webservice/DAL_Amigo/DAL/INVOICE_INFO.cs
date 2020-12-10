@@ -269,13 +269,16 @@ namespace DAL_AmigoProcess.DAL
                                         SELECT * 
                                         FROM CUSTOMER_MASTER_VIEW AS VIEW1
                                         WHERE EXISTS 
-                                        (SELECT * FROM CUSTOMER_MASTER_VIEW AS VIEW2
-                                        WHERE VIEW2.COMPANY_NO_BOX = VIEW1.COMPANY_NO_BOX
-                                        AND VIEW2.TRANSACTION_TYPE = VIEW1.TRANSACTION_TYPE
-                                        AND VIEW2.EFFECTIVE_DATE = VIEW1.EFFECTIVE_DATE
-                                        AND FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = @YEAR_MONTH
-                                        AND VIEW2.BILL_TYPE IN (12,22,32)
-                                        )
+                                        (SELECT * 
+		                                FROM (SELECT ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY EFFECTIVE_DATE DESC) num,COMPANY_NO_BOX,TRANSACTION_TYPE,EFFECTIVE_DATE
+		                                FROM CUSTOMER_MASTER_VIEW AS VIEW2
+                                        where FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = '202010'
+                                        AND VIEW2.BILL_TYPE IN (12,22,32)) VIEW3
+		                                WHERE VIEW3.COMPANY_NO_BOX = VIEW1.COMPANY_NO_BOX
+                                        AND VIEW3.TRANSACTION_TYPE = VIEW1.TRANSACTION_TYPE
+                                        AND VIEW3.EFFECTIVE_DATE = VIEW1.EFFECTIVE_DATE
+		                                AND num = 1)
+		                                AND UPDATE_CONTENT <> 99
                                         ) AS Subquery1
                                         LEFT JOIN
                                         (
@@ -398,13 +401,16 @@ namespace DAL_AmigoProcess.DAL
                                         SELECT * 
                                         FROM CUSTOMER_MASTER_VIEW AS VIEW1
                                         WHERE EXISTS 
-                                        (SELECT * FROM CUSTOMER_MASTER_VIEW AS VIEW2
-                                        WHERE VIEW2.COMPANY_NO_BOX = VIEW1.COMPANY_NO_BOX
-                                        AND VIEW2.TRANSACTION_TYPE = VIEW1.TRANSACTION_TYPE
-                                        AND VIEW2.EFFECTIVE_DATE = VIEW1.EFFECTIVE_DATE
-                                        AND FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = @YEAR_MONTH
-                                        AND VIEW2.BILL_TYPE IN (12,22,32)
-                                        )
+                                        (SELECT * 
+		                                FROM (SELECT ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY EFFECTIVE_DATE DESC) num,COMPANY_NO_BOX,TRANSACTION_TYPE,EFFECTIVE_DATE
+		                                FROM CUSTOMER_MASTER_VIEW AS VIEW2
+                                        where FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = '202010'
+                                        AND VIEW2.BILL_TYPE IN (12,22,32)) VIEW3
+		                                WHERE VIEW3.COMPANY_NO_BOX = VIEW1.COMPANY_NO_BOX
+                                        AND VIEW3.TRANSACTION_TYPE = VIEW1.TRANSACTION_TYPE
+                                        AND VIEW3.EFFECTIVE_DATE = VIEW1.EFFECTIVE_DATE
+		                                AND num = 1)
+		                                AND UPDATE_CONTENT <> 99
                                         ) AS Subquery1
                                         LEFT JOIN
                                         (

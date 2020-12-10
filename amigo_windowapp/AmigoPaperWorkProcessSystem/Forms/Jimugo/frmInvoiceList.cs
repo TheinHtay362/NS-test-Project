@@ -20,7 +20,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
         #region Declare
         private UIUtility uIUtility;
         private string programID = "";
-        private string programName = "顧客マスタメンテナンス";
+        private string programName = "";
 
         private List<Validate> Modifiable = new List<Validate>{
             new Validate{ Name = "colEFFECTIVE_DATE", Type = Utility.DataType.DATE, Edit = true, Require = false, Max = 10, Min=8},
@@ -197,6 +197,8 @@ namespace AmigoPaperWorkProcessSystem.Forms
             lblMenu.Text = programName;
             this.Text = "[" + programID + "] " + programName;
 
+            txtBilling_Date.Text = DateTime.Now.ToString("yyyy/MM");
+
             //utility
             uIUtility = new UIUtility(dgvList, null, null, null, dummyColumns);
             uIUtility.CheckPagination(btnFirst, btnPrev, btnNext, btnLast, lblcurrentPage.Text, lblTotalPages.Text);
@@ -223,6 +225,17 @@ namespace AmigoPaperWorkProcessSystem.Forms
             dgvList.Columns["colCOMPANY_NAME"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.BottomCenter;
 
             AlignBottomHeaders();
+
+            uIUtility.MetaData.Offset = 0;
+            try
+            {
+                uIUtility.MetaData.Limit = int.Parse(cboLimit.SelectedValue.ToString());
+
+            }
+            catch (Exception)
+            {
+                uIUtility.MetaData.Limit = 0;
+            }
         }
         #endregion
 
@@ -277,46 +290,46 @@ namespace AmigoPaperWorkProcessSystem.Forms
             Add_Third_Column_Header(e, 2, 1, "会社名", 4, 0, 2, StringAlignment.Center);
 
             Add_Third_Column_Header(e, 3, 1, "請求金額", 4, 0, 0, StringAlignment.Center);
-            Add_Third_Column_Header(e, 4, 4, InvoiceAmountTotal.ToString(), 4, 0, 0, StringAlignment.Far);
+            Add_Third_Column_Header(e, 4, 4, string.Format("{0:#,0}", InvoiceAmountTotal), 4, 0, 0, StringAlignment.Far);
             InvoiceAmountTotal = 0;
 
             //Third ColumnMerge
             Add_Third_Column_Header(e, 3, 1, "要元", 4, 1, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 3, 1, "月額利用料", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 3, 1, keySourceTotal.ToString(), 4, 3, 0, StringAlignment.Far); //"123,123"
+            Add_Second_Column_Header(e, 3, 1, string.Format("{0:#,0}", keySourceTotal), 4, 3, 0, StringAlignment.Far); //"123,123"
             keySourceTotal = 0;
 
             Add_Third_Column_Header(e, 4, 2, "サプライヤ", 4, 1, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 4, 1, "初期費用", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 4, 1, SupplierExpenseTotal.ToString() , 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 4, 1, string.Format("{0:#,0}", SupplierExpenseTotal), 4, 3, 0, StringAlignment.Far);
             SupplierExpenseTotal = 0;
             Add_Second_Column_Header(e, 5, 1, "月額利用料", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 5, 1, SupplierMonthlyUsageFeeTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 5, 1, string.Format("{0:#,0}", SupplierMonthlyUsageFeeTotal), 4, 3, 0, StringAlignment.Far);
             SupplierMonthlyUsageFeeTotal = 0;
 
             Add_Third_Column_Header(e, 6, 2, "生産情報閲覧", 4, 1, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 6, 1, "初期費用", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 6, 1, SupplierBrowsingInitialExpenseTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 6, 1, string.Format("{0:#,0}", SupplierBrowsingInitialExpenseTotal), 4, 3, 0, StringAlignment.Far);
             SupplierBrowsingInitialExpenseTotal = 0;
             Add_Second_Column_Header(e, 7, 1, "年額利用料", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 7, 1, YearlyUsageFeeTotal.ToString() , 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 7, 1, string.Format("{0:#,0}", YearlyUsageFeeTotal), 4, 3, 0, StringAlignment.Far);
             YearlyUsageFeeTotal = 0;
 
             Add_Third_Column_Header(e, 8, 5, "請求方法", 4, 0, 0, StringAlignment.Center);
             Add_Second_Column_Header(e, 8, 1, "郵送", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 8, 1, PostalMailTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 8, 1, string.Format("{0:#,0}", PostalMailTotal), 4, 3, 0, StringAlignment.Far);
             PostalMailTotal = 0;
             Add_Second_Column_Header(e, 9, 1, "WEB", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 9, 1, WebTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 9, 1, string.Format("{0:#,0}", WebTotal), 4, 3, 0, StringAlignment.Far);
             WebTotal = 0;
             Add_Second_Column_Header(e, 10, 1, "Email", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 10, 1, EmailTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 10, 1, string.Format("{0:#,0}", EmailTotal), 4, 3, 0, StringAlignment.Far);
             EmailTotal = 0;
             Add_Second_Column_Header(e, 11, 1, "クレカ", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 11, 1, CreditCardTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 11, 1, string.Format("{0:#,0}", CreditCardTotal), 4, 3, 0, StringAlignment.Far);
             CreditCardTotal = 0;
             Add_Second_Column_Header(e, 12, 1, "その他", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 12, 1, OtherTotal.ToString(), 4, 3, 0, StringAlignment.Far);
+            Add_Second_Column_Header(e, 12, 1, string.Format("{0:#,0}", OtherTotal), 4, 3, 0, StringAlignment.Far);
             OtherTotal = 0;
         }
 
@@ -335,70 +348,6 @@ namespace AmigoPaperWorkProcessSystem.Forms
                 this.dgvList.Invalidate();
             }
         }
-
-
-        #endregion
-
-        #region DrawColumnHeaders
-        //private void Add_Amount_Header(PaintEventArgs e, int index, int count, string text)
-        //{
-        //    UIUtility.Merge_Header(e, index, count, text, dgvList);
-        //}
-
-        //private void Add_Type_Header(PaintEventArgs e, int index, int count, string text)
-        //{
-        //    UIUtility.Merge_Header(e, index, count, text, dgvList);
-        //}
-
-        //private void Add_Second_Column_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row)
-        //{
-        //    UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row);
-        //}
-
-        //private void Add_Third_Column_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row)
-        //{
-        //    UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row);
-        //}
-
-        //private void DgvList_Paint(object sender, PaintEventArgs e)
-        //{
-        //    Add_Third_Column_Header(e, 2, 1, "会社名", 3, 1);
-
-        //    //Third ColumnMerge
-        //    Add_Third_Column_Header(e, 3, 1, "Key Source", 3, 0);
-        //    Add_Second_Column_Header(e, 3, 1, "月額利用料", 3, 1);
-
-        //    Add_Third_Column_Header(e, 4, 2, "Supplier", 3, 0);
-        //    Add_Second_Column_Header(e, 4, 1, "初期費用", 3, 1);
-        //    Add_Second_Column_Header(e, 5, 1, "月額利用料", 3, 1);
-
-        //    Add_Third_Column_Header(e, 6, 2, "Production information browsing", 3, 0);
-        //    Add_Second_Column_Header(e, 6, 1, "初期費用", 3, 1);
-        //    Add_Second_Column_Header(e, 7, 1, "年額利用料", 3, 1);
-
-        //    Add_Third_Column_Header(e, 8, 5, "Invoice method", 3, 0);
-        //    Add_Second_Column_Header(e, 8, 1, "郵送", 3, 1);
-        //    Add_Second_Column_Header(e, 9, 1, "WEB", 3, 1);
-        //    Add_Second_Column_Header(e, 10, 1, "Email", 3, 1);
-        //    Add_Second_Column_Header(e, 11, 1, "クレカ", 3, 1);
-        //    Add_Second_Column_Header(e, 12, 1, "その他", 3, 1);
-        //}
-
-        //private void DgvList_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
-        //{
-        //    //to trigger repaint 
-        //    this.dgvList.Invalidate();
-        //}
-
-        //private void DgvList_Scroll(object sender, ScrollEventArgs e)
-        //{
-        //    //to trigger repaint 
-        //    //only update on HorizontalScroll Scroll
-        //    if (e.ScrollOrientation == ScrollOrientation.HorizontalScroll)
-        //    {
-        //        this.dgvList.Invalidate();
-        //    }
-        //}
 
 
         #endregion
@@ -561,7 +510,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     return_message = dt.Rows[0]["Error Message"].ToString();
                     if (!string.IsNullOrEmpty(return_message))
                     {
-                        MetroMessageBox.Show(this, "\n" + return_message, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MetroMessageBox.Show(this, "\n" + return_message, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
@@ -573,7 +522,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
                         if (saveCSV.ShowDialog() == DialogResult.OK) // save as dialog
                         {
                             Utility.WriteToCsvFile(dt, saveCSV.FileName);
-                            MetroMessageBox.Show(this, "\n" + Messages.ComparisonResultDetail.CSVDownloaded, "CSV Downloaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MetroMessageBox.Show(this, "\n" + Messages.ComparisonResultDetail.CSVDownloaded, "CSV Downloaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
@@ -671,10 +620,16 @@ namespace AmigoPaperWorkProcessSystem.Forms
             int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
             int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
             int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
-
+            string COMPANY_NO_BOX = "";
             string colName = dgvList.Columns[e.ColumnIndex].Name;
 
-            string COMPANY_NO_BOX= dgvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            try
+            {
+                COMPANY_NO_BOX = dgvList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            }
+            catch (Exception)
+            {
+            }
             int REQ_SEQ;
 
             if (!string.IsNullOrEmpty(COMPANY_NO_BOX) && colName == "coLCOMPANY_NO_BOX")

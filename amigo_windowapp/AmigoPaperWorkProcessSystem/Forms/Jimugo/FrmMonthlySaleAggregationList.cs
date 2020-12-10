@@ -77,7 +77,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
 
         public FrmMonthlySaleAggregationList(string programId, string programName, string YEAR_MONTH) : this()
         {
-            this.programID = programID;
+            this.programID = programId;
             this.programName = programName;
             this.YEAR_MONTH = YEAR_MONTH;
         }

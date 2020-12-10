@@ -293,6 +293,7 @@ namespace AmigoProcessManagement.Controller
                     int LIMIT = 0;
                     String strMessage = "";
                     int TOTAL;
+                    int countForInsert = 0;
                     string checkGetOrCreate = "CREATE";
                     DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
                     String YEAR_MONTH = yearMonth.ToString("yyyyMM");
@@ -353,7 +354,7 @@ namespace AmigoProcessManagement.Controller
                         }
 
                         BOL_INVOICE_INFO oINVOICE_INFO = new BOL_INVOICE_INFO();
-
+                        
                         #region Set value in Model
                         oINVOICE_INFO.COMPANY_NO_BOX = row["COMPANY_NO_BOX"].ToString();
 
@@ -503,7 +504,7 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_INCLUDING_TAX"].ToString());
 
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
+                            countForInsert++;
                         }
 
                         if (Supplier_Initial_expense_REQ_SEQ > 0)
@@ -516,7 +517,7 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_INCLUDING_TAX"].ToString());
 
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
+                            countForInsert++;
                         }
 
                         if (Supplier_Monthly_usage_fee_REQ_SEQ > 0)
@@ -529,7 +530,7 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
 
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
+                            countForInsert++;
                         }
 
                         if (Production_information_browsing_Initial_expense_REQ_SEQ > 0 || View_production_information_Annual_usage_fee_REQ_SEQ > 0)
@@ -542,39 +543,16 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_INCLUDING_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_INCLUDING_TAX"].ToString());
 
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
-
+                            countForInsert++;
                         }
-
-                        #region cmt
-                        //if (!string.IsNullOrEmpty(strMessage))
-                        //{
-                        //    dbTxn.Complete();
-                        //    DataRow dr = result.NewRow();
-                        //    //dr["Count"] = count;
-                        //    dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //I000WC002
-                        //    result.Rows.Add(dr);
-
-                        //    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
-                        //}
-                        //else
-                        //{
-                        //    DataRow dr = result.NewRow();
-                        //    //dr["Count"] = count;
-                        //    dr["Error Message"] = Utility.Messages.Jimugo.I000ZZ007; //E000WC002
-                        //    result.Rows.Add(dr);
-
-                        //    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
-                        //    //return response;
-                        //}
-                        #endregion
                     }
-
+                    strMessage = "dsaf";
                     if (string.IsNullOrEmpty(strMessage))
                     {
                         dbTxn.Complete();
                         DataRow dr = result.NewRow();
                         dr["Message Info"] = "Success";
-                        dr["Error Message"] = Utility.Messages.Jimugo.I000WC002; //I000WC002
+                        dr["Error Message"] = String.Format(Utility.Messages.Jimugo.I000WC002, countForInsert); //I000WC002  
                         result.Rows.Add(dr);
 
                         response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
@@ -655,7 +633,6 @@ namespace AmigoProcessManagement.Controller
 
                 //delete the record
                 DAL_INVOICE_INFO.DeleteInvoiceInfoByYearMonth(YEAR_MONTH, out strMsg);
-               
                 //return message and MK value
                 if (String.IsNullOrEmpty(strMsg)) //success
                 {
@@ -699,7 +676,7 @@ namespace AmigoProcessManagement.Controller
                 {
                     DataRow dr = result.NewRow();
                     //dr["Count"] = count;
-                    dr["Error Message"] = Utility.Messages.Jimugo.E000WA001; //E000WC004
+                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC004; //E000WC004
                     result.Rows.Add(dr);
 
                     response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");

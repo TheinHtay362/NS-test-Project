@@ -206,7 +206,7 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
                 case "CTG010": // Monthly Sale Aggregation
                     OpenMonthlySaleAggregationList(programID, programName);
                     break;
-                case "CTB010":
+                case "CTB010": // InvoiceList
                     OpenInvoiceList(programID, programName);
                     break;
                 default:
@@ -458,10 +458,10 @@ namespace AmigoPaperWorkProcessSystem.Forms.Jimugo
         }
         #endregion
 
-        #region OpenMonthlySaleAggregationList
+        #region OpenInvoicedList
         private void OpenInvoiceList(string programID, string programName)
         {
-            if (!(Application.OpenForms.OfType<FrmMonthlySaleAggregationList>().Count() == 1))
+            if (!(Application.OpenForms.OfType<frmInvoiceList>().Count() == 1))
             {
                 frmInvoiceList form = new frmInvoiceList(programID, programName);
                 form.Show();
