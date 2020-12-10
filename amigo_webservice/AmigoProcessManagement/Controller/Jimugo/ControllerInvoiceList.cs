@@ -291,11 +291,11 @@ namespace AmigoProcessManagement.Controller
                 {
                     
 
-                    int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
-                    int Supplier_Initial_expense_REQ_SEQ = 0;
-                    int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
-                    int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
-                    int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+                    //int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
+                    //int Supplier_Initial_expense_REQ_SEQ = 0;
+                    //int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+                    //int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+                    //int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
 
                     int OFFSET = 0;
                     int LIMIT = 0;
@@ -319,6 +319,10 @@ namespace AmigoProcessManagement.Controller
                             response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
                             return response;
                         }
+                        //else
+                        //{
+                        //    dbTxn.Complete();
+                        //}
                     }
 
                     
@@ -327,6 +331,12 @@ namespace AmigoProcessManagement.Controller
 
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
+                        int Key_source_Monthly_usage_fee_REQ_SEQ = 0;
+                        int Supplier_Initial_expense_REQ_SEQ = 0;
+                        int Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+                        int Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+                        int View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+
                         DataRow row = dt.Rows[i];
 
                         if (!string.IsNullOrEmpty(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString()))
@@ -352,7 +362,6 @@ namespace AmigoProcessManagement.Controller
                         if (!string.IsNullOrEmpty(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString()))
                         {
                             View_production_information_Annual_usage_fee_REQ_SEQ = Convert.ToInt32(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString());
-
                         }
 
                         BOL_INVOICE_INFO oINVOICE_INFO = new BOL_INVOICE_INFO();
@@ -649,8 +658,8 @@ namespace AmigoProcessManagement.Controller
         private bool HandleDelete(string BILLING_DATE)
         {
             string strMsg = "";
-            using (TransactionScope dbTxn = new TransactionScope())
-            {
+            //using (TransactionScope dbTxn = new TransactionScope())
+            //{
                 INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
 
                 DateTime yearMonth = Convert.ToDateTime(BILLING_DATE);
@@ -668,7 +677,7 @@ namespace AmigoProcessManagement.Controller
                 {
                     return false;
                 }
-            }
+            //}
         }
         #endregion
 
