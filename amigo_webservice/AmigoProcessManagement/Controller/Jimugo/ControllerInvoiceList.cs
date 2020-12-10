@@ -593,7 +593,6 @@ namespace AmigoProcessManagement.Controller
                         //return response;
                     }
 
-
                     timer.Stop();
                     response.Meta.Duration = timer.Elapsed.TotalMilliseconds;
                 }
