@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmInvoiceList));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTotalRecords = new System.Windows.Forms.Label();
             this.btnCheck = new System.Windows.Forms.Button();
@@ -61,6 +61,9 @@
             this.lblMenu = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvList = new System.Windows.Forms.DataGridView();
+            this.txtBilling_Date = new System.Windows.Forms.TextBox();
+            this.lblDate = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
+            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coLCOMPANY_NO_BOX = new System.Windows.Forms.DataGridViewLinkColumn();
             this.colCOMPANY_NAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,9 +82,6 @@
             this.Supplier_Monthly_usage_fee_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Production_information_browsing_Initial_expense_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.View_production_information_Annual_usage_fee_REQ_SEQ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtBilling_Date = new System.Windows.Forms.TextBox();
-            this.lblDate = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
-            this.displayItemLabel1 = new AmigoPaperWorkProcessSystem.UserControls.DisplayItemLabel();
             this.panel1.SuspendLayout();
             this.pTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
@@ -174,6 +174,7 @@
             this.btnLast.Size = new System.Drawing.Size(35, 28);
             this.btnLast.TabIndex = 28;
             this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Click += new System.EventHandler(this.BtnLast_Click);
             // 
             // label6
             // 
@@ -197,6 +198,7 @@
             this.btnNext.Size = new System.Drawing.Size(35, 28);
             this.btnNext.TabIndex = 26;
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.BtnNext_Click);
             // 
             // btnFirst
             // 
@@ -210,6 +212,7 @@
             this.btnFirst.Size = new System.Drawing.Size(35, 28);
             this.btnFirst.TabIndex = 29;
             this.btnFirst.UseVisualStyleBackColor = true;
+            this.btnFirst.Click += new System.EventHandler(this.BtnFirst_Click);
             // 
             // btnPrev
             // 
@@ -223,6 +226,7 @@
             this.btnPrev.Size = new System.Drawing.Size(35, 28);
             this.btnPrev.TabIndex = 27;
             this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.BtnPrev_Click);
             // 
             // btnCreateCSVFile
             // 
@@ -340,11 +344,39 @@
             this.dgvList.Scroll += new System.Windows.Forms.ScrollEventHandler(this.DgvList_Scroll);
             this.dgvList.Paint += new System.Windows.Forms.PaintEventHandler(this.DgvList_Paint);
             // 
+            // txtBilling_Date
+            // 
+            this.txtBilling_Date.Location = new System.Drawing.Point(102, 126);
+            this.txtBilling_Date.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.txtBilling_Date.Name = "txtBilling_Date";
+            this.txtBilling_Date.Size = new System.Drawing.Size(139, 25);
+            this.txtBilling_Date.TabIndex = 125;
+            // 
+            // lblDate
+            // 
+            this.lblDate.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblDate.LabelText = "請求年月";
+            this.lblDate.Location = new System.Drawing.Point(18, 126);
+            this.lblDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(84, 22);
+            this.lblDate.TabIndex = 130;
+            // 
+            // displayItemLabel1
+            // 
+            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.displayItemLabel1.LabelText = "表示件数";
+            this.displayItemLabel1.Location = new System.Drawing.Point(17, 166);
+            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.displayItemLabel1.Name = "displayItemLabel1";
+            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
+            this.displayItemLabel1.TabIndex = 129;
+            // 
             // colNo
             // 
             this.colNo.DataPropertyName = "No";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colNo.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colNo.DefaultCellStyle = dataGridViewCellStyle14;
             this.colNo.Frozen = true;
             this.colNo.HeaderText = "NO";
             this.colNo.Name = "colNo";
@@ -354,8 +386,8 @@
             // coLCOMPANY_NO_BOX
             // 
             this.coLCOMPANY_NO_BOX.DataPropertyName = "COMPANY_NO_BOX";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.coLCOMPANY_NO_BOX.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.coLCOMPANY_NO_BOX.DefaultCellStyle = dataGridViewCellStyle15;
             this.coLCOMPANY_NO_BOX.HeaderText = "会社番号+BOX";
             this.coLCOMPANY_NO_BOX.Name = "coLCOMPANY_NO_BOX";
             this.coLCOMPANY_NO_BOX.ReadOnly = true;
@@ -365,8 +397,8 @@
             // colCOMPANY_NAME
             // 
             this.colCOMPANY_NAME.DataPropertyName = "COMPANY_NAME";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.colCOMPANY_NAME.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.colCOMPANY_NAME.DefaultCellStyle = dataGridViewCellStyle16;
             this.colCOMPANY_NAME.HeaderText = "請求金額計";
             this.colCOMPANY_NAME.Name = "colCOMPANY_NAME";
             this.colCOMPANY_NAME.ReadOnly = true;
@@ -376,9 +408,9 @@
             // colKEY_SOURCE_MONTHLY_USAGE_FEE
             // 
             this.colKEY_SOURCE_MONTHLY_USAGE_FEE.DataPropertyName = "KEY_SOURCE_MONTHLY_USAGE_FEE";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N0";
-            this.colKEY_SOURCE_MONTHLY_USAGE_FEE.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N0";
+            this.colKEY_SOURCE_MONTHLY_USAGE_FEE.DefaultCellStyle = dataGridViewCellStyle17;
             this.colKEY_SOURCE_MONTHLY_USAGE_FEE.HeaderText = "月額利用料";
             this.colKEY_SOURCE_MONTHLY_USAGE_FEE.Name = "colKEY_SOURCE_MONTHLY_USAGE_FEE";
             this.colKEY_SOURCE_MONTHLY_USAGE_FEE.ReadOnly = true;
@@ -388,9 +420,9 @@
             // coLSUPPLIER_INITIAL_EXPENSE
             // 
             this.coLSUPPLIER_INITIAL_EXPENSE.DataPropertyName = "SUPPLIER_INITIAL_EXPENSE";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N0";
-            this.coLSUPPLIER_INITIAL_EXPENSE.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle18.Format = "N0";
+            this.coLSUPPLIER_INITIAL_EXPENSE.DefaultCellStyle = dataGridViewCellStyle18;
             this.coLSUPPLIER_INITIAL_EXPENSE.HeaderText = "初期費用";
             this.coLSUPPLIER_INITIAL_EXPENSE.Name = "coLSUPPLIER_INITIAL_EXPENSE";
             this.coLSUPPLIER_INITIAL_EXPENSE.ReadOnly = true;
@@ -400,9 +432,9 @@
             // colSUPPLIER_MONTHLY_USAGE_FEE
             // 
             this.colSUPPLIER_MONTHLY_USAGE_FEE.DataPropertyName = "SUPPLIER_MONTHLY_USAGE_FEE";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N0";
-            this.colSUPPLIER_MONTHLY_USAGE_FEE.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N0";
+            this.colSUPPLIER_MONTHLY_USAGE_FEE.DefaultCellStyle = dataGridViewCellStyle19;
             this.colSUPPLIER_MONTHLY_USAGE_FEE.HeaderText = "月額利用料";
             this.colSUPPLIER_MONTHLY_USAGE_FEE.Name = "colSUPPLIER_MONTHLY_USAGE_FEE";
             this.colSUPPLIER_MONTHLY_USAGE_FEE.ReadOnly = true;
@@ -412,9 +444,9 @@
             // colBROWSING_INITIAL_EXPENSE
             // 
             this.colBROWSING_INITIAL_EXPENSE.DataPropertyName = "BROWSING_INITIAL_EXPENSE";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N0";
-            this.colBROWSING_INITIAL_EXPENSE.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N0";
+            this.colBROWSING_INITIAL_EXPENSE.DefaultCellStyle = dataGridViewCellStyle20;
             this.colBROWSING_INITIAL_EXPENSE.HeaderText = "初期費用";
             this.colBROWSING_INITIAL_EXPENSE.Name = "colBROWSING_INITIAL_EXPENSE";
             this.colBROWSING_INITIAL_EXPENSE.ReadOnly = true;
@@ -424,9 +456,9 @@
             // colYEARLY_USAGE_FEE
             // 
             this.colYEARLY_USAGE_FEE.DataPropertyName = "YEARLY_USAGE_FEE";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N0";
-            this.colYEARLY_USAGE_FEE.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle21.Format = "N0";
+            this.colYEARLY_USAGE_FEE.DefaultCellStyle = dataGridViewCellStyle21;
             this.colYEARLY_USAGE_FEE.HeaderText = "年額利用料";
             this.colYEARLY_USAGE_FEE.Name = "colYEARLY_USAGE_FEE";
             this.colYEARLY_USAGE_FEE.ReadOnly = true;
@@ -436,8 +468,8 @@
             // coLPOSTAL_MAIL
             // 
             this.coLPOSTAL_MAIL.DataPropertyName = "POSTAL_MAIL";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.coLPOSTAL_MAIL.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.coLPOSTAL_MAIL.DefaultCellStyle = dataGridViewCellStyle22;
             this.coLPOSTAL_MAIL.HeaderText = "郵送";
             this.coLPOSTAL_MAIL.Name = "coLPOSTAL_MAIL";
             this.coLPOSTAL_MAIL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -445,8 +477,8 @@
             // colWEB
             // 
             this.colWEB.DataPropertyName = "WEB";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colWEB.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colWEB.DefaultCellStyle = dataGridViewCellStyle23;
             this.colWEB.HeaderText = "WEB";
             this.colWEB.Name = "colWEB";
             this.colWEB.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -454,24 +486,24 @@
             // coLEmail
             // 
             this.coLEmail.DataPropertyName = "Email";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.coLEmail.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.coLEmail.DefaultCellStyle = dataGridViewCellStyle24;
             this.coLEmail.HeaderText = "Email";
             this.coLEmail.Name = "coLEmail";
             // 
             // colCREDIT_CARD
             // 
             this.colCREDIT_CARD.DataPropertyName = "CREDIT_CARD";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colCREDIT_CARD.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colCREDIT_CARD.DefaultCellStyle = dataGridViewCellStyle25;
             this.colCREDIT_CARD.HeaderText = "クレカ";
             this.colCREDIT_CARD.Name = "colCREDIT_CARD";
             // 
             // colOTHER
             // 
             this.colOTHER.DataPropertyName = "OTHER";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.colOTHER.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.colOTHER.DefaultCellStyle = dataGridViewCellStyle26;
             this.colOTHER.HeaderText = "その他";
             this.colOTHER.Name = "colOTHER";
             // 
@@ -509,34 +541,6 @@
             this.View_production_information_Annual_usage_fee_REQ_SEQ.HeaderText = "View_production_information_Annual_usage_fee_REQ_SEQ";
             this.View_production_information_Annual_usage_fee_REQ_SEQ.Name = "View_production_information_Annual_usage_fee_REQ_SEQ";
             this.View_production_information_Annual_usage_fee_REQ_SEQ.Visible = false;
-            // 
-            // txtBilling_Date
-            // 
-            this.txtBilling_Date.Location = new System.Drawing.Point(102, 127);
-            this.txtBilling_Date.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.txtBilling_Date.Name = "txtBilling_Date";
-            this.txtBilling_Date.Size = new System.Drawing.Size(139, 25);
-            this.txtBilling_Date.TabIndex = 125;
-            // 
-            // lblDate
-            // 
-            this.lblDate.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.lblDate.LabelText = "請求年月";
-            this.lblDate.Location = new System.Drawing.Point(18, 126);
-            this.lblDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(84, 22);
-            this.lblDate.TabIndex = 130;
-            // 
-            // displayItemLabel1
-            // 
-            this.displayItemLabel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.displayItemLabel1.LabelText = "表示件数";
-            this.displayItemLabel1.Location = new System.Drawing.Point(17, 166);
-            this.displayItemLabel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.displayItemLabel1.Name = "displayItemLabel1";
-            this.displayItemLabel1.Size = new System.Drawing.Size(75, 22);
-            this.displayItemLabel1.TabIndex = 129;
             // 
             // frmInvoiceList
             // 

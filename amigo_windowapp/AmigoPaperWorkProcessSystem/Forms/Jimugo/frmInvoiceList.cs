@@ -730,6 +730,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
         }
         #endregion
 
+        #region DifferentButton
         private void BtnDifferent_Click(object sender, EventArgs e)
         {
             if (!CheckUtility.SearchConditionCheck(this, lblDate.LabelText, txtBilling_Date.Text.Trim(), true, Utility.DataType.YEARMONTH, 7, 6))
@@ -742,5 +743,42 @@ namespace AmigoPaperWorkProcessSystem.Forms
                 this.Show();
             }
         }
+        #endregion
+
+        #region NextButton
+        private void BtnNext_Click(object sender, EventArgs e)
+        {
+                uIUtility.MetaData.Offset += int.Parse(cboLimit.SelectedValue.ToString());
+                BindGrid();
+        }
+
+        #endregion
+
+        #region LastButton
+        private void BtnLast_Click(object sender, EventArgs e)
+        {
+                uIUtility.MetaData.Offset = (int.Parse(lblTotalPages.Text.Replace("Pages", "").Trim()) - 1) * int.Parse(cboLimit.SelectedValue.ToString());
+                BindGrid();
+        }
+
+        #endregion
+
+        #region FirstButton
+        private void BtnFirst_Click(object sender, EventArgs e)
+        {
+                uIUtility.MetaData.Offset = 0;
+                BindGrid();
+        }
+
+        #endregion
+
+        #region PreviousButton
+        private void BtnPrev_Click(object sender, EventArgs e)
+        {
+                uIUtility.MetaData.Offset -= int.Parse(cboLimit.SelectedValue.ToString());
+                BindGrid();
+        }
+
+        #endregion
     }
 }

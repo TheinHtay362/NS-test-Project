@@ -213,7 +213,7 @@ namespace AmigoPaperWorkProcessSystem.Core
         public void DisplayCountCombo(ComboBox cboLimit)
         {
             var displaycount = new[] {
-                                    new { Text = "100", Value = "100" },
+                                    new { Text = "5", Value = "5" },
                                     new { Text = "500", Value = "500" },
                                   };
 
