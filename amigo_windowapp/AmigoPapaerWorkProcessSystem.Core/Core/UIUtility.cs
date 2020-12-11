@@ -930,7 +930,7 @@ namespace AmigoPaperWorkProcessSystem.Core
             }
         }
 
-        public static void Merge_Header(PaintEventArgs e, int index, int count, string text, DataGridView dgvList, int rowcount, int row, int extra_merge, StringAlignment alignment)
+        public static void Merge_Header(PaintEventArgs e, int index, int count, string text, DataGridView dgvList, int rowcount, int row, int extra_merge, StringAlignment halignment, StringAlignment valign)
         {
             try
             {
@@ -985,8 +985,8 @@ namespace AmigoPaperWorkProcessSystem.Core
 
                 //Draw the merged Header Column Text.
                 StringFormat format = new StringFormat();
-                format.Alignment = alignment;
-                format.LineAlignment = StringAlignment.Center;
+                format.Alignment = halignment;
+                format.LineAlignment = valign;
 
                 e.Graphics.DrawString(text, dgvList.ColumnHeadersDefaultCellStyle.Font, Brushes.Silver, mergedHeaderRect, format);
 

@@ -275,61 +275,123 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
         #region DrawColumnHeaders
 
-        private void Add_Second_Column_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment align)
+        private void Add_Second_Column_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
         {
-            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, align);
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
         }
 
-        private void Add_Third_Column_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment align)
+        private void Add_Monthly_Usage_Fee_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
         {
-            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, align);
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Initial_Expense_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Yearly_Usage_Fee_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_PostalMail_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_WEB_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Email_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_CreditCard_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Other_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
         }
 
+
+        private void Add_Third_Column_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+
+        private void Add_Company_Name_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Invoice_Amount_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Invoice_Amount_Total_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Invoice_Method_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Key_Source_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Supplier_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
+        private void Add_Production_Information_Browsing_Header(PaintEventArgs e, int index, int count, string text, int rowcount, int row, int extra_merge, StringAlignment halign, StringAlignment valign)
+        {
+            UIUtility.Merge_Header(e, index, count, text, dgvList, rowcount, row, extra_merge, halign, valign);
+        }
         private void DgvList_Paint(object sender, PaintEventArgs e)
         {
-            Add_Third_Column_Header(e, 2, 1, "会社名", 4, 0, 2, StringAlignment.Center);
+            Add_Company_Name_Header(e, 2, 1, "会社名", 4, 0, 2, StringAlignment.Center, StringAlignment.Center);
 
-            Add_Third_Column_Header(e, 3, 1, "請求金額", 4, 0, 0, StringAlignment.Center);
-            Add_Third_Column_Header(e, 4, 4, string.Format("{0:#,0}", InvoiceAmountTotal), 4, 0, 0, StringAlignment.Far);
+            Add_Invoice_Amount_Header(e, 3, 1, "請求金額", 4, 0, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Invoice_Amount_Total_Header(e, 4, 4, string.Format("{0:#,0}", InvoiceAmountTotal), 4, 0, 0, StringAlignment.Far, StringAlignment.Center);
             InvoiceAmountTotal = 0;
 
             //Third ColumnMerge
-            Add_Third_Column_Header(e, 3, 1, "要元", 4, 1, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 3, 1, "月額利用料", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 3, 1, string.Format("{0:#,0}", keySourceTotal), 4, 3, 0, StringAlignment.Far); //"123,123"
+            Add_Key_Source_Header(e, 3, 1, "要元", 4, 1, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Monthly_Usage_Fee_Header(e, 3, 1, "月額利用料", 4, 2, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Monthly_Usage_Fee_Header(e, 3, 1, string.Format("{0:#,0}", keySourceTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far); //"123,123"
             keySourceTotal = 0;
 
-            Add_Third_Column_Header(e, 4, 2, "サプライヤ", 4, 1, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 4, 1, "初期費用", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 4, 1, string.Format("{0:#,0}", SupplierExpenseTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Supplier_Header(e, 4, 2, "サプライヤ", 4, 1, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Initial_Expense_Header(e, 4, 1, "初期費用", 4, 2, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Initial_Expense_Header(e, 4, 1, string.Format("{0:#,0}", SupplierExpenseTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             SupplierExpenseTotal = 0;
-            Add_Second_Column_Header(e, 5, 1, "月額利用料", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 5, 1, string.Format("{0:#,0}", SupplierMonthlyUsageFeeTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Monthly_Usage_Fee_Header(e, 5, 1, "月額利用料", 4, 2, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Monthly_Usage_Fee_Header(e, 5, 1, string.Format("{0:#,0}", SupplierMonthlyUsageFeeTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             SupplierMonthlyUsageFeeTotal = 0;
 
-            Add_Third_Column_Header(e, 6, 2, "生産情報閲覧", 4, 1, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 6, 1, "初期費用", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 6, 1, string.Format("{0:#,0}", SupplierBrowsingInitialExpenseTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Production_Information_Browsing_Header(e, 6, 2, "生産情報閲覧", 4, 1, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Initial_Expense_Header(e, 6, 1, "初期費用", 4, 2, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Initial_Expense_Header(e, 6, 1, string.Format("{0:#,0}", SupplierBrowsingInitialExpenseTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             SupplierBrowsingInitialExpenseTotal = 0;
-            Add_Second_Column_Header(e, 7, 1, "年額利用料", 4, 2, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 7, 1, string.Format("{0:#,0}", YearlyUsageFeeTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Yearly_Usage_Fee_Header(e, 7, 1, "年額利用料", 4, 2, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_Yearly_Usage_Fee_Header(e, 7, 1, string.Format("{0:#,0}", YearlyUsageFeeTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             YearlyUsageFeeTotal = 0;
 
-            Add_Third_Column_Header(e, 8, 5, "請求方法", 4, 0, 0, StringAlignment.Center);
-            Add_Second_Column_Header(e, 8, 1, "郵送", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 8, 1, string.Format("{0:#,0}", PostalMailTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Invoice_Method_Header(e, 8, 5, "請求方法", 4, 0, 0, StringAlignment.Center, StringAlignment.Center);
+            Add_PostalMail_Header(e, 8, 1, "郵送", 4, 1, 1, StringAlignment.Center, StringAlignment.Center);
+            Add_PostalMail_Header(e, 8, 1, string.Format("{0:#,0}", PostalMailTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             PostalMailTotal = 0;
-            Add_Second_Column_Header(e, 9, 1, "WEB", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 9, 1, string.Format("{0:#,0}", WebTotal), 4, 3, 0, StringAlignment.Far);
+            Add_WEB_Header(e, 9, 1, "WEB", 4, 1, 1, StringAlignment.Center, StringAlignment.Center);
+            Add_WEB_Header(e, 9, 1, string.Format("{0:#,0}", WebTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             WebTotal = 0;
-            Add_Second_Column_Header(e, 10, 1, "Email", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 10, 1, string.Format("{0:#,0}", EmailTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Email_Header(e, 10, 1, "Email", 4, 1, 1, StringAlignment.Center, StringAlignment.Center);
+            Add_Email_Header(e, 10, 1, string.Format("{0:#,0}", EmailTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             EmailTotal = 0;
-            Add_Second_Column_Header(e, 11, 1, "クレカ", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 11, 1, string.Format("{0:#,0}", CreditCardTotal), 4, 3, 0, StringAlignment.Far);
+            Add_CreditCard_Header(e, 11, 1, "クレカ", 4, 1, 1, StringAlignment.Center, StringAlignment.Center);
+            Add_CreditCard_Header(e, 11, 1, string.Format("{0:#,0}", CreditCardTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             CreditCardTotal = 0;
-            Add_Second_Column_Header(e, 12, 1, "その他", 4, 1, 1, StringAlignment.Center);
-            Add_Second_Column_Header(e, 12, 1, string.Format("{0:#,0}", OtherTotal), 4, 3, 0, StringAlignment.Far);
+            Add_Other_Header(e, 12, 1, "その他", 4, 1, 1, StringAlignment.Center, StringAlignment.Center);
+            Add_Other_Header(e, 12, 1, string.Format("{0:#,0}", OtherTotal), 4, 3, 0, StringAlignment.Far, StringAlignment.Far);
             OtherTotal = 0;
         }
 
