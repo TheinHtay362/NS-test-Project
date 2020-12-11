@@ -451,7 +451,9 @@ namespace AmigoPaperWorkProcessSystem.Forms
                 
                 //assign search keywords
                 frmInvoiceListController oController = new frmInvoiceListController();
-                DataTable dt = oController.GetInvoiceList(strYearMonth, uIUtility.MetaData.Offset, uIUtility.MetaData.Limit, out uIUtility.MetaData); //need to add more parameter
+                DataSet ds = oController.GetInvoiceList(strYearMonth, uIUtility.MetaData.Offset, uIUtility.MetaData.Limit, out uIUtility.MetaData); //need to add more parameter
+                DataTable dtList = ds.Tables[0];
+                DataTable dtTotal = ds.Tables[1];
 
                 InvoiceAmountTotal = 0;
                 keySourceTotal = 0;
@@ -465,7 +467,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
                 CreditCardTotal = 0;
                 OtherTotal = 0;
 
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in dtTotal.Rows)
                 {
                     keySourceTotal += Convert.ToDecimal(row["KEY_SOURCE_MONTHLY_USAGE_FEE"].ToString());
                     SupplierExpenseTotal += Convert.ToDecimal(row["SUPPLIER_INITIAL_EXPENSE"].ToString());
@@ -497,22 +499,22 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
                 }
 
-                dgvList.Columns["colCOMPANY_NAME"].HeaderText = "請求金額計";
-                dgvList.Columns["colKEY_SOURCE_MONTHLY_USAGE_FEE"].HeaderText = keySourceTotal.ToString();
-                dgvList.Columns["coLSUPPLIER_INITIAL_EXPENSE"].HeaderText = SupplierExpenseTotal.ToString();
-                dgvList.Columns["colSUPPLIER_MONTHLY_USAGE_FEE"].HeaderText = SupplierMonthlyUsageFeeTotal.ToString();
-                dgvList.Columns["colBROWSING_INITIAL_EXPENSE"].HeaderText = SupplierBrowsingInitialExpenseTotal.ToString();
-                dgvList.Columns["colYEARLY_USAGE_FEE"].HeaderText = YearlyUsageFeeTotal.ToString();
+                //dgvList.Columns["colCOMPANY_NAME"].HeaderText = "請求金額計";
+                //dgvList.Columns["colKEY_SOURCE_MONTHLY_USAGE_FEE"].HeaderText = keySourceTotal.ToString();
+                //dgvList.Columns["coLSUPPLIER_INITIAL_EXPENSE"].HeaderText = SupplierExpenseTotal.ToString();
+                //dgvList.Columns["colSUPPLIER_MONTHLY_USAGE_FEE"].HeaderText = SupplierMonthlyUsageFeeTotal.ToString();
+                //dgvList.Columns["colBROWSING_INITIAL_EXPENSE"].HeaderText = SupplierBrowsingInitialExpenseTotal.ToString();
+                //dgvList.Columns["colYEARLY_USAGE_FEE"].HeaderText = YearlyUsageFeeTotal.ToString();
 
-                dgvList.Columns["coLEmail"].HeaderText = EmailTotal.ToString(); //coLEmail
-                dgvList.Columns["coLPOSTAL_MAIL"].HeaderText = PostalMailTotal.ToString(); //coLEmail
-                dgvList.Columns["colWEB"].HeaderText = WebTotal.ToString(); //coLEmail
-                dgvList.Columns["colCREDIT_CARD"].HeaderText = CreditCardTotal.ToString(); //coLEmail
-                dgvList.Columns["colOTHER"].HeaderText = OtherTotal.ToString(); //coLEmail
+                //dgvList.Columns["coLEmail"].HeaderText = EmailTotal.ToString(); //coLEmail
+                //dgvList.Columns["coLPOSTAL_MAIL"].HeaderText = PostalMailTotal.ToString(); //coLEmail
+                //dgvList.Columns["colWEB"].HeaderText = WebTotal.ToString(); //coLEmail
+                //dgvList.Columns["colCREDIT_CARD"].HeaderText = CreditCardTotal.ToString(); //coLEmail
+                //dgvList.Columns["colOTHER"].HeaderText = OtherTotal.ToString(); //coLEmail
 
-                if (dt.Rows.Count > 0)
+                if (dtList.Rows.Count > 0)
                 {
-                    uIUtility.dtList = dt;
+                    uIUtility.dtList = dtList;
                     dgvList.DataSource = uIUtility.dtList;
                     uIUtility.dtOrigin = uIUtility.dtList.Copy();
 
@@ -630,7 +632,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
 
             }
 
-            if (!string.IsNullOrEmpty(return_message) && count != "0")
+            if (!string.IsNullOrEmpty(return_message) && count == "1")
             {
                 var confirmResult = MetroMessageBox.Show(this, "\n" + return_message, "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (confirmResult == DialogResult.OK)
@@ -653,7 +655,7 @@ namespace AmigoPaperWorkProcessSystem.Forms
                     }
                     if (!string.IsNullOrEmpty(strMsg) && !string.IsNullOrEmpty(count))
                     {
-                        if(count == "1")
+                        if(count == "2")
                         {
                             MetroMessageBox.Show(this, "\n" + strMsg, "Success", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                         }
@@ -668,7 +670,14 @@ namespace AmigoPaperWorkProcessSystem.Forms
             }
             else
             {
-                MetroMessageBox.Show(this, "\n" + return_message, "Fail", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                if(count == "2")
+                {
+                    MetroMessageBox.Show(this, "\n" + return_message, "Success", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                }
+                if (count == "0")
+                {
+                    MetroMessageBox.Show(this, "\n" + return_message, "Fail", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                }
             }
         }
         #endregion

@@ -36,14 +36,14 @@ namespace AmigoPaperWorkProcessSystem.Controllers
         #endregion
 
         #region GetPopupScreenData
-        public DataSet GetPopupScreenData(string COMPANY_NO_BOX,string REQ_SEQ)
+        public DataSet GetPopupScreenData(string COMPANY_NO_BOX,string REQ_SEQ, out Meta MetaData)
         {
 
             string url = Properties.Settings.Default.GetPopupScreenData
                                                     .Replace("@COMPANY_NO_BOX", COMPANY_NO_BOX)
                                                     .Replace("@REQ_SEQ", REQ_SEQ);
             
-            return WebUtility.Post(url);
+            return WebUtility.Post(url, out MetaData);
         }
         #endregion
 

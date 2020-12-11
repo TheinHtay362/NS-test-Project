@@ -22,7 +22,7 @@ namespace AmigoProcessManagement.Jimugo
 
         #region GetInvoiceList
         [WebMethod]
-        [ScriptMethod(UseHttpGet = true, ResponseFormat = ResponseFormat.Json)]
+        [ScriptMethod(UseHttpGet = false, ResponseFormat = ResponseFormat.Json)]
         public void GetInvoiceList(string BILLING_DATE, int OFFSET = 0, int LIMIT = 30)
         {
             //get Authorization header

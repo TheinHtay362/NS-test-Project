@@ -998,6 +998,18 @@ namespace DAL_AmigoProcess.DAL
         }
         #endregion
 
+        #region getInvoiceListTotal
+        public DataTable GetInvoiceListTotal(string YEAR_MONTH, out string strMsg)
+        {
+            strInvoiceList = strInvoiceList.Replace("OFFSET @OFFSET ROWS FETCH NEXT @LIMIT ROWS ONLY", "");
+
+            ConnectionMaster oMaster = new ConnectionMaster(strConnectionString, strInvoiceList);
+            oMaster.crudCommand.Parameters.Add(new SqlParameter("@YEAR_MONTH", YEAR_MONTH));
+            oMaster.ExcuteQuery(4, out strMsg);
+            return oMaster.dtExcuted;
+        }
+        #endregion
+
         #region IsAlreadyCreated
         public int IsAlreadyCreated(string YEAR_MONTH, out string strMsg)
         {

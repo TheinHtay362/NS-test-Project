@@ -49,9 +49,44 @@ namespace AmigoProcessManagement.Controller
                 int TOTAL = 0;
                 string checkGetOrCreate = "GET";
 
+                #region Declare
+                decimal Key_source_Monthly_usage_fee_REQ_SEQ = 0;
+                decimal Key_source_Monthly_usage_fee = 0;
+                decimal Key_source_Monthly_usage_fee_DISCOUNTED = 0;
+                decimal Key_source_Monthly_usage_fee_TAX = 0;
+                decimal Key_source_Monthly_usage_fee_INCLUDING_TAX = 0;
+
+                decimal Supplier_Initial_expense_REQ_SEQ = 0;
+                decimal Supplier_Initial_expense = 0;
+                decimal Supplier_Initial_expense_DISCOUNTED = 0;
+                decimal Supplier_Initial_expense_TAX = 0;
+                decimal Supplier_Initial_expense_INCLUDING_TAX = 0;
+
+                decimal Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+                decimal supplier_Monthly_usage_fee = 0;
+                decimal Supplier_Monthly_usage_fee_DISCOUNTED = 0;
+                decimal Supplier_Monthly_usage_fee_TAX = 0;
+                decimal Supplier_Monthly_usage_fee_INCLUDING_TAX = 0;
+
+                decimal Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+                decimal Production_information_browsing_Initial_expense = 0;
+                decimal Production_information_browsing_Initial_expense_DISCOUNTED = 0;
+                decimal Production_information_browsing_Initial_expense_TAX;
+                decimal Production_information_browsing_Initial_expense_INCLUDING_TAX = 0;
+
+                decimal View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+                decimal Viewing_production_information_Annual_usage_fee = 0;
+                decimal View_production_information_Annual_usage_fee_DISCOUNTED = 0;
+                decimal View_production_information_Annual_usage_fee_TAX = 0;
+                decimal View_production_information_Annual_usage_fee_INCLUDING_TAX = 0;
+                #endregion
+
                 INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
                 DataTable dt = DAL_INVOICE_INFO.GetInvoiceList(BILLING_DATE, OFFSET, LIMIT, checkGetOrCreate, out strMessage, out TOTAL);
 
+                DataTable dtAll = DAL_INVOICE_INFO.GetInvoiceListTotal(BILLING_DATE ,out strMessage);
+
+                #region Create Datatable
                 DataTable dtResult = new DataTable();
                 dtResult.Columns.Add("No");
                 dtResult.Columns.Add("COMPANY_NO_BOX");
@@ -71,39 +106,26 @@ namespace AmigoProcessManagement.Controller
                 dtResult.Columns.Add("Supplier_Monthly_usage_fee_REQ_SEQ");
                 dtResult.Columns.Add("Production_information_browsing_Initial_expense_REQ_SEQ");
                 dtResult.Columns.Add("View_production_information_Annual_usage_fee_REQ_SEQ");
+                #endregion
+
+                #region Create Datatable ForTotal
+                DataTable dtTotal = new DataTable();
+                dtTotal.Columns.Add("KEY_SOURCE_MONTHLY_USAGE_FEE", typeof(decimal));
+                dtTotal.Columns.Add("SUPPLIER_INITIAL_EXPENSE", typeof(decimal));
+                dtTotal.Columns.Add("SUPPLIER_MONTHLY_USAGE_FEE", typeof(decimal));
+                dtTotal.Columns.Add("BROWSING_INITIAL_EXPENSE", typeof(decimal));
+                dtTotal.Columns.Add("YEARLY_USAGE_FEE", typeof(decimal));
+                dtTotal.Columns.Add("POSTAL_MAIL");
+                dtTotal.Columns.Add("WEB");
+                dtTotal.Columns.Add("Email");
+                dtTotal.Columns.Add("CREDIT_CARD");
+                dtTotal.Columns.Add("OTHER");
+                #endregion
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    decimal Key_source_Monthly_usage_fee_REQ_SEQ;
-                    decimal Key_source_Monthly_usage_fee;
-                    decimal Key_source_Monthly_usage_fee_DISCOUNTED;
-                    decimal Key_source_Monthly_usage_fee_TAX;
-                    decimal Key_source_Monthly_usage_fee_INCLUDING_TAX;
-
-                    decimal Supplier_Initial_expense_REQ_SEQ;
-                    decimal Supplier_Initial_expense;
-                    decimal Supplier_Initial_expense_DISCOUNTED;
-                    decimal Supplier_Initial_expense_TAX;
-                    decimal Supplier_Initial_expense_INCLUDING_TAX;
-
-                    decimal Supplier_Monthly_usage_fee_REQ_SEQ;
-                    decimal supplier_Monthly_usage_fee;
-                    decimal Supplier_Monthly_usage_fee_DISCOUNTED;
-                    decimal Supplier_Monthly_usage_fee_TAX;
-                    decimal Supplier_Monthly_usage_fee_INCLUDING_TAX;
-
-                    decimal Production_information_browsing_Initial_expense_REQ_SEQ;
-                    decimal Production_information_browsing_Initial_expense;
-                    decimal Production_information_browsing_Initial_expense_DISCOUNTED;
-                    decimal Production_information_browsing_Initial_expense_TAX;
-                    decimal Production_information_browsing_Initial_expense_INCLUDING_TAX;
-
-                    decimal View_production_information_Annual_usage_fee_REQ_SEQ;
-                    decimal Viewing_production_information_Annual_usage_fee;
-                    decimal View_production_information_Annual_usage_fee_DISCOUNTED;
-                    decimal View_production_information_Annual_usage_fee_TAX;
-                    decimal View_production_information_Annual_usage_fee_INCLUDING_TAX;
-
+                   
+                    #region SetValue To DataTable
                     DataRow newRow = dtResult.NewRow();
                     newRow["No"] = row["No"];
                     newRow["COMPANY_NO_BOX"] = row["COMPANY_NO_BOX"];
@@ -186,9 +208,128 @@ namespace AmigoProcessManagement.Controller
                     newRow["Production_information_browsing_Initial_expense_REQ_SEQ"] = row["Production_information_browsing_Initial_expense_REQ_SEQ"];
                     newRow["View_production_information_Annual_usage_fee_REQ_SEQ"] = row["View_production_information_Annual_usage_fee_REQ_SEQ"];
                     dtResult.Rows.Add(newRow);
+                    #endregion
                 }
 
-                response.Data = Utility.Utility_Component.DtToJSon(dtResult, "UsageApplicatioList");
+
+                foreach (DataRow row in dtAll.Rows)
+                {
+                    #region Declare
+                    Key_source_Monthly_usage_fee_REQ_SEQ =0;
+                    Key_source_Monthly_usage_fee =0;
+                    Key_source_Monthly_usage_fee_DISCOUNTED = 0;
+                    Key_source_Monthly_usage_fee_TAX = 0;
+                    Key_source_Monthly_usage_fee_INCLUDING_TAX = 0;
+
+                    Supplier_Initial_expense_REQ_SEQ = 0;
+                    Supplier_Initial_expense = 0;
+                    Supplier_Initial_expense_DISCOUNTED = 0;
+                    Supplier_Initial_expense_TAX = 0;
+                    Supplier_Initial_expense_INCLUDING_TAX = 0;
+
+                    Supplier_Monthly_usage_fee_REQ_SEQ = 0;
+                    supplier_Monthly_usage_fee = 0;
+                    Supplier_Monthly_usage_fee_DISCOUNTED = 0;
+                    Supplier_Monthly_usage_fee_TAX = 0;
+                    Supplier_Monthly_usage_fee_INCLUDING_TAX = 0;
+
+                    Production_information_browsing_Initial_expense_REQ_SEQ = 0;
+                    Production_information_browsing_Initial_expense = 0;
+                    Production_information_browsing_Initial_expense_DISCOUNTED = 0;
+                    Production_information_browsing_Initial_expense_TAX = 0;
+                    Production_information_browsing_Initial_expense_INCLUDING_TAX = 0;
+
+                    View_production_information_Annual_usage_fee_REQ_SEQ = 0;
+                    Viewing_production_information_Annual_usage_fee = 0;
+                    View_production_information_Annual_usage_fee_DISCOUNTED = 0;
+                    View_production_information_Annual_usage_fee_TAX = 0;
+                    View_production_information_Annual_usage_fee_INCLUDING_TAX = 0;
+                    #endregion
+
+                    #region SetValue to DataTable
+                    DataRow newRow = dtTotal.NewRow();
+
+                    Key_source_Monthly_usage_fee_REQ_SEQ = NullOrEmpty(row["Key_source_Monthly_usage_fee_REQ_SEQ"].ToString());
+                    Key_source_Monthly_usage_fee = NullOrEmpty(row["Key_source_Monthly_usage_fee"].ToString());
+                    Key_source_Monthly_usage_fee_DISCOUNTED = NullOrEmpty(row["Key_source_Monthly_usage_fee_DISCOUNTED"].ToString());
+                    Key_source_Monthly_usage_fee_TAX = NullOrEmpty(row["Key_source_Monthly_usage_fee_TAX"].ToString());
+                    Key_source_Monthly_usage_fee_INCLUDING_TAX = NullOrEmpty(row["Key_source_Monthly_usage_fee_INCLUDING_TAX"].ToString());
+
+                    Supplier_Initial_expense_REQ_SEQ = NullOrEmpty(row["Supplier_Initial_expense_REQ_SEQ"].ToString());
+                    Supplier_Initial_expense = NullOrEmpty(row["Supplier_Initial_expense"].ToString());
+                    Supplier_Initial_expense_DISCOUNTED = NullOrEmpty(row["Supplier_Initial_expense_DISCOUNTED"].ToString());
+                    Supplier_Initial_expense_TAX = NullOrEmpty(row["Supplier_Initial_expense_TAX"].ToString());
+                    Supplier_Initial_expense_INCLUDING_TAX = NullOrEmpty(row["Supplier_Initial_expense_INCLUDING_TAX"].ToString());
+
+                    Supplier_Monthly_usage_fee_REQ_SEQ = NullOrEmpty(row["Supplier_Monthly_usage_fee_REQ_SEQ"].ToString());
+                    supplier_Monthly_usage_fee = NullOrEmpty(row["Supplier_Monthly_usage_fee"].ToString());
+                    Supplier_Monthly_usage_fee_DISCOUNTED = NullOrEmpty(row["Supplier_Monthly_usage_fee_DISCOUNTED"].ToString());
+                    Supplier_Monthly_usage_fee_TAX = NullOrEmpty(row["Supplier_Monthly_usage_fee_TAX"].ToString());
+                    Supplier_Monthly_usage_fee_INCLUDING_TAX = NullOrEmpty(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
+
+                    Production_information_browsing_Initial_expense_REQ_SEQ = NullOrEmpty(row["Production_information_browsing_Initial_expense_REQ_SEQ"].ToString());
+                    Production_information_browsing_Initial_expense = NullOrEmpty(row["Production_information_browsing_Initial_expense"].ToString());
+                    Production_information_browsing_Initial_expense_DISCOUNTED = NullOrEmpty(row["Production_information_browsing_Initial_expense_DISCOUNTED"].ToString());
+                    Production_information_browsing_Initial_expense_TAX = NullOrEmpty(row["Production_information_browsing_Initial_expense_TAX"].ToString());
+                    Production_information_browsing_Initial_expense_INCLUDING_TAX = NullOrEmpty(row["Production_information_browsing_Initial_expense_INCLUDING_TAX"].ToString());
+
+                    View_production_information_Annual_usage_fee_REQ_SEQ = NullOrEmpty(row["View_production_information_Annual_usage_fee_REQ_SEQ"].ToString());
+                    Viewing_production_information_Annual_usage_fee = NullOrEmpty(row["Viewing_production_information_Annual_usage_fee"].ToString());
+                    View_production_information_Annual_usage_fee_DISCOUNTED = NullOrEmpty(row["View_production_information_Annual_usage_fee_DISCOUNTED"].ToString());
+                    View_production_information_Annual_usage_fee_TAX = NullOrEmpty(row["View_production_information_Annual_usage_fee_TAX"].ToString());
+                    View_production_information_Annual_usage_fee_INCLUDING_TAX = NullOrEmpty(row["View_production_information_Annual_usage_fee_INCLUDING_TAX"].ToString());
+
+                    decimal usageFee = Key_source_Monthly_usage_fee_REQ_SEQ + Key_source_Monthly_usage_fee + Key_source_Monthly_usage_fee_DISCOUNTED + Key_source_Monthly_usage_fee_TAX + Key_source_Monthly_usage_fee_INCLUDING_TAX;
+                    newRow["KEY_SOURCE_MONTHLY_USAGE_FEE"] = usageFee;
+
+                    decimal supplierInitialExpense = Supplier_Initial_expense_REQ_SEQ + Supplier_Initial_expense + Supplier_Initial_expense_DISCOUNTED + Supplier_Initial_expense_TAX + Supplier_Initial_expense_INCLUDING_TAX;
+                    newRow["SUPPLIER_INITIAL_EXPENSE"] = supplierInitialExpense;
+
+                    decimal supplierMonthlyUsageFee = Supplier_Monthly_usage_fee_REQ_SEQ + supplier_Monthly_usage_fee + Supplier_Monthly_usage_fee_DISCOUNTED + Supplier_Monthly_usage_fee_TAX + Supplier_Monthly_usage_fee_INCLUDING_TAX;
+                    newRow["SUPPLIER_MONTHLY_USAGE_FEE"] = supplierMonthlyUsageFee;
+
+                    decimal browsingInitialExpense = Production_information_browsing_Initial_expense_REQ_SEQ + Production_information_browsing_Initial_expense + Production_information_browsing_Initial_expense_DISCOUNTED + Production_information_browsing_Initial_expense_TAX + Production_information_browsing_Initial_expense_INCLUDING_TAX;
+                    newRow["BROWSING_INITIAL_EXPENSE"] = browsingInitialExpense;
+
+                    decimal yearlyUsageFee = View_production_information_Annual_usage_fee_REQ_SEQ + Viewing_production_information_Annual_usage_fee + View_production_information_Annual_usage_fee_DISCOUNTED + View_production_information_Annual_usage_fee_TAX + View_production_information_Annual_usage_fee_INCLUDING_TAX;
+                    newRow["YEARLY_USAGE_FEE"] = yearlyUsageFee;
+
+
+                    //newRow["INVOICE_METHOD"] = row["BILL_METHOD"];
+                    string invoiceMethod = row["BILL_METHOD"].ToString();
+                    if (invoiceMethod.Length == 5)
+                    {
+                        if (invoiceMethod.Substring(0, 1) == "1")
+                        {
+                            newRow["POSTAL_MAIL"] = "●";
+                        }
+                        if (invoiceMethod.Substring(1, 1) == "1")
+                        {
+                            newRow["WEB"] = "●";
+                        }
+                        if (invoiceMethod.Substring(2, 1) == "1")
+                        {
+                            newRow["Email"] = "●";
+                        }
+                        if (invoiceMethod.Substring(3, 1) == "1")
+                        {
+                            newRow["CREDIT_CARD"] = "●";
+                        }
+                        if (invoiceMethod.Substring(4, 1) == "1")
+                        {
+                            newRow["OTHER"] = "●";
+                        }
+                    }
+                   
+                    dtTotal.Rows.Add(newRow);
+                    #endregion
+                }
+
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dtResult);
+                ds.Tables.Add(dtTotal);
+
+                response.Data = Utility.Utility_Component.DsToJSon(ds, "UsageApplicatioList");
                 if (dtResult.Rows.Count > 0)
                 {
                     response.Status = 1;
@@ -275,7 +416,6 @@ namespace AmigoProcessManagement.Controller
                 else if(checkStatus == "2") //Insert Fail
                 {
                     DataRow dr = result.NewRow();
-                    //dr["Message Info"] = "Fail";
                     dr["Count"] = 0;
                     dr["Error Message"] = Utility.Messages.Jimugo.E000WC005; //E000WC002
                     result.Rows.Add(dr);
@@ -284,8 +424,7 @@ namespace AmigoProcessManagement.Controller
                 {
                     string[] authorsList = checkStatus.Split(',');
                     DataRow dr = result.NewRow();
-                    dr["Count"] = 1;
-                    //dr["message info"] = "success";
+                    dr["Count"] = 2;
                     dr["error message"] = string.Format(Utility.Messages.Jimugo.I000WC002, authorsList[1]); //i000wc002  
                     result.Rows.Add(dr);
                 }
@@ -295,7 +434,7 @@ namespace AmigoProcessManagement.Controller
             else
             {
                 DataRow dr = result.NewRow();
-                dr["Count"] = count;
+                dr["Count"] = 1;
                 dr["Error Message"] = Utility.Messages.Jimugo.I000WC001; //I000WC001
                 result.Rows.Add(dr);
             }
@@ -332,6 +471,7 @@ namespace AmigoProcessManagement.Controller
                         if (!checkDelete)
                         {
                             errorStatus = "0";
+                            return errorStatus;
                         }
                     }
 
@@ -571,6 +711,7 @@ namespace AmigoProcessManagement.Controller
                             countForInsert++;
                         }
                     }
+
                     if (string.IsNullOrEmpty(strMessage) && countForInsert>0)
                     {
                         errorStatus = "1," + countForInsert;
@@ -580,7 +721,6 @@ namespace AmigoProcessManagement.Controller
                     else
                     {
                         errorStatus = "2";
-                        
                     }
 
                 }

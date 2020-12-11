@@ -12,13 +12,13 @@ namespace AmigoPaperWorkProcessSystem.Controllers
     class frmInvoiceListController
     {
         #region GetInvoiceList
-        public DataTable GetInvoiceList(string BILLING_DATE, int OFFSET, int LIMIT, out Meta MetaData)
+        public DataSet GetInvoiceList(string BILLING_DATE, int OFFSET, int LIMIT, out Meta MetaData)
         {
             string url = Properties.Settings.Default.GetInvoiceList
                                                     .Replace("@OFFSET", OFFSET.ToString())
                                                     .Replace("@LIMIT", LIMIT.ToString())
                                                     .Replace("@BILLING_DATE", BILLING_DATE);
-            return WebUtility.Get(url, out MetaData);
+            return WebUtility.Post(url, out MetaData);
         }
         #endregion
 
