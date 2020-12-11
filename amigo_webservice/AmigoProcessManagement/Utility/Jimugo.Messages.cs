@@ -1136,6 +1136,14 @@ namespace AmigoProcessManagement.Utility
                     return Properties.Jimugo_Messages.E000WC004;
                 }
             }
+            public static string E000WC005
+            {
+                get
+                {
+                    //return message
+                    return Properties.Jimugo_Messages.E000WC005;
+                }
+            }
             
         }
     }

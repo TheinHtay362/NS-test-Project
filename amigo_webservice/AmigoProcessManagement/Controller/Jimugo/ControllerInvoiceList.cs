@@ -244,6 +244,7 @@ namespace AmigoProcessManagement.Controller
             result.Columns.Add("Count");
             result.Columns.Add("Error Message");
             int count = 0;
+            string checkStatus = "";
             string strMsg = "";
             INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
 
@@ -258,8 +259,38 @@ namespace AmigoProcessManagement.Controller
             if (count == 0)
             {
                 //Call Create InvoiceData Method
-                CreateInvoiceData(BILLING_DATE, status);
-                return response;
+                checkStatus=CreateInvoiceData(BILLING_DATE, status);
+
+                if(checkStatus == "0") // Delete Fail
+                {
+                    DataRow dr = result.NewRow();
+                    dr["Count"] = 0;
+                    //["Message Info"] = "Fail";
+                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC003; //E000WC003
+                    result.Rows.Add(dr);
+
+                    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                }
+                
+                else if(checkStatus == "2") //Insert Fail
+                {
+                    DataRow dr = result.NewRow();
+                    //dr["Message Info"] = "Fail";
+                    dr["Count"] = 0;
+                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC005; //E000WC002
+                    result.Rows.Add(dr);
+                }
+                else if (checkStatus.Length > 2) //Insert Success
+                {
+                    string[] authorsList = checkStatus.Split(',');
+                    DataRow dr = result.NewRow();
+                    dr["Count"] = 1;
+                    //dr["message info"] = "success";
+                    dr["error message"] = string.Format(Utility.Messages.Jimugo.I000WC002, authorsList[1]); //i000wc002  
+                    result.Rows.Add(dr);
+                }
+
+                //return response;
             }
             else
             {
@@ -278,15 +309,11 @@ namespace AmigoProcessManagement.Controller
         #endregion
 
         #region CreateInvoiceData
-        public MetaResponse CreateInvoiceData(string BILLING_DATE, string status)
+        public string CreateInvoiceData(string BILLING_DATE, string status)
         {
+            string errorStatus = "";
             using (TransactionScope dbTxn = new TransactionScope())
             {
-                DataTable result = new DataTable();
-                result.Clear();
-                result.Columns.Add("Count");
-                result.Columns.Add("Error Message");
-                result.Columns.Add("Message Info");
                 try
                 {
                     int OFFSET = 0;
@@ -304,17 +331,11 @@ namespace AmigoProcessManagement.Controller
                         bool checkDelete = HandleDelete(BILLING_DATE);
                         if (!checkDelete)
                         {
-                            DataRow dr = result.NewRow();
-                            dr["Message Info"] = "Fail";
-                            dr["Error Message"] = Utility.Messages.Jimugo.E000WC003; //E000WC003
-                            result.Rows.Add(dr);
-
-                            response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
-                            return response;
+                            errorStatus = "0";
                         }
                     }
 
-                    
+                    //Select Invoice Data
                     INVOICE_INFO DAL_INVOICE_INFO = new INVOICE_INFO(con);
                     DataTable dt = DAL_INVOICE_INFO.GetInvoiceList(YEAR_MONTH, OFFSET, LIMIT, checkGetOrCreate, out strMessage, out TOTAL);
 
@@ -503,6 +524,7 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_TAX"].ToString());
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Key_source_Monthly_usage_fee_INCLUDING_TAX"].ToString());
 
+                            //Insert InvoiceData
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
                             countForInsert++;
                         }
@@ -516,6 +538,7 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_TAX"].ToString());
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Initial_expense_INCLUDING_TAX"].ToString());
 
+                            //Insert InvoiceData
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
                             countForInsert++;
                         }
@@ -529,6 +552,7 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_TAX"].ToString());
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Supplier_Monthly_usage_fee_INCLUDING_TAX"].ToString());
 
+                            //Insert InvoiceData
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
                             countForInsert++;
                         }
@@ -542,46 +566,30 @@ namespace AmigoProcessManagement.Controller
                             oINVOICE_INFO.BILL_TAX = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_TAX"].ToString());
                             oINVOICE_INFO.BILL_PRICE = Utility_Component.dtColumnToDecimal(row["Production_information_browsing_Initial_expense_INCLUDING_TAX"].ToString()) + Utility_Component.dtColumnToDecimal(row["View_production_information_Annual_usage_fee_INCLUDING_TAX"].ToString());
 
+                            //Insert InvoiceData
                             DAL_INVOICE_INFO.InsertInvoiceInfo(oINVOICE_INFO, out strMessage);
                             countForInsert++;
                         }
                     }
-                    strMessage = "dsaf";
-                    if (string.IsNullOrEmpty(strMessage))
+                    if (string.IsNullOrEmpty(strMessage) && countForInsert>0)
                     {
+                        errorStatus = "1," + countForInsert;
                         dbTxn.Complete();
-                        DataRow dr = result.NewRow();
-                        dr["Message Info"] = "Success";
-                        dr["Error Message"] = String.Format(Utility.Messages.Jimugo.I000WC002, countForInsert); //I000WC002  
-                        result.Rows.Add(dr);
-
-                        response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                        
                     }
                     else
                     {
-                        DataRow dr = result.NewRow();
-                        dr["Message Info"] = "Fail";
-                        dr["Error Message"] = Utility.Messages.Jimugo.E000WC002; //E000WC002
-                        result.Rows.Add(dr);
-
-                        response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
-                        //return response;
+                        errorStatus = "2";
+                        
                     }
 
-                    timer.Stop();
-                    response.Meta.Duration = timer.Elapsed.TotalMilliseconds;
                 }
                 catch (Exception ex)
                 {
-                    DataRow dr = result.NewRow();
-                    dr["Message Info"] = "Fail";
-                    dr["Error Message"] = Utility.Messages.Jimugo.E000WC002; //E000WC002
-                    result.Rows.Add(dr);
-
-                    response.Data = Utility.Utility_Component.DtToJSon(result, "Return Message");
+                    errorStatus = "2";
                 }
             }
-            return response;
+            return errorStatus;
 
         }
         #endregion

@@ -403,6 +403,15 @@ namespace AmigoProcessManagement.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 請求リストBASEの作成が失敗しました。.
+        /// </summary>
+        internal static string E000WC005 {
+            get {
+                return ResourceManager.GetString("E000WC005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 必須入力です。.
         /// </summary>
         internal static string E000ZZ001 {

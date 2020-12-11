@@ -269,6 +269,10 @@
     <value>請求データの更新に失敗しました。処理を終了します。既存の請求データは更新前の状態で残っています。</value>
     <comment>Failed to update billing data. The process ends. The existing billing data remains in the state before the update.</comment>
   </data>
+  <data name="E000WC005" xml:space="preserve">
+    <value>請求リストBASEの作成が失敗しました。</value>
+    <comment>Billing list BASE creation failed.</comment>
+  </data>
   <data name="E000ZZ001" xml:space="preserve">
     <value>必須入力です。</value>
     <comment>Mandatory input</comment>

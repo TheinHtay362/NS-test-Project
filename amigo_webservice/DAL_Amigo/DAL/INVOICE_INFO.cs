@@ -272,7 +272,7 @@ namespace DAL_AmigoProcess.DAL
                                         (SELECT * 
 		                                FROM (SELECT ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY EFFECTIVE_DATE DESC) num,COMPANY_NO_BOX,TRANSACTION_TYPE,EFFECTIVE_DATE
 		                                FROM CUSTOMER_MASTER_VIEW AS VIEW2
-                                        where FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = '202010'
+                                        where FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = @YEAR_MONTH
                                         AND VIEW2.BILL_TYPE IN (12,22,32)) VIEW3
 		                                WHERE VIEW3.COMPANY_NO_BOX = VIEW1.COMPANY_NO_BOX
                                         AND VIEW3.TRANSACTION_TYPE = VIEW1.TRANSACTION_TYPE
@@ -404,7 +404,7 @@ namespace DAL_AmigoProcess.DAL
                                         (SELECT * 
 		                                FROM (SELECT ROW_NUMBER() OVER(PARTITION BY COMPANY_NO_BOX ORDER BY EFFECTIVE_DATE DESC) num,COMPANY_NO_BOX,TRANSACTION_TYPE,EFFECTIVE_DATE
 		                                FROM CUSTOMER_MASTER_VIEW AS VIEW2
-                                        where FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = '202010'
+                                        where FORMAT(VIEW2.EFFECTIVE_DATE,'yyyyMM') = @YEAR_MONTH
                                         AND VIEW2.BILL_TYPE IN (12,22,32)) VIEW3
 		                                WHERE VIEW3.COMPANY_NO_BOX = VIEW1.COMPANY_NO_BOX
                                         AND VIEW3.TRANSACTION_TYPE = VIEW1.TRANSACTION_TYPE
